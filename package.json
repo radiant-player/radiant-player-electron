@@ -1,0 +1,40 @@
+{
+  "name": "radiant-player",
+  "version": "2.0.0",
+  "main": "src/backend",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive",
+    "test-watch": "npm test -- --watch",
+    "lint": "eslint .",
+    "hot-server": "babel-node support/hot-server.js",
+    "build": "NODE_ENV=production webpack --config webpack.config.production.js --progress --profile --colors",
+    "start": "electron .",
+    "start-hot": "HOT=1 NODE_ENV=development electron .",
+    "package": "NODE_ENV=production node package.js",
+    "package-all": "npm run package -- --all"
+  },
+  "devDependencies": {
+    "babel": "^5.8.29",
+    "babel-core": "^5.8.29",
+    "babel-loader": "^5.3.2",
+    "babel-plugin-react-transform": "^1.1.1",
+    "babel-runtime": "^5.8.29",
+    "css-loader": "^0.21.0",
+    "electron-prebuilt": "^0.34.1",
+    "eslint": "^1.6.0",
+    "eslint-config-airbnb": "^0.1.0",
+    "eslint-plugin-react": "^3.6.3",
+    "express": "^4.13.3",
+    "jscs": "^2.2.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.4.1",
+    "webpack-target-electron-renderer": "^0.1.1"
+  },
+  "dependencies": {
+    "electron-debug": "^0.3.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  }
+}
