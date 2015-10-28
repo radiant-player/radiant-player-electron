@@ -19,7 +19,7 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(webpackHotMiddleware(compiler));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'src', 'hot-dev-app.html'));
+  res.sendFile(path.join(__dirname, '..', 'src', 'ui', 'resources', 'hot-dev-app.html'));
 });
 
 app.listen(process.env.PORT || 3000, 'localhost', (err) => {
