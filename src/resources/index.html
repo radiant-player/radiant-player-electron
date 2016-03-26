@@ -5,27 +5,13 @@
     <link rel="stylesheet" href="css/window.css"></link>
   </head>
   <body>
-    <webview
-      id="webview"
-      src="https://play.google.com/music/listen"
-      partition="persist:google"
-      plugins
-    ></webview>
-    <script src="js/window.js"></script>
-
-    <script id="css" type="text/css+plain">
-      /* Fix the queue display on OS X 10.9 */
-      #queue-overlay {
-        top: 128px;
-        height: auto;
-        margin-top: 0;
-      }
-
-      /* Fix the display of the menu bar on OS X 10.10 */
-      #material-app-bar .material-header-bar.visible {
-        display: -webkit-flex;
-        display: flex;
-      }
+    <div id="root"></div>
+    <script>
+      (function() {
+        const script = document.createElement('script');
+        script.src = (process.env.HOT) ? 'http://localhost:3000/dist/bundle.js' : '../dist/bundle.js';
+        document.write(script.outerHTML);
+      }());
     </script>
   </body>
 </html>

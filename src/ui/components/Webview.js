@@ -6,7 +6,7 @@ export default function Webview() {
       id="webview"
       src="https://play.google.com/music/listen"
       partition="persist:google"
-      plugins
+      // plugins
     />
   );
 }

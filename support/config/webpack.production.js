@@ -1,57 +1,55 @@
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
 import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
 
 import base from './webpack.base';
 
-const port = process.env.PORT || 3000;
-
 const config = {
   ...base,
 
-  entry: [
-    `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
-    './src/ui',
-  ],
+  entry: './src/ui',
 
   output: {
     ...base.output,
-    publicPath: `http://localhost:${port}/dist/`,
+    publicPath: '../dist/',
   },
-
-  debug: true,
-  devtool: 'cheap-module-eval-source-map',
 
   module: {
     ...base.module,
-
     loaders: [
       ...base.module.loaders,
       {
         test: /\.global\.css$/,
-        loaders: [
+        loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader?sourceMap',
-        ],
+          'css-loader'
+        ),
       }, {
         test: /^((?!\.global).)*\.css$/,
-        loaders: [
+        loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-        ],
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        ),
       },
     ],
   },
 
   plugins: [
     ...base.plugins,
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      __DEV__: true,
+      __DEV__: false,
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
+        NODE_ENV: JSON.stringify('production'),
       },
     }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false,
+      },
+    }),
+    new ExtractTextPlugin('style.css', { allChunks: true }),
   ],
 };
 
