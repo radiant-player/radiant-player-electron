@@ -4,7 +4,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import configs from './config/webpack.ui';
+import configs from './config/webpack.app';
 
 const config = configs[0];
 

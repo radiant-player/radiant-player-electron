@@ -37,7 +37,7 @@ app.on('ready', () => {
   });
 
   // and load the app.html of the app.
-  main.loadURL(`file://${path.resolve(__dirname, '../ui/app.html')}`);
+  main.loadURL(`file://${path.resolve(__dirname, '../app/app.html')}`);
 
   // Open the DevTools.
   // main.openDevTools();

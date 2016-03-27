@@ -30,27 +30,27 @@ $ npm run start:hot
 Command | Description
 ------- | -----------
 `npm run build:backend` | Build the backend application code
-`npm run build:ui` | Build the frontend application UI
+`npm run build:app` | Build the frontend application UI
 `npm run build` | Run both `build:backend` and `build:frontend`
 `npm run hot:backend` | Watch for file changes, build the backend application code, and serve hot updates
 `npm run hot:server` | Run the hot module reload server
-`npm run hot:ui` | Watch for file changes, build the frontend application UI, and serve hot updates
-`npm run hot` | Run `hot:backend`, `hot:server`, and `hot:ui` simultaneously
+`npm run hot:app` | Watch for file changes, build the frontend application UI, and serve hot updates
+`npm run hot` | Run `hot:backend`, `hot:server`, and `hot:app` simultaneously
 `npm run lint` | Lint the code
 `npm run prod:backend` | Build the production backend application code
-`npm run prod:ui` | Build the production frontend application UI
+`npm run prod:app` | Build the production frontend application UI
 `npm run prod` | Run both `prod:backend` and `prod:frontend`
 `npm run start` | Start the application in development mode
 `npm run start:hot` | Start the application in development mode with hot reloading
 `npm run test` | Run tests
 `npm run watch:backend` | Watch for file changes and build the backend application code
-`npm run watch:ui` | Watch for file changes and build the frontend application UI
+`npm run watch:app` | Watch for file changes and build the frontend application UI
 `npm run watch` | Run both `watch:backend` and `watch:frontend` simultaneously
 
 ## Architecture
 
 * `src/backend` - the main application code and the interface with the native OS
-* `src/ui` - the frontend UI code that displays the webview and handles all state and logic
+* `src/app` - the frontend UI code that displays the webview and handles all state and logic
 * `src/gpm` - the control module that is injected into the webview to control the player and communicate with the UI
 * `src/ipc` - an IPC framework for communicating between the various layers
 

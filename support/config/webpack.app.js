@@ -6,7 +6,7 @@ import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
 
 const DEV = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 3000;
-const entry = './src/ui';
+const entry = './src/app';
 
 const styleLoaders = [
   `css-loader?${JSON.stringify({
@@ -28,7 +28,7 @@ const config = {
 
   output: {
     path: path.join(__dirname, '..', '..', 'dist'),
-    filename: 'ui.js',
+    filename: 'app.js',
     publicPath: DEV ? `http://localhost:${PORT}/dist/` : '../dist/',
   },
 
