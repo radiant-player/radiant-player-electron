@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import settings from './settings';
+import gpm from './modules/gpm';
 
 export default combineReducers({
-  settings,
+  gpm,
 });
