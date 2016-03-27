@@ -1,6 +1,6 @@
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 
 import { createRedux } from './utils/redux';
 

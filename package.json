@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "electron-debug": "^0.5.2",
+    "gmusic.js": "^4.1.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.1",
