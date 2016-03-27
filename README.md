@@ -47,6 +47,12 @@ Command | Description
 `npm run watch:ui` | Watch for file changes and build the frontend application UI
 `npm run watch` | Run both `watch:backend` and `watch:frontend` simultaneously
 
+## Architecture
+
+* `src/backend` - the main application code and the interface with the native OS
+* `src/ui` - the frontend UI code that displays the webview and handles all state and logic
+* `src/gpm` - the control module that is injected into the webview to control the player and communicate with the UI
+* `src/ipc` - an IPC framework for communicating between the various layers
 
 ## License
 

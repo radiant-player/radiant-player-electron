@@ -36,8 +36,8 @@ app.on('ready', () => {
     'title-bar-style': 'hidden-inset',
   });
 
-  // and load the index.html of the app.
-  main.loadURL(`file://${path.resolve(__dirname, '../resources/index.html')}`);
+  // and load the app.html of the app.
+  main.loadURL(`file://${path.resolve(__dirname, '../ui/app.html')}`);
 
   // Open the DevTools.
   // main.openDevTools();
