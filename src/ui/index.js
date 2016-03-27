@@ -37,12 +37,30 @@ ipcRenderer.on('shortcut:MediaPlayPause', () => gpmIPCInterface.call('playback.p
 // Connect GPM events to redux
 const gpmBoundActions = bindActionCreators(gpmActions, store.dispatch);
 const throttledOnChangePlaybackTime = throttle(gpmBoundActions.onChangePlaybackTime, 500);
-gpmIPCInterface.on('change:song', (event, ...args) => gpmBoundActions.onChangeSong(...args));
-gpmIPCInterface.on('change:shuffle', (event, ...args) => gpmBoundActions.onChangeShuffle(...args));
-gpmIPCInterface.on('change:repeat', (event, ...args) => gpmBoundActions.onChangeRepeat(...args));
-gpmIPCInterface.on('change:playback', (event, ...args) => gpmBoundActions.onChangePlayback(...args));
-gpmIPCInterface.on('change:playback-time', (event, ...args) => throttledOnChangePlaybackTime(...args));
-gpmIPCInterface.on('change:rating', (event, ...args) => gpmBoundActions.onChangeRating(...args));
+
+gpmIPCInterface.on('change:song', (event, ...args) => {
+  gpmBoundActions.onChangeSong(...args);
+});
+
+gpmIPCInterface.on('change:shuffle', (event, ...args) => {
+  gpmBoundActions.onChangeShuffle(...args);
+});
+
+gpmIPCInterface.on('change:repeat', (event, ...args) => {
+  gpmBoundActions.onChangeRepeat(...args);
+});
+
+gpmIPCInterface.on('change:playback', (event, ...args) => {
+  gpmBoundActions.onChangePlayback(...args);
+});
+
+gpmIPCInterface.on('change:playback-time', (event, ...args) => {
+  throttledOnChangePlaybackTime(...args);
+});
+
+gpmIPCInterface.on('change:rating', (event, ...args) => {
+  gpmBoundActions.onChangeRating(...args);
+});
 
 const run = () => {
   const component = (

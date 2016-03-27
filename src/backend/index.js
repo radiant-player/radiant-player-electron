@@ -37,7 +37,7 @@ app.on('ready', () => {
   });
 
   // and load the index.html of the app.
-  main.loadURL('file://' + path.resolve(__dirname, '../resources/index.html'));
+  main.loadURL(`file://${path.resolve(__dirname, '../resources/index.html')}`);
 
   // Open the DevTools.
   // main.openDevTools();
@@ -51,10 +51,19 @@ app.on('ready', () => {
   });
 
   // Proxy media keys to app via IPC
-  globalShortcut.register('MediaNextTrack', () => main.webContents.send('shortcut:MediaNextTrack'));
-  globalShortcut.register('MediaPreviousTrack', () => main.webContents.send('shortcut:MediaPreviousTrack'));
+  globalShortcut.register('MediaNextTrack', () => (
+    main.webContents.send('shortcut:MediaNextTrack')
+  ));
+
+  globalShortcut.register('MediaPreviousTrack', () => (
+    main.webContents.send('shortcut:MediaPreviousTrack')
+  ));
+
+  globalShortcut.register('MediaPlayPause', () => (
+    main.webContents.send('shortcut:MediaPlayPause', true)
+  ));
+
   // globalShortcut.register('MediaStop', () => main.webContents.send('shortcut:MediaStop'));
-  globalShortcut.register('MediaPlayPause', () => main.webContents.send('shortcut:MediaPlayPause', true));
 
   // Check whether a shortcut is registered.
   // console.log(globalShortcut.isRegistered('mediaplaypause'));

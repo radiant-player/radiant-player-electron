@@ -1,23 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import styles from './App.scss';
 import GooglePlayMusic from '../GooglePlayMusic';
 
-export default class App extends Component {
-  static propTypes = {
-    onGPM: PropTypes.func,
-  }
+const App = ({ onGPM }) => (
+  <div className={styles.container}>
+    <GooglePlayMusic onGPM={onGPM} />
+  </div>
+);
 
-  static contextTypes = {
-    store: PropTypes.object,
-  }
+App.propTypes = {
+  onGPM: PropTypes.func,
+};
 
-  render() {
-    const { onGPM } = this.props;
-    return (
-      <div className={styles.container}>
-        <GooglePlayMusic onGPM={onGPM} />
-      </div>
-    );
-  }
-}
+App.contextTypes = {
+  store: PropTypes.object,
+};
+
+export default App;

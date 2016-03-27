@@ -31,7 +31,7 @@ export const proxyToObject = ({ ipc, send, namespace, object }) => {
     const { id, name, args } = signature;
 
     let fn = object;
-    name.split('.').forEach(key => fn = fn[key]);
+    name.split('.').forEach(key => (fn = fn[key]));
 
     try {
       const result = fn(...args);
@@ -43,10 +43,8 @@ export const proxyToObject = ({ ipc, send, namespace, object }) => {
 };
 
 export const proxyEvents = ({ send, namespace, object, events }) => {
-  console.log('called with', send, namespace, object, events);
   events.forEach(event => {
     object.on(event, (...args) => {
-      console.log('sending', event, args);
       send(`ipc:${namespace}:event:${event}`, ...args);
     });
   });
@@ -60,7 +58,6 @@ export const domIPCBridge = originalElement => {
   emitter.attach = newElement => {
     element = newElement;
     element.addEventListener('ipc-message', (event) => {
-      console.log('received dom', event);
       const { channel, args } = event;
       emitter.emit(channel, event, ...args);
     });
@@ -70,7 +67,7 @@ export const domIPCBridge = originalElement => {
 
   emitter.send = (...args) => {
     if (!element) return null;
-    element.send(...args);
+    return element.send(...args);
   };
 
   return emitter;
