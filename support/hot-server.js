@@ -4,7 +4,9 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import config from './config/webpack.ui';
+import configs from './config/webpack.ui';
+
+const config = configs[0];
 
 const app = express();
 const compiler = webpack(config);
