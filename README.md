@@ -18,12 +18,35 @@ $ npm install
 
 ### Run
 
-Run these two commands **simultaneously** in different console tabs.
+You probably want to run the application in development mode with hot module reloading.  To facilitate this, run the following commands in two different console tabs:
 
+```shell
+$ npm run hot
+$ npm run start:hot
 ```
-$ npm run hot-server
-$ npm run start-hot
-```
+
+`hot` will start the background build processes and `start:hot` runs the application configured to look for the hot-reloading resources.  There are several more specific options if you need:
+
+Command | Description
+------- | -----------
+`npm run build:backend` | Build the backend application code
+`npm run build:ui` | Build the frontend application UI
+`npm run build` | Run both `build:backend` and `build:frontend`
+`npm run hot:backend` | Watch for file changes, build the backend application code, and serve hot updates
+`npm run hot:server` | Run the hot module reload server
+`npm run hot:ui` | Watch for file changes, build the frontend application UI, and serve hot updates
+`npm run hot` | Run `hot:backend`, `hot:server`, and `hot:ui` simultaneously
+`npm run lint` | Lint the code
+`npm run prod:backend` | Build the production backend application code
+`npm run prod:ui` | Build the production frontend application UI
+`npm run prod` | Run both `prod:backend` and `prod:frontend`
+`npm run start` | Start the application in development mode
+`npm run start:hot` | Start the application in development mode with hot reloading
+`npm run test` | Run tests
+`npm run watch:backend` | Watch for file changes and build the backend application code
+`npm run watch:ui` | Watch for file changes and build the frontend application UI
+`npm run watch` | Run both `watch:backend` and `watch:frontend` simultaneously
+
 
 ## License
 

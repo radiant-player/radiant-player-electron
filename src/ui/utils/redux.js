@@ -1,6 +1,5 @@
 import { compose, createStore, applyMiddleware } from 'redux';
-import { devTools, persistState } from 'redux-devtools';
-import createEngine from 'redux-storage/engines/localStorage';
+import createEngine from 'redux-storage-engine-localstorage';
 import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise';
 import storage from 'redux-storage';
@@ -23,8 +22,6 @@ export function createRedux() {
 
   const createStoreWithMiddleware = compose(
     applyMiddleware(...middleware),
-    devTools(),
-    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
   )(createStore);
 
   // const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);

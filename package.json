@@ -1,18 +1,25 @@
 {
   "name": "radiant-player",
   "version": "2.0.0",
-  "main": "src/backend",
+  "main": "dist/backend",
   "scripts": {
-    "test": "npm run lint",
+    "build:backend": "babel-node ./node_modules/.bin/webpack --config support/config/webpack.backend.js --progress --colors",
+    "build:ui": "babel-node ./node_modules/.bin/webpack --config support/config/webpack.ui.js --progress --colors",
+    "build": "npm run build:ui && npm run build:backend",
+    "hot:backend": "cross-env HOT=1 npm run watch:backend",
+    "hot:server": "cross-env HOT=1 babel-node support/hot-server.js",
+    "hot:ui": "cross-env HOT=1 npm run watch:ui",
+    "hot": "concurrently --kill-otherconcurrently --kill-others \"npm run hot:backend\" \"npm run hot:server\" \"npm run hot:ui\"",
     "lint": "eslint .",
-    "hot-server": "node support/hot-server.js",
-    "build": "cross-env NODE_ENV=production webpack --config support/config/webpack.config.production.js --progress --profile --colors",
+    "prod:backend": "cross-env NODE_ENV=production npm run build:backend",
+    "prod:ui": "cross-env NODE_ENV=production npm run build:ui",
+    "prod": "cross-env NODE_ENV=production npm run build",
     "start": "cross-env NODE_ENV=production electron ./",
-    "start-hot": "cross-env HOT=1 NODE_ENV=development electron ./",
-    "package": "cross-env NODE_ENV=production node package.js",
-    "package-all": "npm run package -- --all",
-    "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
-    "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\""
+    "start:hot": "cross-env HOT=1 electron ./",
+    "test": "npm run lint",
+    "watch:backend": "npm run build:backend -- --watch",
+    "watch:ui": "npm run build:ui -- --watch",
+    "watch": "concurrently --kill-others \"npm run watch:backend\" \"npm run watch:ui\""
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
@@ -34,12 +41,18 @@
     "eslint-config-airbnb": "^6.2.0",
     "eslint-plugin-react": "^4.2.3",
     "express": "^4.13.4",
-    "fbjs-scripts": "^0.5.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "json-loader": "^0.5.4",
+    "postcss": "^5.0.19",
+    "postcss-import": "^8.0.2",
+    "postcss-loader": "^0.8.2",
+    "postcss-scss": "^0.1.7",
+    "precss": "^1.4.0",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.2.2",
     "style-loader": "^0.13.1",
+    "watch": "^0.17.1",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0",
@@ -56,6 +69,7 @@
     "redux-devtools": "^3.1.1",
     "redux-logger": "^2.6.1",
     "redux-promise": "^0.5.3",
-    "redux-storage": "^4.0.0"
+    "redux-storage": "^4.0.0",
+    "redux-storage-engine-localstorage": "^1.0.2"
   }
 }

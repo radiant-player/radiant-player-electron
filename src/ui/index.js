@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { createRedux } from './utils/redux';
 
 import App from './components/App';
-import './app.css';
+import './app.scss';
 
-const appContainer = document.getElementById('react-root');
+const appContainer = document.getElementById('root');
 const store = createRedux();
 
 const run = () => {

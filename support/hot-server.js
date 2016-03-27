@@ -1,11 +1,10 @@
 /* eslint-disable no-console */
-require('babel-register');
-const express = require('express');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+import express from 'express';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
-const config = require('./config/webpack.development');
+import config from './config/webpack.ui';
 
 const app = express();
 const compiler = webpack(config);
