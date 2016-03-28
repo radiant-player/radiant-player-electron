@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import GMusic from 'gmusic.js';
 
 export const GPM_CHANGE_SONG = 'GPM_CHANGE_SONG';
 export const GPM_CHANGE_SHUFFLE = 'GPM_CHANGE_SHUFFLE';
@@ -23,13 +24,32 @@ export const actions = {
   onChangeRating,
 };
 
-export const PLAYBACK_STATE_STOPPED = 0;
-export const PLAYBACK_STATE_PAUSED = 1;
-export const PLAYBACK_STATE_PLAYING = 2;
+// Playback states
+export const PLAYBACK_STATE_STOPPED = GMusic.Playback.STOPPED;
+export const PLAYBACK_STATE_PAUSED = GMusic.Playback.PAUSED;
+export const PLAYBACK_STATE_PLAYING = GMusic.Playback.PLAYING;
 export const PLAYBACK_STATES = {
   PLAYBACK_STATE_STOPPED,
   PLAYBACK_STATE_PAUSED,
   PLAYBACK_STATE_PLAYING,
+};
+
+// Repeat modes
+export const REPEAT_STATE_LIST_REPEAT = GMusic.Playback.LIST_REPEAT;
+export const REPEAT_STATE_SINGLE_REPEAT = GMusic.Playback.SINGLE_REPEAT;
+export const REPEAT_STATE_NO_REPEAT = GMusic.Playback.NO_REPEAT;
+export const REPEAT_STATES = {
+  REPEAT_STATE_LIST_REPEAT,
+  REPEAT_STATE_SINGLE_REPEAT,
+  REPEAT_STATE_NO_REPEAT,
+};
+
+// Shuffle modes
+export const SHUFFLE_STATE_ALL_SHUFFLE = GMusic.Playback.ALL_SHUFFLE;
+export const SHUFFLE_STATE_NO_SHUFFLE = GMusic.Playback.NO_SHUFFLE;
+export const SHUFFLE_STATES = {
+  SHUFFLE_STATE_ALL_SHUFFLE,
+  SHUFFLE_STATE_NO_SHUFFLE,
 };
 
 const playbackStateNames = {
