@@ -28,6 +28,13 @@ const gpmIPCInterface = connectToIPC({
   send: gpmIPC.send,
 });
 const gmusicRemoteCaller = gpmIPCInterface.remoteObject('gmusic');
+const themesRemoteCaller = gpmIPCInterface.remoteObject('themes');
+
+// Bind to GPM ready event
+gpmIPCInterface.on('ready', () => {
+  // Initialize themes
+  themesRemoteCaller('setTheme', 'base', '');
+});
 
 // Connect to main IPC
 const mainIPCInterface = connectToIPC({
@@ -69,7 +76,6 @@ gpmIPCInterface.on('change:song', (event, ...args) => {
 });
 
 gpmIPCInterface.on('change:shuffle', (event, ...args) => {
-  console.log('change:shuffle', event, ...args);
   gpmBoundActions.onChangeShuffle(...args);
 });
 

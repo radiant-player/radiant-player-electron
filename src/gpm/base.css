@@ -1,0 +1,51 @@
+/* Fix the queue display on OS X 10.9 */
+#queue-overlay {
+  top: 128px;
+  height: auto;
+  margin-top: 0;
+}
+
+/* Fix the display of the menu bar on OS X 10.10 */
+#material-app-bar .material-header-bar.visible {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.gm-nav-button, #material-one-left #left-nav-open-button {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  min-width: 40px;
+}
+
+#material-one-left.with-nav {
+  min-width: 300px;
+}
+
+#rp-padding-left {
+  min-width: 10px;
+}
+
+.custom-titlebar #rp-padding-left {
+  min-width: 77px;
+}
+
+/* If the "songs selected" toolbar is open, move it. */
+#sliding_action_bar_container.material {
+  padding-left: 85px;
+}
+
+/* When the navigation drawer is open, or Radiant Player is full screen */
+body.full-screen #rp-padding-left,
+paper-drawer-panel:not([narrow]) #rp-padding-left {
+  min-width: 0px;
+}
+
+body.full-screen #sliding_action_bar_container.material,
+paper-drawer-panel:not([narrow]) #sliding_action_bar_container.material {
+  padding-left: 16px;
+}
+
+/* Move the close navigation menu button to the right and hide the Google Play Logo if we are not full-screen */
+body:not(.full-screen) #left-nav-close-button { -webkit-order: 1; }
+body:not(.full-screen) .menu-logo { visibility: hidden; }

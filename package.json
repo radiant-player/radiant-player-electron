@@ -53,6 +53,7 @@
     "redbox-react": "^1.2.2",
     "redux-devtools-filter-actions": "^1.1.0",
     "style-loader": "^0.13.1",
+    "text-loader": "0.0.1",
     "watch": "^0.17.1",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.6.1",

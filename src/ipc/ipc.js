@@ -29,12 +29,15 @@ export const connectToIPC = ({ namespace, ipc, send }) => ({
       const { id, name, args } = signature;
 
       let fn = object;
-      name.split('.').forEach(val => (fn = fn[val]));
+      const keys = name.split('.');
+      const lastKey = keys[keys.length - 1];
+      keys.slice(0, -1).forEach(val => (fn = fn[val]));
 
       try {
-        const result = fn(...args);
+        const result = fn[lastKey].call(fn, ...args);
         send(`ipc:${namespace}:result:${key}:${id}`, result);
       } catch (err) {
+        console.log('Remote call error', err);
         send(`ipc:${namespace}:error:${key}:${id}`, e);
       }
     });
