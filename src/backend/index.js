@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
 
 // import { ipcMain } from 'electron';
+// import util from 'util';
+import { bindMenuActions } from './utils';
 import app from 'app';
 import BrowserWindow from 'browser-window';
+import configureStore from '../redux/configureStore';
 import globalShortcut from 'global-shortcut';
+import Menu from 'menu';
 import path from 'path';
 
 // Report crashes to our server.
@@ -75,4 +79,27 @@ app.on('will-quit', () => {
 
   // Unregister all shortcuts.
   globalShortcut.unregisterAll();
+});
+
+// Initialize shared store
+const store = configureStore();
+
+// Bind menu to store
+const menuActions = {
+  reload: (item, focusedWindow) => (focusedWindow ? focusedWindow.reload() : null),
+  toggleFullScreen: (item, focusedWindow) => (focusedWindow
+    ? focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
+    : null),
+  toggleDevTools: (item, focusedWindow) => (focusedWindow ? focusedWindow.toggleDevTools() : null),
+  quit: () => app.quit(),
+};
+
+let previousMenu = null;
+store.subscribe(() => {
+  const state = store.getState();
+  if (state.menu === previousMenu) return;
+  previousMenu = state.menu;
+  const template = bindMenuActions(state.menu, menuActions);
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 });

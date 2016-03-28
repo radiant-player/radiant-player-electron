@@ -23,10 +23,19 @@ export const actions = {
   onChangeRating,
 };
 
-const playbackStates = {
-  0: 'stopped',
-  1: 'paused',
-  2: 'playing',
+export const PLAYBACK_STATE_STOPPED = 0;
+export const PLAYBACK_STATE_PAUSED = 1;
+export const PLAYBACK_STATE_PLAYING = 2;
+export const PLAYBACK_STATES = {
+  PLAYBACK_STATE_STOPPED,
+  PLAYBACK_STATE_PAUSED,
+  PLAYBACK_STATE_PLAYING,
+};
+
+const playbackStateNames = {
+  [PLAYBACK_STATE_STOPPED]: 'stopped',
+  [PLAYBACK_STATE_PAUSED]: 'paused',
+  [PLAYBACK_STATE_PLAYING]: 'playing',
 };
 
 const ACTION_HANDLERS = {
@@ -47,7 +56,7 @@ const ACTION_HANDLERS = {
 
   [GPM_CHANGE_PLAYBACK]: (state, { payload }) => ({
     ...state,
-    state: playbackStates[payload],
+    state: playbackStateNames[payload],
   }),
 
   [GPM_CHANGE_PLAYBACK_TIME]: (state, { payload }) => ({

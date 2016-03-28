@@ -64,6 +64,7 @@ const config = {
 
   plugins: [
     new webpack.DefinePlugin({
+      __APP__: true,
       __DEV__: DEV,
       'process.env': {
         NODE_ENV: DEV ? JSON.stringify('development') : JSON.stringify('production'),
