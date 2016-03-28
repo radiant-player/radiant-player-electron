@@ -28,11 +28,36 @@ const gpmIPCInterface = connectToIPC({
   send: gpmIPC.send,
 });
 
+// Connect to main IPC
+const mainIPCInterface = connectToIPC({
+  namespace: 'app',
+  ipc: ipcRenderer,
+  send: ipcRenderer.send,
+});
+
 // Proxy media keys to GPM
-ipcRenderer.on('shortcut:MediaNextTrack', () => gpmIPCInterface.call('playback.forward'));
-ipcRenderer.on('shortcut:MediaPreviousTrack', () => gpmIPCInterface.call('playback.rewind'));
-ipcRenderer.on('shortcut:MediaStop', () => gpmIPCInterface.call('playback.playPause'));
-ipcRenderer.on('shortcut:MediaPlayPause', () => gpmIPCInterface.call('playback.playPause'));
+mainIPCInterface.on('shortcut', (e, key) => {
+  switch (key) {
+    case 'MediaNextTrack':
+      gpmIPCInterface.call('playback.forward');
+      break;
+
+    case 'MediaPreviousTrack':
+      gpmIPCInterface.call('playback.rewind');
+      break;
+
+    case 'MediaStop':
+      gpmIPCInterface.call('playback.playPause');
+      break;
+
+    case 'MediaPlayPause':
+      gpmIPCInterface.call('playback.playPause');
+      break;
+
+    default:
+      // Ignore - we don't know this shortcut
+  }
+});
 
 // Connect GPM events to redux
 const gpmBoundActions = bindActionCreators(gpmActions, store.dispatch);

@@ -1,14 +1,18 @@
 /* eslint-disable no-console */
 
-// import { ipcMain } from 'electron';
 // import util from 'util';
-import { bindMenuActions } from './utils';
+// import { ipcMain } from 'electron';
 import app from 'app';
 import BrowserWindow from 'browser-window';
-import configureStore from '../redux/configureStore';
 import globalShortcut from 'global-shortcut';
 import Menu from 'menu';
 import path from 'path';
+import EventEmitter from 'events';
+
+import { bindMenuActions } from './utils';
+import configureStore from '../redux/configureStore';
+// import { connectToIPC } from '../ipc';
+import { proxyEvents } from '../ipc';
 
 // Report crashes to our server.
 // require('crash-reporter').start({
@@ -54,23 +58,59 @@ app.on('ready', () => {
     main = null;
   });
 
+  // Connect to IPC
+  // const ipc = connectToIPC({
+  //   namespace: 'app',
+  //   ipc: ipcMain,
+  //   send: main.webContents.send,
+  // });
+
   // Proxy media keys to app via IPC
-  globalShortcut.register('MediaNextTrack', () => (
-    main.webContents.send('shortcut:MediaNextTrack')
-  ));
+  const shortcutEmitter = new EventEmitter();
+  const shortcuts = [
+    'MediaNextTrack',
+    'MediaPlayPause',
+    'MediaPreviousTrack',
+    'MediaStop',
+  ];
+  shortcuts.forEach(shortcut => {
+    const success = globalShortcut.register(shortcut, () => {
+      shortcutEmitter.emit('shortcut', shortcut);
+    });
 
-  globalShortcut.register('MediaPreviousTrack', () => (
-    main.webContents.send('shortcut:MediaPreviousTrack')
-  ));
+    if (!success) throw new Error(`Unable to register global shortcut ${shortcut}`);
+  });
+  proxyEvents({
+    send: (...args) => main.webContents.send(...args),
+    namespace: 'app',
+    object: shortcutEmitter,
+    events: ['shortcut'],
+  });
 
-  globalShortcut.register('MediaPlayPause', () => (
-    main.webContents.send('shortcut:MediaPlayPause', true)
-  ));
+  // Initialize shared store
+  const store = configureStore();
 
-  // globalShortcut.register('MediaStop', () => main.webContents.send('shortcut:MediaStop'));
+  // Bind menu to store
+  const menuActions = {
+    reload: (item, focusedWindow) => (focusedWindow ? focusedWindow.reload() : null),
+    toggleFullScreen: (item, focusedWindow) => (focusedWindow
+      ? focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
+      : null),
+    toggleDevTools: (item, focusedWindow) => (
+      focusedWindow ? focusedWindow.toggleDevTools() : null
+    ),
+    quit: () => app.quit(),
+  };
 
-  // Check whether a shortcut is registered.
-  // console.log(globalShortcut.isRegistered('mediaplaypause'));
+  let previousMenu = null;
+  store.subscribe(() => {
+    const state = store.getState();
+    if (state.menu === previousMenu) return;
+    previousMenu = state.menu;
+    const template = bindMenuActions(state.menu, menuActions);
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
+  });
 });
 
 app.on('will-quit', () => {
@@ -79,27 +119,4 @@ app.on('will-quit', () => {
 
   // Unregister all shortcuts.
   globalShortcut.unregisterAll();
-});
-
-// Initialize shared store
-const store = configureStore();
-
-// Bind menu to store
-const menuActions = {
-  reload: (item, focusedWindow) => (focusedWindow ? focusedWindow.reload() : null),
-  toggleFullScreen: (item, focusedWindow) => (focusedWindow
-    ? focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
-    : null),
-  toggleDevTools: (item, focusedWindow) => (focusedWindow ? focusedWindow.toggleDevTools() : null),
-  quit: () => app.quit(),
-};
-
-let previousMenu = null;
-store.subscribe(() => {
-  const state = store.getState();
-  if (state.menu === previousMenu) return;
-  previousMenu = state.menu;
-  const template = bindMenuActions(state.menu, menuActions);
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
 });
