@@ -1,4 +1,4 @@
-import { actions as gpmActions } from './redux/modules/gpm';
+import { actions as gpmActions } from '../redux/modules/gpm';
 import { bindActionCreators } from 'redux';
 import { domIPCBridge, connectToIPC } from '../ipc';
 import { ipcRenderer } from 'electron';
@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import throttle from 'lodash.throttle';
 
 import App from './components/App';
-import configureStore from './redux/configureStore';
+import configureStore from '../redux/configureStore';
 
 import './app.scss';
 
