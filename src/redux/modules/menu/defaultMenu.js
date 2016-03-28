@@ -86,7 +86,7 @@ const defaultMenu = [
     submenu: [
       {
         label: 'Reload',
-        accelerator: 'CmdOrCtrl+R',
+        accelerator: 'CmdOrCtrl+Shift+R',
         click: 'reload',
       },
       {
