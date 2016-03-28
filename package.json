@@ -51,6 +51,7 @@
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.2.2",
+    "redux-devtools-filter-actions": "^1.1.0",
     "style-loader": "^0.13.1",
     "watch": "^0.17.1",
     "webpack": "^1.12.14",
