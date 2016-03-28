@@ -7,9 +7,6 @@ let setupInterval = false;
 const setupGMusic = () => {
   const gmusic = window.gmusic = new GMusic(window);
 
-  // gmusic.on('change:shuffle', (...args) =>
-  // console.log('change:shuffle', gmusic.playback.getShuffle()));
-
   const ipcInterface = connectToIPC({
     namespace: 'gpm',
     ipc: ipcRenderer,
@@ -21,17 +18,25 @@ const setupGMusic = () => {
     object: gmusic,
   });
 
-  // Proxy events over IPC (you can't listen to all events unfortunately)
+  // Proxy events over IPC
   ipcInterface.proxyEvents({
     object: gmusic,
     events: [
       'change:song',
-      'change:shuffle',
-      'change:repeat',
+      // 'change:shuffle',
+      // 'change:repeat',
       'change:playback',
       'change:playback-time',
       'change:rating',
     ],
+  });
+
+  // Proxy broken events over IPC
+  gmusic.on('change:shuffle', () => {
+    ipcInterface.emit('change:shuffle', gmusic.playback.getShuffle());
+  });
+  gmusic.on('change:repeat', () => {
+    ipcInterface.emit('change:repeat', gmusic.playback.getRepeat());
   });
 };
 
