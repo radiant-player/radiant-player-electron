@@ -1,10 +1,13 @@
 import {
   GPM_CHANGE_PLAYBACK,
+  GPM_CHANGE_RATING,
   GPM_CHANGE_REPEAT,
   GPM_CHANGE_SHUFFLE,
   PLAYBACK_STATE_PAUSED,
   PLAYBACK_STATE_PLAYING,
   PLAYBACK_STATE_STOPPED,
+  RATING_STATE_THUMBS_DOWN,
+  RATING_STATE_THUMBS_UP,
   REPEAT_STATE_LIST_REPEAT,
   REPEAT_STATE_NO_REPEAT,
   REPEAT_STATE_SINGLE_REPEAT,
@@ -71,6 +74,22 @@ const ACTION_HANDLERS = {
     final = modifyItemByRedux(final, 'repeat-none', item => ({
       ...item,
       checked: payload === REPEAT_STATE_NO_REPEAT,
+    }));
+
+    return final;
+  },
+
+  [GPM_CHANGE_RATING]: (state, { payload }) => {
+    let final = state;
+
+    final = modifyItemByRedux(final, 'thumbs-up', item => ({
+      ...item,
+      checked: payload === RATING_STATE_THUMBS_UP,
+    }));
+
+    final = modifyItemByRedux(final, 'thumbs-down', item => ({
+      ...item,
+      checked: payload === RATING_STATE_THUMBS_DOWN,
     }));
 
     return final;

@@ -52,6 +52,16 @@ export const SHUFFLE_STATES = {
   SHUFFLE_STATE_NO_SHUFFLE,
 };
 
+// Rating states
+export const RATING_STATE_NONE = '0';
+export const RATING_STATE_THUMBS_UP = '5';
+export const RATING_STATE_THUMBS_DOWN = '1';
+export const RATING_STATES = {
+  RATING_STATE_NONE,
+  RATING_STATE_THUMBS_UP,
+  RATING_STATE_THUMBS_DOWN,
+};
+
 const playbackStateNames = {
   [PLAYBACK_STATE_STOPPED]: 'stopped',
   [PLAYBACK_STATE_PAUSED]: 'paused',

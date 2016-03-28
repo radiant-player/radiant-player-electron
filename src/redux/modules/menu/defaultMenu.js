@@ -133,12 +133,18 @@ const defaultMenu = [
         type: 'separator',
       },
       {
+        redux: 'thumbs-up',
         label: 'Thumbs Up',
         accelerator: 'CmdOrCtrl+J',
+        type: 'checkbox',
+        checked: false,
       },
       {
+        redux: 'thumbs-down',
         label: 'Thumbs Down',
         accelerator: 'CmdOrCtrl+K',
+        type: 'checkbox',
+        checked: false,
       },
       {
         type: 'separator',
