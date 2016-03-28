@@ -3,14 +3,13 @@
 import { ipcMain } from 'electron';
 import app from 'app';
 import BrowserWindow from 'browser-window';
-import globalShortcut from 'global-shortcut';
-import Menu from 'menu';
-import path from 'path';
 import EventEmitter from 'events';
+import globalShortcut from 'global-shortcut';
+import path from 'path';
 
-import { bindMenuActions } from './utils';
-import configureStore from '../redux/configureStore';
 import { connectToIPC } from '../ipc';
+import configureStore from '../redux/configureStore';
+import MenuRenderer from './MenuRenderer';
 
 // Report crashes to our server.
 // require('crash-reporter').start({
@@ -98,15 +97,10 @@ app.on('ready', () => {
     quit: () => app.quit(),
   };
 
-  let previousMenu = null;
+  const menuRenderer = new MenuRenderer(menuActions);
   store.subscribe(() => {
-    const state = store.getState();
-    if (state.menu === previousMenu) return;
-    previousMenu = state.menu;
-    const template = bindMenuActions(state.menu, menuActions);
-    // console.log('menu', require('util').inspect(template, { depth: null }));
-    const menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
+    const { menu } = store.getState();
+    menuRenderer.render(menu);
   });
 });
 
