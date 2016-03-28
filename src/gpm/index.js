@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { proxyEvents, proxyToObject } from '../ipc';
+import { connectToIPC } from '../ipc';
 import GMusic from 'gmusic.js';
 
 let setupInterval = false;
@@ -7,18 +7,22 @@ let setupInterval = false;
 const setupGMusic = () => {
   const gmusic = window.gmusic = new GMusic(window);
 
-  // Proxy methods over IPC
-  proxyToObject({
+  // gmusic.on('change:shuffle', (...args) =>
+  // console.log('change:shuffle', gmusic.playback.getShuffle()));
+
+  const ipcInterface = connectToIPC({
     namespace: 'gpm',
     ipc: ipcRenderer,
     send: ipcRenderer.sendToHost,
+  });
+
+  ipcInterface.exposeObject({
+    key: 'gmusic',
     object: gmusic,
   });
 
   // Proxy events over IPC (you can't listen to all events unfortunately)
-  proxyEvents({
-    namespace: 'gpm',
-    send: ipcRenderer.sendToHost,
+  ipcInterface.proxyEvents({
     object: gmusic,
     events: [
       'change:song',

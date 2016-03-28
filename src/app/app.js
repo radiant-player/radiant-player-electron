@@ -27,6 +27,7 @@ const gpmIPCInterface = connectToIPC({
   ipc: gpmIPC,
   send: gpmIPC.send,
 });
+const gmusicRemoteCaller = gpmIPCInterface.remoteObject('gmusic');
 
 // Connect to main IPC
 const mainIPCInterface = connectToIPC({
@@ -39,19 +40,19 @@ const mainIPCInterface = connectToIPC({
 mainIPCInterface.on('shortcut', (e, key) => {
   switch (key) {
     case 'MediaNextTrack':
-      gpmIPCInterface.call('playback.forward');
+      gmusicRemoteCaller('playback.forward');
       break;
 
     case 'MediaPreviousTrack':
-      gpmIPCInterface.call('playback.rewind');
+      gmusicRemoteCaller('playback.rewind');
       break;
 
     case 'MediaStop':
-      gpmIPCInterface.call('playback.playPause');
+      gmusicRemoteCaller('playback.playPause');
       break;
 
     case 'MediaPlayPause':
-      gpmIPCInterface.call('playback.playPause');
+      gmusicRemoteCaller('playback.playPause');
       break;
 
     default:
@@ -68,6 +69,7 @@ gpmIPCInterface.on('change:song', (event, ...args) => {
 });
 
 gpmIPCInterface.on('change:shuffle', (event, ...args) => {
+  console.log('change:shuffle', event, ...args);
   gpmBoundActions.onChangeShuffle(...args);
 });
 

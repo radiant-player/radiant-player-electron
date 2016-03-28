@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 // import util from 'util';
-// import { ipcMain } from 'electron';
+import { ipcMain } from 'electron';
 import app from 'app';
 import BrowserWindow from 'browser-window';
 import globalShortcut from 'global-shortcut';
@@ -11,8 +11,7 @@ import EventEmitter from 'events';
 
 import { bindMenuActions } from './utils';
 import configureStore from '../redux/configureStore';
-// import { connectToIPC } from '../ipc';
-import { proxyEvents } from '../ipc';
+import { connectToIPC } from '../ipc';
 
 // Report crashes to our server.
 // require('crash-reporter').start({
@@ -59,11 +58,11 @@ app.on('ready', () => {
   });
 
   // Connect to IPC
-  // const ipc = connectToIPC({
-  //   namespace: 'app',
-  //   ipc: ipcMain,
-  //   send: main.webContents.send,
-  // });
+  const ipcInterface = connectToIPC({
+    namespace: 'app',
+    ipc: ipcMain,
+    send: (...args) => main.webContents.send(...args),
+  });
 
   // Proxy media keys to app via IPC
   const shortcutEmitter = new EventEmitter();
@@ -80,9 +79,7 @@ app.on('ready', () => {
 
     if (!success) throw new Error(`Unable to register global shortcut ${shortcut}`);
   });
-  proxyEvents({
-    send: (...args) => main.webContents.send(...args),
-    namespace: 'app',
+  ipcInterface.proxyEvents({
     object: shortcutEmitter,
     events: ['shortcut'],
   });

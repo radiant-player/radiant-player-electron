@@ -2,19 +2,54 @@ import EventEmitter from 'events';
 import uuid from 'node-uuid';
 
 export const connectToIPC = ({ namespace, ipc, send }) => ({
-  call(name, ...args) {
-    return new Promise((resolve, reject) => {
-      const id = uuid.v4();
+  remoteObject(key) {
+    return (name, ...args) => (
+      new Promise((resolve, reject) => {
+        const id = uuid.v4();
 
-      ipc.once(`ipc:${namespace}:result:${id}`, (e, ...resultArgs) => resolve(...resultArgs));
-      ipc.once(`ipc:${namespace}:error:${id}`, (e, ...errorArgs) => reject(...errorArgs));
+        ipc.once(`ipc:${namespace}:result:${key}:${id}`, (e, ...resultArgs) => (
+          resolve(...resultArgs)
+        ));
 
-      send(`ipc:${namespace}:call`, {
-        id,
-        name,
-        args,
+        ipc.once(`ipc:${namespace}:error:${key}:${id}`, (e, ...errorArgs) => (
+          reject(...errorArgs)
+        ));
+
+        send(`ipc:${namespace}:call:${key}`, {
+          id,
+          name,
+          args,
+        });
+      })
+    );
+  },
+
+  exposeObject({ key, object }) {
+    ipc.on(`ipc:${namespace}:call:${key}`, (e, signature) => {
+      const { id, name, args } = signature;
+
+      let fn = object;
+      name.split('.').forEach(val => (fn = fn[val]));
+
+      try {
+        const result = fn(...args);
+        send(`ipc:${namespace}:result:${key}:${id}`, result);
+      } catch (err) {
+        send(`ipc:${namespace}:error:${key}:${id}`, e);
+      }
+    });
+  },
+
+  proxyEvents({ object, events }) {
+    events.forEach(event => {
+      object.on(event, (...args) => {
+        send(`ipc:${namespace}:event:${event}`, ...args);
       });
     });
+  },
+
+  emit(event, ...args) {
+    send(`ipc:${namespace}:event:${event}`, ...args);
   },
 
   on(event, cb) {
@@ -25,30 +60,6 @@ export const connectToIPC = ({ namespace, ipc, send }) => ({
     return ipc.once(`ipc:${namespace}:event:${event}`, cb);
   },
 });
-
-export const proxyToObject = ({ ipc, send, namespace, object }) => {
-  ipc.on(`ipc:${namespace}:call`, (e, signature) => {
-    const { id, name, args } = signature;
-
-    let fn = object;
-    name.split('.').forEach(key => (fn = fn[key]));
-
-    try {
-      const result = fn(...args);
-      send(`ipc:${namespace}:result:${id}`, result);
-    } catch (err) {
-      send(`ipc:${namespace}:error:${id}`, e);
-    }
-  });
-};
-
-export const proxyEvents = ({ send, namespace, object, events }) => {
-  events.forEach(event => {
-    object.on(event, (...args) => {
-      send(`ipc:${namespace}:event:${event}`, ...args);
-    });
-  });
-};
 
 // Returns a DOM object as an IPC interface
 export const domIPCBridge = originalElement => {
