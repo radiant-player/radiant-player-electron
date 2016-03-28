@@ -3,6 +3,7 @@
 import { ipcMain } from 'electron';
 import app from 'app';
 import BrowserWindow from 'browser-window';
+import electron from 'electron';
 import EventEmitter from 'events';
 import globalShortcut from 'global-shortcut';
 import path from 'path';
@@ -34,11 +35,16 @@ app.on('window-all-closed', () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', () => {
+  const { screen } = electron;
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
   // Create the browser window.
   main = new BrowserWindow({
-    width: 1024,
-    height: 800,
-    'title-bar-style': 'hidden-inset',
+    width,
+    height,
+    minWidth: 800,
+    minHeight: 600,
+    titleBarStyle: 'hidden-inset',
   });
 
   // and load the app.html of the app.
