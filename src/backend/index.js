@@ -102,9 +102,9 @@ app.on('ready', () => {
   store.subscribe(() => {
     const state = store.getState();
     if (state.menu === previousMenu) return;
-    console.log('menu', require('util').inspect(state.menu, { depth: null }));
     previousMenu = state.menu;
     const template = bindMenuActions(state.menu, menuActions);
+    // console.log('menu', require('util').inspect(template, { depth: null }));
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
   });
