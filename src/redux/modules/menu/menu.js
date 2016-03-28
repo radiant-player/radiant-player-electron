@@ -1,8 +1,14 @@
 import {
   GPM_CHANGE_PLAYBACK,
+  GPM_CHANGE_REPEAT,
+  GPM_CHANGE_SHUFFLE,
   PLAYBACK_STATE_PAUSED,
   PLAYBACK_STATE_PLAYING,
   PLAYBACK_STATE_STOPPED,
+  REPEAT_STATE_LIST_REPEAT,
+  REPEAT_STATE_NO_REPEAT,
+  REPEAT_STATE_SINGLE_REPEAT,
+  SHUFFLE_STATE_ALL_SHUFFLE,
 } from '../gpm';
 import defaultMenu from './defaultMenu';
 
@@ -43,6 +49,32 @@ const ACTION_HANDLERS = {
     label: playPauseLabels[payload],
     enabled: payload !== PLAYBACK_STATE_STOPPED,
   })),
+
+  [GPM_CHANGE_SHUFFLE]: (state, { payload }) => modifyItemByRedux(state, 'shuffle', item => ({
+    ...item,
+    checked: payload === SHUFFLE_STATE_ALL_SHUFFLE,
+  })),
+
+  [GPM_CHANGE_REPEAT]: (state, { payload }) => {
+    let final = state;
+
+    final = modifyItemByRedux(final, 'repeat-all', item => ({
+      ...item,
+      checked: payload === REPEAT_STATE_LIST_REPEAT,
+    }));
+
+    final = modifyItemByRedux(final, 'repeat-one', item => ({
+      ...item,
+      checked: payload === REPEAT_STATE_SINGLE_REPEAT,
+    }));
+
+    final = modifyItemByRedux(final, 'repeat-none', item => ({
+      ...item,
+      checked: payload === REPEAT_STATE_NO_REPEAT,
+    }));
+
+    return final;
+  },
 };
 
 const initialState = [

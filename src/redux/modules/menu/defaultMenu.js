@@ -47,7 +47,7 @@ const defaultMenu = [
     label: 'Edit',
     submenu: [
       {
-        label: 'Undo!',
+        label: 'Undo',
         accelerator: 'CmdOrCtrl+Z',
         role: 'undo',
       },
@@ -154,19 +154,31 @@ const defaultMenu = [
             type: 'separator',
           },
           {
+            redux: 'repeat-all',
             label: 'Repeat All',
+            type: 'checkbox',
+            checked: false,
           },
           {
+            redux: 'repeat-one',
             label: 'Repeat One',
+            type: 'checkbox',
+            checked: false,
           },
           {
+            redux: 'repeat-none',
             label: 'No Repeat',
+            type: 'checkbox',
+            checked: false,
           },
         ],
       },
       {
+        redux: 'shuffle',
         label: 'Toggle Shuffle',
         accelerator: 'CmdOrCtrl+S',
+        type: 'checkbox',
+        checked: false,
       },
       {
         label: 'Toggle Visualization',

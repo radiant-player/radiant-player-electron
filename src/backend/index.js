@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 
-// import util from 'util';
 import { ipcMain } from 'electron';
 import app from 'app';
 import BrowserWindow from 'browser-window';
@@ -103,6 +102,7 @@ app.on('ready', () => {
   store.subscribe(() => {
     const state = store.getState();
     if (state.menu === previousMenu) return;
+    console.log('menu', require('util').inspect(state.menu, { depth: null }));
     previousMenu = state.menu;
     const template = bindMenuActions(state.menu, menuActions);
     const menu = Menu.buildFromTemplate(template);
