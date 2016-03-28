@@ -38,6 +38,13 @@ const setupGMusic = () => {
   gmusic.on('change:repeat', () => {
     ipcInterface.emit('change:repeat', gmusic.playback.getRepeat());
   });
+
+  // Emit all state when changing songs
+  gmusic.on('change:song', () => {
+    ipcInterface.emit('change:shuffle', gmusic.playback.getShuffle());
+    ipcInterface.emit('change:repeat', gmusic.playback.getRepeat());
+    ipcInterface.emit('change:rating', gmusic.rating.getRating());
+  });
 };
 
 const retrySetup = () => {
