@@ -17,7 +17,6 @@ const initThemes = () => {
     ipcInterface.emit('ready');
   } catch (e) {
     // Not ready yet, try again later
-    console.log('Unable to bind', e);
     setTimeout(initThemes, 1000);
   }
 };
@@ -30,7 +29,6 @@ const setupGmusic = () => {
     setTimeout(initThemes, 10);
   } catch (e) {
     // Not ready yet, try again later
-    console.log('Unable to bind', e);
     setTimeout(setupGmusic, 1000);
   }
 };
