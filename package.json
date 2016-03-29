@@ -64,7 +64,7 @@
   "dependencies": {
     "deep-diff": "^0.3.3",
     "electron-debug": "^0.5.2",
-    "gmusic.js": "^4.1.0",
+    "gmusic.js": "^4.2.0",
     "invariant": "^2.2.1",
     "lodash.throttle": "^4.0.1",
     "node-uuid": "^1.4.7",
