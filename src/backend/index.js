@@ -54,7 +54,7 @@ app.on('ready', () => {
     height: mainWindowState.height,
     minWidth: 800,
     minHeight: 600,
-    titleBarStyle: 'hidden-inset',
+    frame: false,
   });
 
   // Save the window size and position
@@ -80,6 +80,12 @@ app.on('ready', () => {
     ipc: ipcMain,
     send: (...args) => main.webContents.send(...args),
   });
+
+  // Receive window events from IPC
+  ipcInterface.on('onClose', () => main.close());
+  ipcInterface.on('onMinimize', () => main.minimize());
+  ipcInterface.on('onFullscreen', () => main.setFullScreen(!main.isFullScreen()));
+  ipcInterface.on('onMaximize', () => main.maximize());
 
   // Proxy media keys to app via IPC
   const shortcutEmitter = new EventEmitter();

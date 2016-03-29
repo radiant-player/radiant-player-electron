@@ -1,3 +1,13 @@
+#material-app-bar {
+  -webkit-app-region: drag;
+}
+
+/* Move the app bar over to support custom window controls */
+#material-app-bar .material-one-google,
+#material-app-bar .material-header-bar {
+  margin-left: 80px;
+}
+
 /* Fix the queue display on OS X 10.9 */
 #queue-overlay {
   top: 128px;

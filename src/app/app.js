@@ -169,10 +169,22 @@ gpmIPCInterface.on('change:rating', (event, ...args) => {
   gpmBoundActions.onChangeRating(...args);
 });
 
+// Proxy window events to backend
+const onClose = () => mainIPCInterface.emit('onClose');
+const onMinimize = () => mainIPCInterface.emit('onMinimize');
+const onFullscreen = () => mainIPCInterface.emit('onFullscreen');
+const onMaximize = () => mainIPCInterface.emit('onMaximize');
+
 const run = () => {
   const component = (
     <Provider store={store}>
-      <App onGPM={onGPM} />
+      <App
+        onGPM={onGPM}
+        onClose={onClose}
+        onMinimize={onMinimize}
+        onFullscreen={onFullscreen}
+        onMaximize={onMaximize}
+      />
     </Provider>
   );
 
