@@ -8,6 +8,7 @@ import EventEmitter from 'events';
 import globalShortcut from 'global-shortcut';
 import notifier from 'node-notifier';
 import path from 'path';
+import windowStateKeeper from 'electron-window-state';
 
 import { connectToIPC } from '../ipc';
 import configureStore from '../redux/configureStore';
@@ -40,14 +41,24 @@ app.on('ready', () => {
   const { screen } = electron;
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
+  const mainWindowState = windowStateKeeper({
+    defaultWidth: width,
+    defaultHeight: height,
+  });
+
   // Create the browser window.
   main = new BrowserWindow({
-    width,
-    height,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
     minWidth: 800,
     minHeight: 600,
     titleBarStyle: 'hidden-inset',
   });
+
+  // Save the window size and position
+  mainWindowState.manage(main);
 
   // and load the app.html of the app.
   main.loadURL(`file://${path.resolve(__dirname, '../app/app.html')}`);
