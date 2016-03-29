@@ -37,7 +37,7 @@ export const connectToIPC = ({ namespace, ipc, send }) => ({
         const result = fn[lastKey].call(fn, ...args);
         send(`ipc:${namespace}:result:${key}:${id}`, result);
       } catch (err) {
-        send(`ipc:${namespace}:error:${key}:${id}`, e);
+        send(`ipc:${namespace}:error:${key}:${id}`, err);
       }
     });
   },
