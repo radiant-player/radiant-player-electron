@@ -25,8 +25,9 @@ export const bindMenuActions = (menu, actions) => {
 const mutableFields = ['enabled', 'checked', 'visible'];
 
 export default class MenuRenderer {
-  constructor(actions = {}) {
+  constructor(actions = {}, setMenu = Menu.setApplicationMenu) {
     this.actions = actions;
+    this.setMenu = setMenu;
     this.previousMenu = false;
     this.applicationMenu = false;
   }
@@ -51,7 +52,7 @@ export default class MenuRenderer {
 
     const template = bindMenuActions(nextMenu, this.actions);
     this.applicationMenu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(this.applicationMenu);
+    this.setMenu(this.applicationMenu);
   }
 
   _needsFullRender(diff) {

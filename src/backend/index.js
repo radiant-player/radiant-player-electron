@@ -22,6 +22,7 @@ import MenuRenderer from './MenuRenderer';
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let main = null;
+const isOSX = process.platform === 'darwin';
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -126,6 +127,14 @@ app.on('ready', () => {
     const { menu } = store.getState();
     menuRenderer.render(menu);
   });
+
+  if (isOSX) {
+    const dockMenuRenderer = new MenuRenderer(menuActions, app.dock.setMenu);
+    store.subscribe(() => {
+      const { menu } = store.getState();
+      dockMenuRenderer.render(menu[isOSX ? 3 : 2].submenu);
+    });
+  }
 });
 
 app.on('will-quit', () => {
