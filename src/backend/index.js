@@ -54,7 +54,8 @@ app.on('ready', () => {
     height: mainWindowState.height,
     minWidth: 800,
     minHeight: 600,
-    frame: false,
+    titleBarStyle: 'hidden-inset',
+    // frame: false,
   });
 
   // Save the window size and position
