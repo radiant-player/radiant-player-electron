@@ -37,7 +37,6 @@ export const connectToIPC = ({ namespace, ipc, send }) => ({
         const result = fn[lastKey].call(fn, ...args);
         send(`ipc:${namespace}:result:${key}:${id}`, result);
       } catch (err) {
-        console.log('Remote call error', err);
         send(`ipc:${namespace}:error:${key}:${id}`, e);
       }
     });
@@ -68,13 +67,15 @@ export const connectToIPC = ({ namespace, ipc, send }) => ({
 export const domIPCBridge = originalElement => {
   const emitter = new EventEmitter();
   let element = null;
+  const listener = event => {
+    const { channel, args } = event;
+    emitter.emit(channel, event, ...args);
+  };
 
   emitter.attach = newElement => {
+    if (element) element.removeEventListener('ipc-message', listener);
     element = newElement;
-    element.addEventListener('ipc-message', (event) => {
-      const { channel, args } = event;
-      emitter.emit(channel, event, ...args);
-    });
+    element.addEventListener('ipc-message', listener);
   };
 
   if (originalElement) emitter.attach(originalElement);
