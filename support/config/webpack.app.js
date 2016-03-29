@@ -5,6 +5,7 @@ import webpack from 'webpack';
 import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
 
 const DEV = process.env.NODE_ENV !== 'production';
+const HOT = process.env.HOT === '1';
 const PORT = process.env.PORT || 3000;
 const entry = './src/app';
 
@@ -47,6 +48,27 @@ const config = {
         test: /\.jsx?$/,
         loaders: ['babel-loader'],
         exclude: /node_modules/,
+        ...(HOT ? {
+          // Wraps all React components into arbitrary transforms
+          // https://github.com/gaearon/babel-plugin-react-transform
+          plugins: [
+            [
+              'react-transform',
+              {
+                transforms: [
+                  {
+                    transform: 'react-transform-hmr',
+                    imports: ['react'],
+                    locals: ['module'],
+                  }, {
+                    transform: 'react-transform-catch-errors',
+                    imports: ['react', 'redbox-react'],
+                  },
+                ],
+              },
+            ],
+          ],
+        } : {}),
       },
       {
         test: /\.json$/,
