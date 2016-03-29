@@ -31,6 +31,7 @@ const gpmControlInterface = {
   search() {
     if (!gpm) return;
     // Focus the search bar
+    // TODO: move this to a library someplace
     gpm.executeJavaScript(
       'document.querySelector(\'#material-one-middle input.sj-search-box\').select()'
     );
