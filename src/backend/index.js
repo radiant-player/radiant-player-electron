@@ -6,6 +6,7 @@ import BrowserWindow from 'browser-window';
 import electron from 'electron';
 import EventEmitter from 'events';
 import globalShortcut from 'global-shortcut';
+import notifier from 'node-notifier';
 import path from 'path';
 
 import { connectToIPC } from '../ipc';
@@ -91,6 +92,28 @@ app.on('ready', () => {
 
   // Initialize shared store
   const store = configureStore();
+
+  // Display notifications on track change
+
+  let previousSong;
+  store.subscribe(() => {
+    const { gpm } = store.getState();
+
+    if (previousSong === gpm.song) return;
+    previousSong = gpm.song;
+    if (!gpm.song.title) return;
+
+    // TODO: build custom terminal-notifier with our app icon
+    notifier.notify({
+      title: gpm.song.title,
+      message: `${gpm.song.artist} - ${gpm.song.album}`,
+      icon: path.join(__dirname, '../resources/icon.png'),
+      appIcon: path.join(__dirname, '../resources/icon.png'),
+      contentImage: gpm.song.art,
+    }, (error, response) => {
+      console.log(response);
+    });
+  });
 
   // Bind menu to store
   const menuActions = {
