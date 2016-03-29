@@ -7,6 +7,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash.throttle';
 
+import {
+  REPEAT_STATE_LIST_REPEAT,
+  REPEAT_STATE_SINGLE_REPEAT,
+  REPEAT_STATE_NO_REPEAT,
+} from '../redux/modules/gpm';
 import App from './components/App';
 import configureStore from '../redux/configureStore';
 
@@ -21,6 +26,23 @@ const gpmIPC = domIPCBridge(gpm);
 const onGPM = instance => {
   window.gpm = gpm = instance;
   gpmIPC.attach(gpm);
+};
+const gpmControlInterface = {
+  search() {
+    if (!gpm) return;
+    // Focus the search bar
+    gpm.executeJavaScript(
+      'document.querySelector(\'#material-one-middle input.sj-search-box\').select()'
+    );
+  },
+  goBack() {
+    if (!gpm || !gpm.canGoBack()) return;
+    gpm.goBack();
+  },
+  goForward() {
+    if (!gpm || !gpm.canGoForward()) return;
+    gpm.goForward();
+  },
 };
 const gpmIPCInterface = connectToIPC({
   namespace: 'gpm',
@@ -66,6 +88,57 @@ mainIPCInterface.on('shortcut', (e, key) => {
       // Ignore - we don't know this shortcut
   }
 });
+
+// Proxy menu clicks to GPM
+
+mainIPCInterface.on('playPause', () => (
+  gmusicRemoteCaller('playback.playPause')
+));
+mainIPCInterface.on('previous', () => (
+  gmusicRemoteCaller('playback.forward')
+));
+mainIPCInterface.on('next', () => (
+  gmusicRemoteCaller('playback.rewind')
+));
+mainIPCInterface.on('volumeUp', () => (
+  gmusicRemoteCaller('volume.increaseVolume')
+));
+mainIPCInterface.on('volumeDown', () => (
+  gmusicRemoteCaller('volume.decreaseVolume')
+));
+mainIPCInterface.on('thumbsUp', () => (
+  gmusicRemoteCaller('rating.toggleThumbsUp')
+));
+mainIPCInterface.on('thumbsDown', () => (
+  gmusicRemoteCaller('rating.toggleThumbsDown')
+));
+mainIPCInterface.on('toggleRepeatMode', () => (
+  gmusicRemoteCaller('playback.toggleRepeat')
+));
+mainIPCInterface.on('repeatAll', () => (
+  gmusicRemoteCaller('playback.toggleRepeat', REPEAT_STATE_LIST_REPEAT)
+));
+mainIPCInterface.on('repeatOne', () => (
+  gmusicRemoteCaller('playback.toggleRepeat', REPEAT_STATE_SINGLE_REPEAT)
+));
+mainIPCInterface.on('repeatNone', () => (
+  gmusicRemoteCaller('playback.toggleRepeat', REPEAT_STATE_NO_REPEAT)
+));
+mainIPCInterface.on('toggleShuffle', () => (
+  gmusicRemoteCaller('playback.toggleShuffle')
+));
+mainIPCInterface.on('toggleVisualization', () => (
+  gmusicRemoteCaller('playback.toggleVisualization')
+));
+mainIPCInterface.on('search', () => (
+  gpmControlInterface.search()
+));
+mainIPCInterface.on('goBack', () => (
+  gpmControlInterface.goBack()
+));
+mainIPCInterface.on('goForward', () => (
+  gpmControlInterface.goForward()
+));
 
 // Connect GPM events to redux
 const gpmBoundActions = bindActionCreators(gpmActions, store.dispatch);

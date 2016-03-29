@@ -109,14 +109,17 @@ const defaultMenu = [
         label: 'Play/Pause',
         accelerator: 'Space',
         enabled: false,
+        click: 'playPause',
       },
       {
         label: 'Previous',
         accelerator: 'Left',
+        click: 'previous',
       },
       {
         label: 'Next',
         accelerator: 'Right',
+        click: 'next',
       },
       {
         type: 'separator',
@@ -124,10 +127,12 @@ const defaultMenu = [
       {
         label: 'Volume Up',
         accelerator: 'Alt+Up',
+        click: 'volumeUp',
       },
       {
         label: 'Volume Down',
         accelerator: 'Alt+Down',
+        click: 'volumeDown',
       },
       {
         type: 'separator',
@@ -138,6 +143,7 @@ const defaultMenu = [
         accelerator: 'CmdOrCtrl+J',
         type: 'checkbox',
         checked: false,
+        click: 'thumbsUp',
       },
       {
         redux: 'thumbs-down',
@@ -145,6 +151,7 @@ const defaultMenu = [
         accelerator: 'CmdOrCtrl+K',
         type: 'checkbox',
         checked: false,
+        click: 'thumbsDown',
       },
       {
         type: 'separator',
@@ -155,6 +162,7 @@ const defaultMenu = [
           {
             label: 'Toggle Repeat Mode',
             accelerator: 'CmdOrCtrl+R',
+            click: 'toggleRepeatMode',
           },
           {
             type: 'separator',
@@ -164,18 +172,21 @@ const defaultMenu = [
             label: 'Repeat All',
             type: 'checkbox',
             checked: false,
+            click: 'repeatAll',
           },
           {
             redux: 'repeat-one',
             label: 'Repeat One',
             type: 'checkbox',
             checked: false,
+            click: 'repeatOne',
           },
           {
             redux: 'repeat-none',
             label: 'No Repeat',
             type: 'checkbox',
             checked: false,
+            click: 'repeatNone',
           },
         ],
       },
@@ -185,10 +196,12 @@ const defaultMenu = [
         accelerator: 'CmdOrCtrl+S',
         type: 'checkbox',
         checked: false,
+        click: 'toggleShuffle',
       },
       {
         label: 'Toggle Visualization',
         accelerator: 'CmdOrCtrl+T',
+        click: 'toggleVisualization',
       },
       {
         type: 'separator',
@@ -196,14 +209,17 @@ const defaultMenu = [
       {
         label: 'Search',
         accelerator: 'CmdOrCtrl+F',
+        click: 'search',
       },
       {
         label: 'Go Back',
         accelerator: 'CmdOrCtrl+[',
+        click: 'goBack',
       },
       {
         label: 'Go Forward',
         accelerator: 'CmdOrCtrl+]',
+        click: 'goForward',
       },
     ],
   },

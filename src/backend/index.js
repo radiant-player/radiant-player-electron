@@ -101,6 +101,24 @@ app.on('ready', () => {
       focusedWindow ? focusedWindow.toggleDevTools() : null
     ),
     quit: () => app.quit(),
+
+    // Player actions,
+    playPause: () => ipcInterface.emit('playPause'),
+    previous: () => ipcInterface.emit('previous'),
+    next: () => ipcInterface.emit('next'),
+    volumeUp: () => ipcInterface.emit('volumeUp'),
+    volumeDown: () => ipcInterface.emit('volumeDown'),
+    thumbsUp: () => ipcInterface.emit('thumbsUp'),
+    thumbsDown: () => ipcInterface.emit('thumbsDown'),
+    toggleRepeatMode: () => ipcInterface.emit('toggleRepeatMode'),
+    repeatAll: () => ipcInterface.emit('repeatAll'),
+    repeatOne: () => ipcInterface.emit('repeatOne'),
+    repeatNone: () => ipcInterface.emit('repeatNone'),
+    toggleShuffle: () => ipcInterface.emit('toggleShuffle'),
+    toggleVisualization: () => ipcInterface.emit('toggleVisualization'),
+    search: () => ipcInterface.emit('search'),
+    goBack: () => ipcInterface.emit('goBack'),
+    goForward: () => ipcInterface.emit('goForward'),
   };
 
   const menuRenderer = new MenuRenderer(menuActions);
