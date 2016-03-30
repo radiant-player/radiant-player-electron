@@ -64,6 +64,9 @@ app.on('ready', () => {
   // and load the app.html of the app.
   main.loadURL(`file://${path.resolve(__dirname, '../app/app.html')}`);
 
+  // main.on('scroll-touch-begin', (...args) => console.log('scroll-touch-begin', ...args));
+  // main.on('scroll-touch-end', (...args) => console.log('scroll-touch-end', ...args));
+
   // Open the DevTools.
   // main.openDevTools();
 
