@@ -2,12 +2,37 @@ import React, { Component, PropTypes } from 'react';
 
 import styles from './Titlebar.scss';
 
+const ALT = 18;
+const classRegex = new RegExp(`\\b${styles.alt}\\b`);
+
 export default class Titlebar extends Component {
   static propTypes = {
     onClose: PropTypes.func,
     onMinimize: PropTypes.func,
     onFullscreen: PropTypes.func,
     onMaximize: PropTypes.func,
+  }
+
+  componentDidMount() {
+    this._boundKeyDown = this._boundKeyDown || (e => this._onWindowKeyDown(e));
+    this._boundKeyUp = this._boundKeyUp || (e => this._onWindowKeyUp(e));
+    window.addEventListener('keydown', this._boundKeyDown);
+    window.addEventListener('keyup', this._boundKeyUp);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._boundKeyDown);
+    window.removeEventListener('keyup', this._boundKeyUp);
+  }
+
+  _onWindowKeyDown(e) {
+    if (e.keyCode !== ALT) return;
+    this.refs.titlebar.className = `${this.refs.titlebar.className} ${styles.alt}`;
+  }
+
+  _onWindowKeyUp(e) {
+    if (e.keyCode !== ALT) return;
+    this.refs.titlebar.className = this.refs.titlebar.className.replace(classRegex, '');
   }
 
   _onClose(...args) {
@@ -33,7 +58,7 @@ export default class Titlebar extends Component {
 
     /* eslint-disable max-len */
     return (
-      <div className={`${styles.titlebar} ${styles['webkit-draggable']}`}>
+      <div className={`${styles.titlebar} ${styles['webkit-draggable']} titlebar-hide`} ref="titlebar">
         <div className={styles['titlebar-stoplight']}>
           <div className={styles['titlebar-close']} onClick={boundOnClose}>
             <svg x="0px" y="0px" viewBox="0 0 6.4 6.4">

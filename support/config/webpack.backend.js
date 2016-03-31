@@ -53,6 +53,7 @@ const config = {
   ],
 
   externals: [
+    '../build/Release/addon.node',
     nodeExternals(),
   ],
 };

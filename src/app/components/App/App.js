@@ -1,34 +1,23 @@
 import React, { PropTypes } from 'react';
 
-import styles from './App.scss';
 import GooglePlayMusic from '../GooglePlayMusic';
-
-// import Titlebar from '../Titlebar';
-
-// const App = ({
-//   onGPM,
-//   onClose,
-//   onFullscreen,
-//   onMaximize,
-//   onMinimize,
-//   onPassthrough,
-// }) => (
-//   <div className={styles.container}>
-//     <Titlebar
-//       onClose={onClose}
-//       onFullscreen={onFullscreen}
-//       onMaximize={onMaximize}
-//       onMinimize={onMinimize}
-//       onPassthrough={onPassthrough}
-//     />
-//     <GooglePlayMusic onGPM={onGPM} />
-//   </div>
-// );
+import styles from './App.scss';
+import Titlebar from '../Titlebar';
 
 const App = ({
   onGPM,
+  onClose,
+  onFullscreen,
+  onMaximize,
+  onMinimize,
 }) => (
   <div className={styles.container}>
+    <Titlebar
+      onClose={onClose}
+      onFullscreen={onFullscreen}
+      onMaximize={onMaximize}
+      onMinimize={onMinimize}
+    />
     <GooglePlayMusic onGPM={onGPM} />
   </div>
 );

@@ -5,6 +5,7 @@ import { ipcRenderer } from 'electron';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import remote from 'remote';
 import throttle from 'lodash.throttle';
 
 import {
@@ -91,7 +92,6 @@ mainIPCInterface.on('shortcut', (e, key) => {
 });
 
 // Proxy menu clicks to GPM
-
 mainIPCInterface.on('playPause', () => (
   gmusicRemoteCaller('playback.playPause')
 ));
@@ -140,6 +140,29 @@ mainIPCInterface.on('goBack', () => (
 mainIPCInterface.on('goForward', () => (
   gpmControlInterface.goForward()
 ));
+
+// Set up binding for mouse
+let offset = null;
+mainIPCInterface.on('left-drag', (event, x, y) => {
+  if (!offset) return;
+
+  const newX = Math.round(x - offset[0]);
+  const newY = Math.round(y - offset[1]);
+
+  remote.getCurrentWindow().setPosition(newX, newY);
+});
+mainIPCInterface.on('left-up', () => {
+  offset = null;
+});
+const mouseInterface = {
+  onMouseDown(x, y) {
+    offset = [x, y];
+  },
+};
+gpmIPCInterface.exposeObject({
+  key: 'mouse',
+  object: mouseInterface,
+});
 
 // Connect GPM events to redux
 const gpmBoundActions = bindActionCreators(gpmActions, store.dispatch);

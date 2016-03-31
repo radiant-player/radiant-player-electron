@@ -13,6 +13,7 @@ import windowStateKeeper from 'electron-window-state';
 import { connectToIPC } from '../ipc';
 import configureStore from '../redux/configureStore';
 import MenuRenderer from './MenuRenderer';
+import buildMouse from '../../lib/mouse';
 
 // Report crashes to our server.
 // require('crash-reporter').start({
@@ -54,8 +55,7 @@ app.on('ready', () => {
     height: mainWindowState.height,
     minWidth: 800,
     minHeight: 600,
-    titleBarStyle: 'hidden-inset',
-    // frame: false,
+    frame: false,
   });
 
   // Save the window size and position
@@ -111,6 +111,11 @@ app.on('ready', () => {
     events: ['shortcut'],
   });
 
+  // Proxy mouse drag to app
+  const mouse = buildMouse();
+  mouse.on('left-drag', (x, y) => ipcInterface.emit('left-drag', x, y));
+  mouse.on('left-up', () => ipcInterface.emit('left-up'));
+
   // Initialize shared store
   const store = configureStore();
 
@@ -131,8 +136,9 @@ app.on('ready', () => {
       icon: path.join(__dirname, '../resources/icon.png'),
       appIcon: path.join(__dirname, '../resources/icon.png'),
       contentImage: gpm.song.art,
-    }, (error, response) => {
-      console.log(response);
+    }, () => {
+      // (error, response)
+      // console.log(response);
     });
   });
 
