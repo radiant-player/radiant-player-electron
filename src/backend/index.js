@@ -64,6 +64,11 @@ app.on('ready', () => {
   // and load the app.html of the app.
   main.loadURL(`file://${path.resolve(__dirname, '../app/app.html')}`);
 
+  // Prevent loading other URLs
+  main.webContents.on('will-navigate', e => {
+    e.preventDefault();
+  });
+
   // main.on('scroll-touch-begin', (...args) => console.log('scroll-touch-begin', ...args));
   // main.on('scroll-touch-end', (...args) => console.log('scroll-touch-end', ...args));
 
