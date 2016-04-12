@@ -1,5 +1,7 @@
 #material-app-bar {
   -webkit-app-region: drag;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* Move the app bar over to support custom window controls */
