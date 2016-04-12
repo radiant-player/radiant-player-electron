@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import remote from 'remote';
-import throttle from 'lodash.throttle';
 
 import {
   REPEAT_STATE_LIST_REPEAT,
@@ -131,6 +130,9 @@ mainIPCInterface.on('toggleShuffle', () => (
 mainIPCInterface.on('toggleVisualization', () => (
   gmusicRemoteCaller('playback.toggleVisualization')
 ));
+mainIPCInterface.on('setPlaybackTime', (e, time) => {
+  gmusicRemoteCaller('playback.setPlaybackTime', time);
+});
 mainIPCInterface.on('search', () => (
   gpmControlInterface.search()
 ));
@@ -166,7 +168,6 @@ gpmIPCInterface.exposeObject({
 
 // Connect GPM events to redux
 const gpmBoundActions = bindActionCreators(gpmActions, store.dispatch);
-const throttledOnChangePlaybackTime = throttle(gpmBoundActions.onChangePlaybackTime, 500);
 
 gpmIPCInterface.on('change:song', (event, ...args) => {
   gpmBoundActions.onChangeSong(...args);
@@ -185,7 +186,7 @@ gpmIPCInterface.on('change:playback', (event, ...args) => {
 });
 
 gpmIPCInterface.on('change:playback-time', (event, ...args) => {
-  throttledOnChangePlaybackTime(...args);
+  gpmBoundActions.onChangePlaybackTime(...args);
 });
 
 gpmIPCInterface.on('change:rating', (event, ...args) => {

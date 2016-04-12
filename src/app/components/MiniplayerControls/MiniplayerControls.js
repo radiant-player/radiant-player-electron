@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Slider from 'rc-slider';
 
 import styles from './MiniplayerControls.scss';
 
@@ -7,6 +8,31 @@ import {
   REPEAT_STATE_NO_REPEAT,
   SHUFFLE_STATE_ALL_SHUFFLE,
 } from '../../../redux/modules/gpm';
+
+const leftpad = (str, len, ch) => {
+  let val = String(str);
+  const character = (!ch && ch !== 0) ? ' ' : ch;
+  const length = len - val.length;
+
+  let i = -1;
+
+  while (++i < length) {
+    val = character + val;
+  }
+
+  return val;
+};
+
+export class DraggableSlider extends Slider {
+  onChange(state) {
+    const props = this.props;
+    this.setState(state);
+
+    const data = { ...this.state, ...state };
+    const changedValue = props.range ? [data.lowerBound, data.upperBound] : data.upperBound;
+    props.onChange(changedValue);
+  }
+}
 
 export default class MiniplayerControls extends Component {
   static propTypes = {
@@ -17,7 +43,11 @@ export default class MiniplayerControls extends Component {
     time: PropTypes.object,
   }
 
-  onClick() {}
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
 
   _renderRepeat() {
     const { repeat, actions } = this.props;
@@ -82,14 +112,55 @@ export default class MiniplayerControls extends Component {
     );
   }
 
+  _renderSlider() {
+    const { time, actions } = this.props;
+    const { cachedTime } = this.state;
+    const that = this;
+
+    const onChange = timecode => {
+      that.setState({ cachedTime: timecode });
+    };
+    const onAfterChange = timecode => {
+      actions('setPlaybackTime', timecode).then(() =>
+        that.setState({ cachedTime: false })
+      );
+    };
+    const timecodeFormatter = position => {
+      const hours = leftpad(Math.floor(position / 60 / 60), 2, '0');
+      const minutes = leftpad(Math.floor((position - hours * 60 * 60) / 60), 2, '0');
+      const seconds = leftpad(Math.floor(position - hours * 60 * 60 - minutes * 60), 2, '0');
+
+      if (hours > 0) return `${hours}:${minutes}:${seconds}`;
+
+      return `${minutes}:${seconds}`;
+    };
+
+    return (
+      <div className="rc-slider-container">
+        <DraggableSlider
+          max={Math.floor(time.total / 1000)}
+          value={Math.floor((cachedTime || time.current) / 1000)}
+          onChange={onChange}
+          onAfterChange={onAfterChange}
+          tipFormatter={timecodeFormatter}
+        />
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className={styles.container}>
-        {this._renderRepeat()}
-        {this._renderPrev()}
-        {this._renderPlayPause()}
-        {this._renderNext()}
-        {this._renderShuffle()}
+        <div className={styles.controlbar}>
+          {this._renderRepeat()}
+          {this._renderPrev()}
+          {this._renderPlayPause()}
+          {this._renderNext()}
+          {this._renderShuffle()}
+        </div>
+        <div className={styles.slider}>
+          {this._renderSlider()}
+        </div>
       </div>
     );
   }

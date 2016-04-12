@@ -81,6 +81,7 @@
     "nan": "^2.2.1",
     "node-notifier": "^4.5.0",
     "node-uuid": "^1.4.7",
+    "rc-slider": "^3.6.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-electron-webview": "^1.0.7",

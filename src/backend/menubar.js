@@ -25,7 +25,7 @@ const clearWindow = () => {
 const createWindow = () => {
   miniplayer = new BrowserWindow({
     width: 400,
-    height: 150,
+    height: 200,
     show: false,
     frame: false,
     transparent: true,
@@ -86,6 +86,7 @@ export const init = (mainIPCInterface) => {
     repeatNone: () => mainIPCInterface.emit('repeatNone'),
     toggleShuffle: () => mainIPCInterface.emit('toggleShuffle'),
     toggleVisualization: () => mainIPCInterface.emit('toggleVisualization'),
+    setPlaybackTime: time => mainIPCInterface.emit('setPlaybackTime', time),
   };
 
   const ipcInterface = connectToIPC({
