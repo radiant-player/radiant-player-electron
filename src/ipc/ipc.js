@@ -1,4 +1,5 @@
 import EventEmitter from 'events';
+import lodashThrottle from 'lodash.throttle';
 import uuid from 'node-uuid';
 
 export const connectToIPC = ({ namespace, ipc, send }) => ({
@@ -42,11 +43,17 @@ export const connectToIPC = ({ namespace, ipc, send }) => ({
     });
   },
 
-  proxyEvents({ object, events }) {
+  proxyEvents({ object, events, throttle }) {
     events.forEach(event => {
-      object.on(event, (...args) => {
+      const handler = (...args) => {
         send(`ipc:${namespace}:event:${event}`, ...args);
-      });
+      };
+
+      if (throttle) {
+        object.on(event, lodashThrottle(handler, throttle));
+      } else {
+        object.on(event, handler);
+      }
     });
   },
 

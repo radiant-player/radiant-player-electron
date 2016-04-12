@@ -13,6 +13,7 @@ export const setupGMusic = (ipcInterface) => {
   // Proxy events over IPC
   ipcInterface.proxyEvents({
     object: gmusic,
+    throttle: 100,
     events: [
       'change:song',
       'change:shuffle',
