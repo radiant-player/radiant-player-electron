@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  svg {
+    flex: 1;
+    //pointer-events: none;
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  .playPause {
+    width: 64px;
+    height: 64px;
+  }
+
+  .active, .playing {
+    fill: #ef6c00;
+  }
+
+  .disabled {
+    fill: #ddd;
+  }
+}

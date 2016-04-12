@@ -73,6 +73,7 @@
   "dependencies": {
     "deep-diff": "^0.3.3",
     "electron-debug": "^0.6.0",
+    "electron-positioner": "^2.0.3",
     "electron-window-state": "^2.0.0",
     "gmusic.js": "^4.2.0",
     "invariant": "^2.2.1",

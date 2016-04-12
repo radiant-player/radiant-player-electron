@@ -7,7 +7,6 @@ import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
 const DEV = process.env.NODE_ENV !== 'production';
 const HOT = process.env.HOT === '1';
 const PORT = process.env.PORT || 3000;
-const entry = './src/app';
 
 const styleLoaders = [
   `css-loader?${JSON.stringify({
@@ -22,14 +21,20 @@ const styleLoaders = [
 ];
 
 const config = {
-  entry: DEV ? [
-    `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
-    entry,
-  ] : entry,
+  entry: {
+    app: DEV ? [
+      `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
+      './src/app',
+    ] : './src/app',
+    miniplayer: DEV ? [
+      `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
+      './src/app/miniplayer.js',
+    ] : './src/app/miniplayer.js',
+  },
 
   output: {
     path: path.join(__dirname, '..', '..', 'dist'),
-    filename: 'app.js',
+    filename: '[name].js',
     publicPath: DEV ? `http://localhost:${PORT}/dist/` : '../dist/',
   },
 

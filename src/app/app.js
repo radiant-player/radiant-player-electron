@@ -96,10 +96,10 @@ mainIPCInterface.on('playPause', () => (
   gmusicRemoteCaller('playback.playPause')
 ));
 mainIPCInterface.on('previous', () => (
-  gmusicRemoteCaller('playback.forward')
+  gmusicRemoteCaller('playback.rewind')
 ));
 mainIPCInterface.on('next', () => (
-  gmusicRemoteCaller('playback.rewind')
+  gmusicRemoteCaller('playback.forward')
 ));
 mainIPCInterface.on('volumeUp', () => (
   gmusicRemoteCaller('volume.increaseVolume')
