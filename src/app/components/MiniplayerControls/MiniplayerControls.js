@@ -113,9 +113,18 @@ export default class MiniplayerControls extends Component {
   }
 
   _renderSlider() {
-    const { time, actions } = this.props;
+    const { time, actions, state } = this.props;
     const { cachedTime } = this.state;
     const that = this;
+    const disabled = state === 'stopped';
+
+    if (disabled) {
+      return (
+        <div className="rc-slider-container">
+          <DraggableSlider disabled />
+        </div>
+      );
+    }
 
     const onChange = timecode => {
       that.setState({ cachedTime: timecode });
