@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import remote from 'remote';
 
 import {
+  onOptimisticSetPlaybackTime,
   REPEAT_STATE_LIST_REPEAT,
   REPEAT_STATE_SINGLE_REPEAT,
   REPEAT_STATE_NO_REPEAT,
@@ -131,6 +132,7 @@ mainIPCInterface.on('toggleVisualization', () => (
   gmusicRemoteCaller('playback.toggleVisualization')
 ));
 mainIPCInterface.on('setPlaybackTime', (e, time) => {
+  store.dispatch(onOptimisticSetPlaybackTime(time));
   gmusicRemoteCaller('playback.setPlaybackTime', time);
 });
 mainIPCInterface.on('search', () => (

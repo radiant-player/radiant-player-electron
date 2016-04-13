@@ -130,7 +130,7 @@ export default class MiniplayerControls extends Component {
       that.setState({ cachedTime: timecode });
     };
     const onAfterChange = timecode => {
-      actions('setPlaybackTime', timecode).then(() =>
+      actions('setPlaybackTime', timecode * 1000).then(() =>
         that.setState({ cachedTime: false })
       );
     };
@@ -148,7 +148,7 @@ export default class MiniplayerControls extends Component {
       <div className="rc-slider-container">
         <DraggableSlider
           max={Math.floor(time.total / 1000)}
-          value={Math.floor((cachedTime || time.current) / 1000)}
+          value={Math.floor(cachedTime || (time.current / 1000))}
           onChange={onChange}
           onAfterChange={onAfterChange}
           tipFormatter={timecodeFormatter}
