@@ -25,7 +25,7 @@ const clearWindow = () => {
 const createWindow = () => {
   miniplayer = new BrowserWindow({
     width: 400,
-    height: 200,
+    height: 800,
     show: false,
     frame: false,
     transparent: true,

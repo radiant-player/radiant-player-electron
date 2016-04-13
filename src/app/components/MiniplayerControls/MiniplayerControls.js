@@ -160,15 +160,15 @@ export default class MiniplayerControls extends Component {
   render() {
     return (
       <div className={styles.container}>
+        <div className={styles.slider}>
+          {this._renderSlider()}
+        </div>
         <div className={styles.controlbar}>
           {this._renderRepeat()}
           {this._renderPrev()}
           {this._renderPlayPause()}
           {this._renderNext()}
           {this._renderShuffle()}
-        </div>
-        <div className={styles.slider}>
-          {this._renderSlider()}
         </div>
       </div>
     );
