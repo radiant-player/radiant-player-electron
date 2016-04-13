@@ -22,7 +22,7 @@
   }
 
   .active, .playing {
-    fill: #ef6c00;
+    fill: #ff5722;
   }
 
   .disabled {
@@ -56,7 +56,7 @@
     left: 0;
     height: 4px;
     border-radius: 6px;
-    background-color: #ef6c00;
+    background-color: #ff5722;
     z-index: 1;
   }
   .rc-slider-handle {
@@ -68,7 +68,7 @@
     height: 14px;
     cursor: pointer;
     border-radius: 50%;
-    border: solid 2px #ef6c00;
+    border: solid 2px #ff5722;
     background-color: #fff;
     z-index: 2;
   }
@@ -76,11 +76,11 @@
     display: block;
   }
   .rc-slider-handle:hover {
-    border-color: #ef6c00;
+    border-color: #ff5722;
   }
   .rc-slider-handle-active:active {
-    border-color: #ef6c00;
-    box-shadow: 0 0 5px #ef6c00;
+    border-color: #ff5722;
+    box-shadow: 0 0 5px #ff5722;
   }
   .rc-slider-mark {
     position: absolute;
@@ -127,7 +127,7 @@
     margin-left: -4px;
   }
   .rc-slider-dot-active {
-    border-color: #ef6c00;
+    border-color: #ff5722;
   }
   .rc-slider-disabled {
     background-color: #e9e9e9;
