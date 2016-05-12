@@ -1,11 +1,9 @@
 /* eslint-disable no-console */
 
-import { ipcMain } from 'electron';
-import app from 'app';
-import BrowserWindow from 'browser-window';
-import electron from 'electron';
+import 'devtron';
+
+import electron, { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
 import EventEmitter from 'events';
-import globalShortcut from 'global-shortcut';
 import notifier from 'node-notifier';
 import path from 'path';
 import windowStateKeeper from 'electron-window-state';

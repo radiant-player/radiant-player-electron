@@ -1,10 +1,8 @@
-import { ipcMain } from 'electron';
-import { Tray } from 'electron';
-import BrowserWindow from 'browser-window';
+import { BrowserWindow, ipcMain, Tray } from 'electron';
 import path from 'path';
-import Positioner from 'electron-positioner';
 
 import { connectToIPC } from '../ipc';
+import Positioner from './Positioner';
 
 const iconPath = path.resolve(__dirname, '..', 'resources', 'trayicon.png');
 

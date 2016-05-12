@@ -1,22 +1,27 @@
-import { actions as gpmActions } from '../redux/modules/gpm';
 import { bindActionCreators } from 'redux';
-import { domIPCBridge, connectToIPC } from '../ipc';
-import { ipcRenderer } from 'electron';
+
+import { ipcRenderer, remote } from 'electron';
 import { Provider } from 'react-redux';
+import devtron from 'devtron';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import remote from 'remote';
 
 import {
+  actions as gpmActions,
   onOptimisticSetPlaybackTime,
   REPEAT_STATE_LIST_REPEAT,
   REPEAT_STATE_SINGLE_REPEAT,
   REPEAT_STATE_NO_REPEAT,
 } from '../redux/modules/gpm';
+import { domIPCBridge, connectToIPC } from '../ipc';
 import App from './components/App';
 import configureStore from '../redux/configureStore';
 
 import './app.scss';
+
+if (__DEV__) {
+  devtron.install();
+}
 
 const root = document.getElementById('root');
 const store = configureStore();

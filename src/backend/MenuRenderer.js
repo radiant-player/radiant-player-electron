@@ -1,5 +1,5 @@
+import { Menu } from 'electron';
 import Diff from 'deep-diff';
-import Menu from 'menu';
 
 export const bindMenuActions = (menu, actions) => {
   if (Array.isArray(menu)) return menu.map(item => bindMenuActions(item, actions));

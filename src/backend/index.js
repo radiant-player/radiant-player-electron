@@ -1,5 +1,4 @@
-import app from 'app';
-import globalShortcut from 'global-shortcut';
+import { app, globalShortcut } from 'electron';
 
 import main from './main';
 import menubar from './menubar';
