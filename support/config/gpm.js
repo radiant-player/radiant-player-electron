@@ -1,31 +1,25 @@
-import nodeExternals from 'webpack-node-externals';
 import path from 'path';
 import webpack from 'webpack';
+import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
 
 const DEV = process.env.NODE_ENV !== 'production';
-const entry = './src/backend';
 
 const config = {
-  entry,
+  entry: './src/gpm',
 
   output: {
-    path: path.join(__dirname, '..', '..', 'dist'),
-    filename: 'backend.js',
-    libraryTarget: 'commonjs2',
-  },
-
-  target: 'electron',
-
-  node: {
-    __dirname: true,
+    path: path.join(__dirname, '..', '..', 'app', 'out'),
+    filename: 'gpm.js',
+    publicPath: '../dist/',
   },
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    modulesDirectories: ['node_modules'],
+    root: path.resolve(__dirname, '..', '..'),
   },
 
-  debug: DEV,
-  devtool: DEV ? 'cheap-module-eval-source-map' : null,
+  debug: false,
 
   module: {
     loaders: [
@@ -42,20 +36,26 @@ const config = {
   },
 
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      __APP__: false,
       __DEV__: DEV,
+      $dirname: '__dirname',
       'process.env': {
         NODE_ENV: DEV ? JSON.stringify('development') : JSON.stringify('production'),
       },
     }),
-  ],
 
-  externals: [
-    '../build/Release/addon.node',
-    nodeExternals(),
+    ...(DEV ? [] : [
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+          screw_ie8: true,
+          warnings: false,
+        },
+      }),
+    ]),
   ],
 };
+
+config.target = webpackTargetElectronRenderer(config);
 
 export default config;

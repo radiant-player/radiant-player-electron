@@ -1,7 +1,3 @@
-/* eslint-disable no-console */
-
-import 'devtron';
-
 import electron, { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
 import EventEmitter from 'events';
 import notifier from 'node-notifier';
@@ -11,7 +7,11 @@ import windowStateKeeper from 'electron-window-state';
 import { connectToIPC } from '../ipc';
 import configureStore from '../redux/configureStore';
 import MenuRenderer from './MenuRenderer';
-import buildMouse from '../../lib/mouse';
+import buildMouse from 'osx-mouse';
+
+/* eslint-disable no-console */
+
+if (__DEV__) require('devtron'); // eslint-disable-line global-require
 
 let main = null;
 const isOSX = process.platform === 'darwin';
@@ -40,7 +40,9 @@ export const init = () => {
   mainWindowState.manage(main);
 
   // and load the app.html of the app.
-  main.loadURL(`file://${path.resolve(__dirname, '../app/app.html')}`);
+  main.loadURL(`file://${path.resolve(__dirname + '/app.html')}`);
+
+  console.log('loading url', `file://${path.resolve(__dirname + '/app.html')}`)
 
   // Prevent loading other URLs
   main.webContents.on('will-navigate', e => {
@@ -116,8 +118,8 @@ export const init = () => {
     notifier.notify({
       title: gpm.song.title,
       message: `${gpm.song.artist} - ${gpm.song.album}`,
-      icon: path.join(__dirname, '../resources/icon.png'),
-      appIcon: path.join(__dirname, '../resources/icon.png'),
+      icon: path.join(__dirname, '../../resources/icon.png'),
+      appIcon: path.join(__dirname, '../../resources/icon.png'),
       contentImage: gpm.song.art,
     }, () => {
       // (error, response)

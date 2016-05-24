@@ -33,7 +33,7 @@ const config = {
   },
 
   output: {
-    path: path.join(__dirname, '..', '..', 'dist'),
+    path: path.join(__dirname, '..', '..', 'app', 'out'),
     filename: '[name].js',
     publicPath: DEV ? `http://localhost:${PORT}/dist/` : '../dist/',
   },
@@ -93,6 +93,7 @@ const config = {
     new webpack.DefinePlugin({
       __APP__: true,
       __DEV__: DEV,
+      $dirname: '__dirname',
       'process.env': {
         NODE_ENV: DEV ? JSON.stringify('development') : JSON.stringify('production'),
       },
@@ -145,57 +146,4 @@ if (!DEV) {
   applyExtractText(config);
 }
 
-const gpmConfig = {
-  entry: './src/gpm',
-
-  output: {
-    path: path.join(__dirname, '..', '..', 'dist'),
-    filename: 'gpm.js',
-    publicPath: '../dist/',
-  },
-
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-    modulesDirectories: ['node_modules'],
-    root: path.resolve(__dirname, '..', '..'),
-  },
-
-  debug: false,
-
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loaders: ['babel-loader'],
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
-    ],
-  },
-
-  plugins: [
-    new webpack.DefinePlugin({
-      __DEV__: DEV,
-      'process.env': {
-        NODE_ENV: DEV ? JSON.stringify('development') : JSON.stringify('production'),
-      },
-    }),
-
-    ...(DEV ? [] : [
-      new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        compressor: {
-          screw_ie8: true,
-          warnings: false,
-        },
-      }),
-    ]),
-  ],
-};
-
-gpmConfig.target = webpackTargetElectronRenderer(config);
-
-export default [config, gpmConfig];
+export default config;

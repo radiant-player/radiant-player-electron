@@ -8,7 +8,7 @@
         if (!process.env.HOT) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
-          link.href = '../dist/style.css';
+          link.href = 'style.css';
           document.write(link.outerHTML);
         }
       }());
@@ -20,8 +20,8 @@
       (function() {
         const script = document.createElement('script');
         script.src = (process.env.HOT)
-          ? 'http://localhost:' + (process.env.PORT || 3000) + '/dist/app.js'
-          : '../dist/app.js';
+          ? 'http://localhost:' + (process.env.PORT || 3000) + '/app.js'
+          : 'app.js';
         document.write(script.outerHTML);
       }());
     </script>

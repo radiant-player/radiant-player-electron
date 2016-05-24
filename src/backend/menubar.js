@@ -4,7 +4,11 @@ import path from 'path';
 import { connectToIPC } from '../ipc';
 import Positioner from './Positioner';
 
-const iconPath = path.resolve(__dirname, '..', 'resources', 'trayicon.png');
+const publicPath = path.resolve(path.join(__dirname, 'resources'));
+
+const getPath = filename => path.join(publicPath, filename);
+
+const iconPath = getPath('trayicon.png');
 
 let tray = null;
 let miniplayer = null;
@@ -34,7 +38,7 @@ const createWindow = () => {
   miniplayer.on('blur', hideWindow);
   miniplayer.on('close', clearWindow);
 
-  miniplayer.loadURL(`file://${path.resolve(__dirname, '../app/miniplayer.html')}`);
+  miniplayer.loadURL(`file://${path.resolve(__dirname, '/miniplayer.html')}`);
 };
 
 const showMiniplayer = (trayPosition) => {
