@@ -1,6 +1,19 @@
+sudo: required
+dist: trusty
+
 language: node_js
 node_js:
   - "6"
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.7
+    packages:
+      - libgnome-keyring-dev
+      - icnsutils
+      - clang-3.7
 
 cache:
   directories:
