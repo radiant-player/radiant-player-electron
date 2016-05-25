@@ -14,7 +14,7 @@ export default function configureStore(initialState = {}) {
   middleware = compose(middleware, electronEnhancer());
 
   if (__DEV__ && __APP__) {
-    const devTools = require('../app/components/DevTools').default.instrument();
+    const devTools = require('../app/components/DevTools').default.instrument(); // eslint-disable-line global-require, max-len
     middleware = compose(middleware, devTools);
   }
 
@@ -23,7 +23,7 @@ export default function configureStore(initialState = {}) {
 
   if (module.hot) {
     module.hot.accept('./rootReducer', () => {
-      const nextRootReducer = require('./rootReducer').default;
+      const nextRootReducer = require('./rootReducer').default; // eslint-disable-line global-require, max-len
 
       store.replaceReducer(nextRootReducer);
     });

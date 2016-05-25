@@ -49,7 +49,7 @@ export default class MiniplayerControls extends Component {
     this.state = {};
   }
 
-  _renderRepeat() {
+  renderRepeat() {
     const { repeat, actions } = this.props;
 
     const active = repeat && repeat !== REPEAT_STATE_NO_REPEAT;
@@ -62,7 +62,7 @@ export default class MiniplayerControls extends Component {
     );
   }
 
-  _renderPrev() {
+  renderPrev() {
     const { actions, state } = this.props;
 
     const disabled = state === 'stopped';
@@ -73,7 +73,7 @@ export default class MiniplayerControls extends Component {
     );
   }
 
-  _renderPlayPause() {
+  renderPlayPause() {
     const { state, actions } = this.props;
 
     const disabled = state === 'stopped';
@@ -90,7 +90,7 @@ export default class MiniplayerControls extends Component {
     );
   }
 
-  _renderNext() {
+  renderNext() {
     const { state, actions } = this.props;
 
     const disabled = state === 'stopped';
@@ -101,7 +101,7 @@ export default class MiniplayerControls extends Component {
     );
   }
 
-  _renderShuffle() {
+  renderShuffle() {
     const { shuffle, actions } = this.props;
 
     const active = shuffle === SHUFFLE_STATE_ALL_SHUFFLE;
@@ -112,7 +112,7 @@ export default class MiniplayerControls extends Component {
     );
   }
 
-  _renderSlider() {
+  renderSlider() {
     const { time, actions, state } = this.props;
     const { cachedTime } = this.state;
     const that = this;
@@ -161,14 +161,14 @@ export default class MiniplayerControls extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.slider}>
-          {this._renderSlider()}
+          {this.renderSlider()}
         </div>
         <div className={styles.controlbar}>
-          {this._renderRepeat()}
-          {this._renderPrev()}
-          {this._renderPlayPause()}
-          {this._renderNext()}
-          {this._renderShuffle()}
+          {this.renderRepeat()}
+          {this.renderPrev()}
+          {this.renderPlayPause()}
+          {this.renderNext()}
+          {this.renderShuffle()}
         </div>
       </div>
     );

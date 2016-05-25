@@ -1,4 +1,3 @@
-import path from 'path';
 import React, { Component, PropTypes } from 'react';
 import ReactElectronWebview from 'react-electron-webview';
 

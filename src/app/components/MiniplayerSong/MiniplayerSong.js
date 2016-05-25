@@ -41,12 +41,12 @@ export default class MiniplayerSong extends Component {
     onThumbsDown: PropTypes.func,
   }
 
-  _renderSong() {
+  renderSong() {
     const { song, rating, onThumbsUp, onThumbsDown } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.image}>
-          <img src={song.art} width="64" />
+          <img src={song.art} width="64" alt="Cover Art" />
         </div>
         <div className={styles.details}>
           <span className={styles.title}>{song.title}</span>
@@ -65,7 +65,7 @@ export default class MiniplayerSong extends Component {
     );
   }
 
-  _renderEmpty() {
+  renderEmpty() {
     return (
       <div className={styles.empty}><div>No song playing</div></div>
     );
@@ -73,9 +73,9 @@ export default class MiniplayerSong extends Component {
 
   render() {
     if (!this.props.song || !this.props.song.title) {
-      return this._renderEmpty();
+      return this.renderEmpty();
     }
 
-    return this._renderSong();
+    return this.renderSong();
   }
 }

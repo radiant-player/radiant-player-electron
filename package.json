@@ -11,7 +11,9 @@
     "pack": "npm run compile && build",
     "dist": "npm run compile && build",
     "release": "npm run compile && build",
-    "dist:win64": "./node_modules/.bin/build --platform win32 --arch x64"
+    "dist:win64": "./node_modules/.bin/build --platform win32 --arch x64",
+    "lint": "eslint --ignore-path .gitignore .",
+    "test": "npm run lint"
   },
   "build": {
     "asar": false,

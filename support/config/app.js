@@ -1,6 +1,7 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-// import nodeExternals from 'webpack-node-externals';
 import path from 'path';
+import postcss from 'postcss-import';
+import precss from 'precss';
 import webpack from 'webpack';
 import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
 
@@ -116,8 +117,8 @@ const config = {
 
   postcss: function plugins(bundler) {
     return [
-      require('postcss-import')({ addDependencyTo: bundler }),
-      require('precss')(),
+      postcss({ addDependencyTo: bundler }),
+      precss(),
     ];
   },
 };

@@ -3,18 +3,18 @@ import baseCSS from 'text-loader!./base.css';
 export class Themes {
   constructor() {
     this.currentTheme = null;
-    this._container = false;
+    this.containerElement = false;
   }
 
   get container() {
-    if (!this._container) {
-      this._container = document.createElement('style');
-      this._container.type = 'text/css';
-      this._container.id = 'radiant-css';
-      document.getElementsByTagName('head')[0].appendChild(this._container);
+    if (!this.containerElement) {
+      this.containerElement = document.createElement('style');
+      this.containerElement.type = 'text/css';
+      this.containerElement.id = 'radiant-css';
+      document.getElementsByTagName('head')[0].appendChild(this.containerElement);
     }
 
-    return this._container;
+    return this.containerElement;
   }
 
   setTheme(name, css) {

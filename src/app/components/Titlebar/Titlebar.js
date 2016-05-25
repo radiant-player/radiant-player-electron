@@ -14,36 +14,36 @@ export default class Titlebar extends Component {
   }
 
   componentDidMount() {
-    this._boundKeyDown = this._boundKeyDown || (e => this._onWindowKeyDown(e));
-    this._boundKeyUp = this._boundKeyUp || (e => this._onWindowKeyUp(e));
-    window.addEventListener('keydown', this._boundKeyDown);
-    window.addEventListener('keyup', this._boundKeyUp);
+    this.boundKeyDown = this.boundKeyDown || (e => this.onWindowKeyDown(e));
+    this.boundKeyUp = this.boundKeyUp || (e => this.onWindowKeyUp(e));
+    window.addEventListener('keydown', this.boundKeyDown);
+    window.addEventListener('keyup', this.boundKeyUp);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this._boundKeyDown);
-    window.removeEventListener('keyup', this._boundKeyUp);
+    window.removeEventListener('keydown', this.boundKeyDown);
+    window.removeEventListener('keyup', this.boundKeyUp);
   }
 
-  _onWindowKeyDown(e) {
+  onWindowKeyDown(e) {
     if (e.keyCode !== ALT) return;
     this.refs.titlebar.className = `${this.refs.titlebar.className} ${styles.alt}`;
   }
 
-  _onWindowKeyUp(e) {
+  onWindowKeyUp(e) {
     if (e.keyCode !== ALT) return;
     this.refs.titlebar.className = this.refs.titlebar.className.replace(classRegex, '');
   }
 
-  _onClose(...args) {
+  onClose(...args) {
     if (this.props.onClose) this.props.onClose(...args);
   }
 
-  _onMinimize(...args) {
+  onMinimize(...args) {
     if (this.props.onMinimize) this.props.onMinimize(...args);
   }
 
-  _onFullscreen(e) {
+  onFullscreen(e) {
     if (e.altKey) {
       if (this.props.onFullscreen) this.props.onMaximize();
     } else {
@@ -52,9 +52,9 @@ export default class Titlebar extends Component {
   }
 
   render() {
-    const boundOnClose = this._onClose.bind(this);
-    const boundOnMinimize = this._onMinimize.bind(this);
-    const boundOnFullscreen = this._onFullscreen.bind(this);
+    const boundOnClose = this.onClose.bind(this);
+    const boundOnMinimize = this.onMinimize.bind(this);
+    const boundOnFullscreen = this.onFullscreen.bind(this);
 
     /* eslint-disable max-len */
     return (
