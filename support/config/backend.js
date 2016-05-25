@@ -22,6 +22,7 @@ const config = {
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    modulesDirectories: ['node_modules', 'app/node_modules'],
   },
 
   debug: DEV,
@@ -55,6 +56,9 @@ const config = {
   externals: [
     '../build/Release/addon.node',
     nodeExternals(),
+    nodeExternals({
+      modulesDir: 'app/node_modules',
+    }),
   ],
 };
 

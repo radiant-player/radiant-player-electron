@@ -1,8 +1,8 @@
+
 import { bindActionCreators } from 'redux';
 
 import { ipcRenderer, remote } from 'electron';
 import { Provider } from 'react-redux';
-import devtron from 'devtron';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -20,7 +20,7 @@ import configureStore from '../redux/configureStore';
 import './app.scss';
 
 if (__DEV__) {
-  devtron.install();
+  setTimeout(() => require('devtron').install(), 2000); // eslint-disable-line global-require
 }
 
 const root = document.getElementById('root');
@@ -222,7 +222,7 @@ const run = () => {
   ReactDOM.render(component, root);
 
   if (__DEV__) {
-    const DevTools = require('./components/DevTools').default;
+    const DevTools = require('./components/DevTools').default; // eslint-disable-line global-require
     const devNode = (
       <Provider store={store}>
         <DevTools />

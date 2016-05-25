@@ -4,5 +4,8 @@
   "globals": {
     "__APP__": true,
     "__DEV__": true
+  },
+  "rules": {
+    "import/no-unresolved": 0
   }
 }

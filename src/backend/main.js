@@ -40,9 +40,7 @@ export const init = () => {
   mainWindowState.manage(main);
 
   // and load the app.html of the app.
-  main.loadURL(`file://${path.resolve(__dirname + '/app.html')}`);
-
-  console.log('loading url', `file://${path.resolve(__dirname + '/app.html')}`)
+  main.loadURL(`file://${path.resolve(path.join(__dirname, '/app.html'))}`);
 
   // Prevent loading other URLs
   main.webContents.on('will-navigate', e => {

@@ -15,7 +15,7 @@ const config = {
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    modulesDirectories: ['node_modules'],
+    modulesDirectories: ['node_modules', 'app/node_modules'],
     root: path.resolve(__dirname, '..', '..'),
   },
 

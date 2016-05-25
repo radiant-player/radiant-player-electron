@@ -5,10 +5,17 @@
     <style>.titlebar-hide{display:none}</style>
     <script>
       (function() {
-        if (!process.env.HOT) {
+        if (!process.env.DEV) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = 'style.css';
+          document.write(link.outerHTML);
+        }
+
+        if (!process.env.DEV) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'app.css';
           document.write(link.outerHTML);
         }
       }());

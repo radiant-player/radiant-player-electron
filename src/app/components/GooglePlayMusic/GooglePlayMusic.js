@@ -4,32 +4,21 @@ import ReactElectronWebview from 'react-electron-webview';
 
 import styles from './Webview.scss';
 
-const gpmJavaScript = path.resolve('./dist/gpm.js');
+const gpmJavaScript = './gpm.js';
 
 export default class GooglePlayMusic extends Component {
   static propTypes = {
     onGPM: PropTypes.func,
   };
 
-  _loadCommit(e) {
+  onLoadCommit(e) {
     if (e.isMainFrame) {
-      const gpm = e.target;
-
-      gpm.addEventListener('ipc-message', () => {
-        // console.log(event);
-        // Prints "pong"
-      });
-
-      if (this.props.onGPM) this.props.onGPM(gpm);
-
-      // gpm.executeJavaScript(gpmJavaScript);
-      // gpm.send('ping');
-      // window.webview = e.target;
+      if (this.props.onGPM) this.props.onGPM(e.target);
     }
   }
 
   render() {
-    const boundLoadCommit = this._loadCommit.bind(this);
+    const boundLoadCommit = this.onLoadCommit.bind(this);
 
     return (
       <ReactElectronWebview

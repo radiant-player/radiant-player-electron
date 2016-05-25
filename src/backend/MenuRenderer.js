@@ -42,8 +42,8 @@ export default class MenuRenderer {
       // No items have changed, return
       if (diff === undefined) return;
 
-      if (!this._needsFullRender(diff)) {
-        this._applyDiff(diff);
+      if (!this.needsFullRender(diff)) {
+        this.applyDiff(diff);
         return;
       }
     } else {
@@ -55,7 +55,7 @@ export default class MenuRenderer {
     this.setMenu(this.applicationMenu);
   }
 
-  _needsFullRender(diff) {
+  needsFullRender(diff) {
     if (!this.previousMenu || !this.applicationMenu) return true;
 
     for (const action of diff) {
@@ -66,7 +66,7 @@ export default class MenuRenderer {
     return false;
   }
 
-  _applyDiff(diff) {
+  applyDiff(diff) {
     diff.forEach(action => {
       let element = this.applicationMenu.items;
 

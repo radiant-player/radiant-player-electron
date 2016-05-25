@@ -29,9 +29,23 @@ gulp.task('templates', () =>
 );
 
 gulp.task('resources', () =>
-  gulp.src(paths.resources, { base: 'src' }).pipe(gulp.dest(paths.app))
+  gulp.src(paths.resources, { base: 'src' }).pipe(gulp.dest(paths.out))
 );
 
 gulp.task('build', ['webpack:build', 'templates', 'resources']);
+
+gulp.task('watch', () => {
+  webpack({
+    ...webpackConfig,
+    watch: true,
+  }, (err, stats) => {
+    if (err) throw new gutil.PluginError('webpack:build', err);
+    gutil.log('[webpack:build]', stats.toString({
+      colors: true,
+    }));
+  });
+
+  return gulp.watch('**', ['templates', 'resources']);
+});
 
 gulp.task('default', ['build']);

@@ -40,7 +40,7 @@ const config = {
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    modulesDirectories: ['node_modules'],
+    modulesDirectories: ['node_modules', 'app/node_modules'],
     root: path.resolve(__dirname, '..', '..'),
   },
 
@@ -136,7 +136,7 @@ const applyExtractText = (configToExtend) => {
   });
 
   configToExtend.plugins.push(
-    new ExtractTextPlugin('[name].[contenthash].css', {
+    new ExtractTextPlugin('[name].css', {
       allChunks: true,
     })
   );
