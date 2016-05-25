@@ -1,19 +1,14 @@
+os:
+  - osx
+
 language: node_js
 node_js:
 - '6'
 
 env:
   global:
-    - CXX=g++-4.8
     # GH_TOKEN=xxxxxxxxxxxxxxxxxx
     - secure: "aFH3b4ZlmaKxO8hv5Q2pQwEYg/9Y0RhgpFR11NnO2OkM6Ni6rpBeiTLyZcgnQ1pGm6eWug3yci4xum2g94O3lYu1/9KKdd/Xx2a84Xnymq9z+MkLAN/rQK1xZlrEppmDGbuWh65MKwIgW1UMLzo5sB9OQKYU2uFDuoVCr5300yiKjjQEdqN/+dB2Kqy8K+oAVkAynYrYVz4zAuKnwE7h94OayYfFDW+jSJ5+zonHoayTyBjFCoCUwxEAnwrLb6jXGrXG+fHrrcrA4fs4IF6zHnlJq8Rx2N5w44GgiB1zEAvijAgZd1p/pMsV8jBSHdSFgLgjH4r/PUHe8NpKbix5pO9KRBzyhmS+CxNg1ABNlvQez8tQ6SvW4rNOWhcTHgdNsWBDR0P4U6OXC3CXWYRg7zRlgYvkFkaaKsja/fai9HEnPGcJguN9bF6EQ3i4CJap8bw5TjfAYS4s6oFwCR0Mj0jTBk0bp54ubxc0pmCfCDf1aNpxVb0m0xVvIhHzS6E6yccWCVymYNhwQ2NKkyy1FYYieo4AjjTronSrqFh2TslfA7hAPdkE9vO7v9OJjhqyYa+uR8jO8JDRPAWQFT5Qm8RSOHdLmZANvAVkt6JhprdFCTSlYr7gJoTy35owwWkqvIWddKG+ku29dNbKOBCxfmBw3OlgkgK/aVTvtYG4664="
-
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-4.8
 
 cache:
   directories:
