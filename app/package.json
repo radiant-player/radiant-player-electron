@@ -2,7 +2,7 @@
   "private": true,
   "name": "radiant-player",
   "productName": "Radiant Player",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha",
   "license": "MIT",
   "description": "Unofficial desktop client for Google Play Music",
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
