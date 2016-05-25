@@ -1,19 +1,16 @@
-sudo: required
-dist: trusty
-
 language: node_js
 node_js:
   - "6"
+
+env:
+  - CXX=g++-4.8
 
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-precise-3.7
     packages:
-      - libgnome-keyring-dev
-      - icnsutils
-      - clang-3.7
+      - g++-4.8
 
 cache:
   directories:
