@@ -3,7 +3,7 @@
   "scripts": {
     "postinstall": "install-app-deps",
     "start": "npm install && npm run compile && electron ./app",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist app/out app/resources",
     "clean:osx": "rimraf dist/osx",
     "clean:win": "rimraf dist/win",
     "compile": "NODE_ENV=production gulp",
