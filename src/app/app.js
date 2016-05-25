@@ -19,10 +19,6 @@ import configureStore from '../redux/configureStore';
 
 import './app.scss';
 
-if (__DEV__) {
-  setTimeout(() => require('devtron').install(), 2000); // eslint-disable-line global-require
-}
-
 const root = document.getElementById('root');
 const store = configureStore();
 

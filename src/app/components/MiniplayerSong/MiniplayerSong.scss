@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  padding: 1em;
+  padding: 1em 0;
 }
 
 .empty {
@@ -27,6 +27,7 @@
   flex: 1;
   // display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   span {
     display: block;

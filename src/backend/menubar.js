@@ -27,7 +27,7 @@ const clearWindow = () => {
 const createWindow = () => {
   miniplayer = new BrowserWindow({
     width: 400,
-    height: 800,
+    height: 240,
     show: false,
     frame: false,
     transparent: true,
@@ -38,7 +38,7 @@ const createWindow = () => {
   miniplayer.on('blur', hideWindow);
   miniplayer.on('close', clearWindow);
 
-  miniplayer.loadURL(`file://${path.resolve(__dirname, '/miniplayer.html')}`);
+  miniplayer.loadURL(`file://${path.resolve(path.join(__dirname, '/miniplayer.html'))}`);
 };
 
 const showMiniplayer = (trayPosition) => {

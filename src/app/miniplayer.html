@@ -7,7 +7,7 @@
         if (!process.env.DEV) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
-          link.href = '../dist/style.css';
+          link.href = 'style.css';
           document.write(link.outerHTML);
         }
 
@@ -26,8 +26,8 @@
       (function() {
         const script = document.createElement('script');
         script.src = (process.env.HOT)
-          ? 'http://localhost:' + (process.env.PORT || 3000) + '/dist/miniplayer.js'
-          : '../dist/miniplayer.js';
+          ? 'http://localhost:' + (process.env.PORT || 3000) + '/miniplayer.js'
+          : 'miniplayer.js';
         document.write(script.outerHTML);
       }());
     </script>
