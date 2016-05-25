@@ -18,7 +18,7 @@
   "build": {
     "asar": false,
     "app-bundle-id": "com.github.radiant-player",
-    "app-category-type": "public.app-category.entertainment"
+    "app-category-type": "public.app-category.music"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
