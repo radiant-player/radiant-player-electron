@@ -11,5 +11,4 @@ node_modules/
 # Build directories
 /app/out
 /app/resources
-build/
 dist/
