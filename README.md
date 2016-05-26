@@ -1,4 +1,4 @@
-# Radiant Player - Electron Edition
+# Radiant Player - Electron Edition [![Build Status](https://travis-ci.org/radiant-player/radiant-player-electron.svg)](https://travis-ci.org/radiant-player/radiant-player-electron)
 
 **NOTE:** this is an experimental player, and most all features are not implemented.  You are welcome to hack away, but if you want a functional player, you probably want [Radiant Player for Mac][1].
 
