@@ -117,7 +117,7 @@ gulp.task('dist:osx', ['dist:build:notifier'], () =>
 
 gulp.task('dist', ['dist:build']);
 gulp.task('test', ['test:eslint']);
-gulp.task('build', ['build:resources', 'build:html', 'build:js', 'build:notifier']);
+gulp.task('build', ['build:resources', 'build:html', 'build:js']);
 gulp.task('run', []);
 gulp.task('watch', ['build'], () => {
   gulp.watch([paths.html], ['build:html']);
