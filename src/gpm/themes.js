@@ -1,4 +1,4 @@
-import baseCSS from 'text-loader!./base.css';
+import baseCSS from './base.theme.css';
 
 export class Themes {
   constructor() {

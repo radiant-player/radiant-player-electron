@@ -32,6 +32,10 @@ const config = {
         test: /\.json$/,
         loader: 'json-loader',
       },
+      {
+        test: /\.theme.css$/,
+        loader: 'text-loader',
+      },
     ],
   },
 
