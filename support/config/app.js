@@ -34,7 +34,7 @@ const config = {
   },
 
   output: {
-    path: path.join(__dirname, '..', '..', 'app', 'out'),
+    path: path.join(__dirname, '..', '..', 'app'),
     filename: '[name].js',
     publicPath: DEV ? `http://localhost:${PORT}/dist/` : '../dist/',
   },

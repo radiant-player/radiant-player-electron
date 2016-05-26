@@ -18,34 +18,25 @@ $ npm install
 
 ### Run
 
-You probably want to run the application in development mode with hot module reloading.  To facilitate this, run the following commands in two different console tabs:
+You probably want to run the application in development mode with file reloading.  To facilitate this, run the following commands in two different console tabs:
 
 ```shell
-$ npm run hot
-$ npm run start:hot
+$ npm run watch
+$ npm run start
 ```
 
-`hot` will start the background build processes and `start:hot` runs the application configured to look for the hot-reloading resources.  There are several more specific options if you need:
+Other `npm` scripts include:
 
 Command | Description
 ------- | -----------
-`npm run build:backend` | Build the backend application code
-`npm run build:app` | Build the frontend application UI
-`npm run build` | Run both `build:backend` and `build:frontend`
-`npm run hot:backend` | Watch for file changes, build the backend application code, and serve hot updates
-`npm run hot:server` | Run the hot module reload server
-`npm run hot:app` | Watch for file changes, build the frontend application UI, and serve hot updates
-`npm run hot` | Run `hot:backend`, `hot:server`, and `hot:app` simultaneously
-`npm run lint` | Lint the code
-`npm run prod:backend` | Build the production backend application code
-`npm run prod:app` | Build the production frontend application UI
-`npm run prod` | Run both `prod:backend` and `prod:frontend`
-`npm run start` | Start the application in development mode
-`npm run start:hot` | Start the application in development mode with hot reloading
-`npm run test` | Run tests
-`npm run watch:backend` | Watch for file changes and build the backend application code
-`npm run watch:app` | Watch for file changes and build the frontend application UI
-`npm run watch` | Run both `watch:backend` and `watch:frontend` simultaneously
+`npm run build` | Builds the application for development
+`npm run build:dist` | Builds the application for distribution
+`npm run clean` | Removes built assets and packages
+`npm run dist:all` | Builds the application for distribution to all platforms
+`npm run dist:osx` | Builds the application for distribution to OS X
+`npm run start` | Starts the application that was built using `build` or `build:dist`
+`npm run test` | Runs application tests
+`npm run watch` | Watches for file changes and rebuilds the app for development
 
 ## Architecture
 

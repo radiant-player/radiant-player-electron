@@ -17,4 +17,5 @@ cache:
   - "$HOME/.electron"
 
 after_success:
-  - npm run dist
+  - npm run build:dist
+  - npm run dist:osx

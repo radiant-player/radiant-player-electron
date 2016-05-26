@@ -9,6 +9,5 @@ npm-debug.log
 node_modules/
 
 # Build directories
-/app/out
-/app/resources
-dist/
+/app
+/dist

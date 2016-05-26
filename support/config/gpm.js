@@ -8,7 +8,7 @@ const config = {
   entry: './src/gpm',
 
   output: {
-    path: path.join(__dirname, '..', '..', 'app', 'out'),
+    path: path.join(__dirname, '..', '..', 'app'),
     filename: 'gpm.js',
     publicPath: '../dist/',
   },

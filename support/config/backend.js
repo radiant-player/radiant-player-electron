@@ -9,7 +9,7 @@ const config = {
   entry,
 
   output: {
-    path: path.join(__dirname, '..', '..', 'app', 'out'),
+    path: path.join(__dirname, '..', '..', 'app'),
     filename: 'backend.js',
     libraryTarget: 'commonjs2',
   },
