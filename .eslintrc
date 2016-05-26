@@ -5,7 +5,11 @@
     "__APP__": true,
     "__DEV__": true
   },
-  "rules": {
-    "import/no-unresolved": 0
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "support/electron_modules"]
+      }
+    }
   }
 }
