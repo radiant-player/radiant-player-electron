@@ -1,5 +1,7 @@
 import { app, globalShortcut } from 'electron';
 
+import './updater';
+
 import main from './main';
 import menubar from './menubar';
 
