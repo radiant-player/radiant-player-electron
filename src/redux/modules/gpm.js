@@ -28,9 +28,9 @@ export const actions = {
 };
 
 // Playback states
-export const PLAYBACK_STATE_STOPPED = GMusic.Playback.STOPPED;
-export const PLAYBACK_STATE_PAUSED = GMusic.Playback.PAUSED;
-export const PLAYBACK_STATE_PLAYING = GMusic.Playback.PLAYING;
+export const PLAYBACK_STATE_STOPPED = GMusic.PlaybackStatus.STOPPED;
+export const PLAYBACK_STATE_PAUSED = GMusic.PlaybackStatus.PAUSED;
+export const PLAYBACK_STATE_PLAYING = GMusic.PlaybackStatus.PLAYING;
 export const PLAYBACK_STATES = {
   PLAYBACK_STATE_STOPPED,
   PLAYBACK_STATE_PAUSED,
@@ -38,9 +38,9 @@ export const PLAYBACK_STATES = {
 };
 
 // Repeat modes
-export const REPEAT_STATE_LIST_REPEAT = GMusic.Playback.LIST_REPEAT;
-export const REPEAT_STATE_SINGLE_REPEAT = GMusic.Playback.SINGLE_REPEAT;
-export const REPEAT_STATE_NO_REPEAT = GMusic.Playback.NO_REPEAT;
+export const REPEAT_STATE_LIST_REPEAT = GMusic.RepeatStatus.LIST_REPEAT;
+export const REPEAT_STATE_SINGLE_REPEAT = GMusic.RepeatStatus.SINGLE_REPEAT;
+export const REPEAT_STATE_NO_REPEAT = GMusic.RepeatStatus.NO_REPEAT;
 export const REPEAT_STATES = {
   REPEAT_STATE_LIST_REPEAT,
   REPEAT_STATE_SINGLE_REPEAT,
@@ -48,8 +48,8 @@ export const REPEAT_STATES = {
 };
 
 // Shuffle modes
-export const SHUFFLE_STATE_ALL_SHUFFLE = GMusic.Playback.ALL_SHUFFLE;
-export const SHUFFLE_STATE_NO_SHUFFLE = GMusic.Playback.NO_SHUFFLE;
+export const SHUFFLE_STATE_ALL_SHUFFLE = GMusic.ShuffleStatus.ALL_SHUFFLE;
+export const SHUFFLE_STATE_NO_SHUFFLE = GMusic.ShuffleStatus.NO_SHUFFLE;
 export const SHUFFLE_STATES = {
   SHUFFLE_STATE_ALL_SHUFFLE,
   SHUFFLE_STATE_NO_SHUFFLE,

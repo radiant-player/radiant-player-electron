@@ -1,11 +1,11 @@
-import { connectToIPC } from '../ipc';
 import { ipcRenderer } from 'electron';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Miniplayer from './components/Miniplayer';
+import { connectToIPC } from '../ipc';
 import configureStore from '../redux/configureStore';
+import Miniplayer from './components/Miniplayer';
 
 import './miniplayer.scss';
 

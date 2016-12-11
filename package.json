@@ -13,7 +13,7 @@
     "clean": "gulp clean",
     "dist:all": "cross-env NODE_ENV=production gulp dist",
     "dist:osx": "cross-env NODE_ENV=production gulp dist:osx",
-    "old-postinstall": "electron-rebuild",
+    "postinstall": "electron-rebuild",
     "start": "electron .",
     "test": "gulp test",
     "watch": "gulp watch"
