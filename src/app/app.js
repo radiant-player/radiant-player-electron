@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 
 import {
   actions as gpmActions,
-  onOptimisticSetPlaybackTime,
+  onOptimisticSetCurrentTime,
   REPEAT_STATE_LIST_REPEAT,
   REPEAT_STATE_SINGLE_REPEAT,
   REPEAT_STATE_NO_REPEAT,
@@ -132,9 +132,9 @@ mainIPCInterface.on('toggleShuffle', () => (
 mainIPCInterface.on('toggleVisualization', () => (
   gmusicRemoteCaller('playback.toggleVisualization')
 ));
-mainIPCInterface.on('setPlaybackTime', (e, time) => {
-  store.dispatch(onOptimisticSetPlaybackTime(time));
-  gmusicRemoteCaller('playback.setPlaybackTime', time);
+mainIPCInterface.on('setCurrentTime', (e, time) => {
+  store.dispatch(onOptimisticSetCurrentTime(time));
+  gmusicRemoteCaller('playback.setCurrentTime', time);
 });
 mainIPCInterface.on('search', () => (
   gpmControlInterface.search()

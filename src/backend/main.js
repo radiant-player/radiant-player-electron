@@ -118,7 +118,7 @@ export const init = () => {
       message: `${gpm.song.artist} - ${gpm.song.album}`,
       icon: path.join(__dirname, '../../resources/icon.png'),
       appIcon: path.join(__dirname, '../../resources/icon.png'),
-      contentImage: gpm.song.art,
+      contentImage: gpm.song.albumArt,
     }, () => {
       // (error, response)
       // console.log(response);

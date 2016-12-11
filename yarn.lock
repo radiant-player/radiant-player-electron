@@ -3240,11 +3240,9 @@ glogg@^1.0.0:
   dependencies:
     sparkles "^1.0.0"
 
-gmusic.js@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/gmusic.js/-/gmusic.js-5.0.0.tgz#28ec85367328407a600ff83a1925061e48d46c5c"
-  dependencies:
-    inherits "~2.0.1"
+gmusic.js@^6.0.11:
+  version "6.0.11"
+  resolved "https://registry.yarnpkg.com/gmusic.js/-/gmusic.js-6.0.11.tgz#c15f7c6a7ae323b6c5eb9edf7a5ac2ca9333b0fe"
 
 graceful-fs@^3.0.0:
   version "3.0.11"

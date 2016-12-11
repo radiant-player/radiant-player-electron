@@ -88,7 +88,7 @@ export const init = (mainIPCInterface) => {
     repeatNone: () => mainIPCInterface.emit('repeatNone'),
     toggleShuffle: () => mainIPCInterface.emit('toggleShuffle'),
     toggleVisualization: () => mainIPCInterface.emit('toggleVisualization'),
-    setPlaybackTime: time => mainIPCInterface.emit('setPlaybackTime', time),
+    setCurrentTime: time => mainIPCInterface.emit('setCurrentTime', time),
   };
 
   const ipcInterface = connectToIPC({

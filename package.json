@@ -84,7 +84,7 @@
     "application-config": "^1.0.0",
     "deep-diff": "^0.3.4",
     "electron-window-state": "^4.0.0",
-    "gmusic.js": "^5.0.0",
+    "gmusic.js": "^6.0.11",
     "lodash.throttle": "^4.1.0",
     "node-notifier": "^4.5.0",
     "osx-mouse": "^1.2.1",

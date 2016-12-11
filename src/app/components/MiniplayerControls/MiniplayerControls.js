@@ -130,7 +130,7 @@ export default class MiniplayerControls extends Component {
       that.setState({ cachedTime: timecode });
     };
     const onAfterChange = timecode => {
-      actions('setPlaybackTime', timecode * 1000).then(() =>
+      actions('setCurrentTime', timecode * 1000).then(() =>
         that.setState({ cachedTime: false })
       );
     };

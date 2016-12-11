@@ -46,7 +46,7 @@ export default class MiniplayerSong extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.image}>
-          <img src={song.art} width="64" alt="Cover Art" />
+          <img src={song.albumArt} width="64" alt="Cover Art" />
         </div>
         <div className={styles.details}>
           <span className={styles.title}>{song.title}</span>

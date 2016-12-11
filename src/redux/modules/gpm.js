@@ -5,7 +5,7 @@ export const GPM_CHANGE_SONG = 'GPM_CHANGE_SONG';
 export const GPM_CHANGE_SHUFFLE = 'GPM_CHANGE_SHUFFLE';
 export const GPM_CHANGE_REPEAT = 'GPM_CHANGE_REPEAT';
 export const GPM_CHANGE_PLAYBACK = 'GPM_CHANGE_PLAYBACK';
-export const GPM_OPTIMISTIC_SET_PLAYBACK_TIME = 'GPM_OPTIMISTIC_SET_PLAYBACK_TIME';
+export const GPM_OPTIMISTIC_SET_CURRENT_TIME = 'GPM_OPTIMISTIC_SET_CURRENT_TIME';
 export const GPM_CHANGE_PLAYBACK_TIME = 'GPM_CHANGE_PLAYBACK_TIME';
 export const GPM_CHANGE_RATING = 'GPM_CHANGE_RATING';
 
@@ -13,7 +13,7 @@ export const onChangeSong = createAction(GPM_CHANGE_SONG);
 export const onChangeShuffle = createAction(GPM_CHANGE_SHUFFLE);
 export const onChangeRepeat = createAction(GPM_CHANGE_REPEAT);
 export const onChangePlayback = createAction(GPM_CHANGE_PLAYBACK);
-export const onOptimisticSetPlaybackTime = createAction(GPM_OPTIMISTIC_SET_PLAYBACK_TIME);
+export const onOptimisticSetCurrentTime = createAction(GPM_OPTIMISTIC_SET_CURRENT_TIME);
 export const onChangePlaybackTime = createAction(GPM_CHANGE_PLAYBACK_TIME);
 export const onChangeRating = createAction(GPM_CHANGE_RATING);
 
@@ -22,7 +22,7 @@ export const actions = {
   onChangeShuffle,
   onChangeRepeat,
   onChangePlayback,
-  onOptimisticSetPlaybackTime,
+  onOptimisticSetCurrentTime,
   onChangePlaybackTime,
   onChangeRating,
 };
@@ -92,7 +92,7 @@ const ACTION_HANDLERS = {
     state: playbackStateNames[payload],
   }),
 
-  [GPM_OPTIMISTIC_SET_PLAYBACK_TIME]: (state, { payload }) => ({
+  [GPM_OPTIMISTIC_SET_CURRENT_TIME]: (state, { payload }) => ({
     ...state,
     time: {
       ...state.time,
