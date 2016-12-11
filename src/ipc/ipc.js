@@ -1,12 +1,12 @@
 import EventEmitter from 'events';
 import lodashThrottle from 'lodash.throttle';
-import uuid from 'node-uuid';
+import uuid from 'uuid/v4';
 
 export const connectToIPC = ({ namespace, ipc, send }) => ({
   remoteObject(key) {
     return (name, ...args) => (
       new Promise((resolve, reject) => {
-        const id = uuid.v4();
+        const id = uuid();
 
         ipc.once(`ipc:${namespace}:result:${key}:${id}`, (e, ...resultArgs) => (
           resolve(...resultArgs)

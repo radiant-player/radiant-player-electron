@@ -87,7 +87,6 @@
     "gmusic.js": "^5.0.0",
     "lodash.throttle": "^4.1.0",
     "node-notifier": "^4.5.0",
-    "node-uuid": "^1.4.7",
     "osx-mouse": "^1.2.1",
     "rc-slider": "^3.8.2",
     "react": "^15.2.1",
@@ -99,6 +98,7 @@
     "redux-electron-store": "^0.3.11",
     "redux-logger": "^2.6.1",
     "redux-promise": "^0.5.3",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "uuid": "^3.0.1"
   }
 }
