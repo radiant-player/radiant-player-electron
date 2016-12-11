@@ -46,9 +46,7 @@ export default class Titlebar extends Component {
   onFullscreen(e) {
     if (e.altKey) {
       if (this.props.onFullscreen) this.props.onMaximize();
-    } else {
-      if (this.props.onFullscreen) this.props.onFullscreen();
-    }
+    } else if (this.props.onFullscreen) this.props.onFullscreen();
   }
 
   render() {

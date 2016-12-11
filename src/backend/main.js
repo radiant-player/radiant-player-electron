@@ -43,7 +43,7 @@ export const init = () => {
   main.loadURL(`file://${path.resolve(path.join(__dirname, '/app.html'))}`);
 
   // Prevent loading other URLs
-  main.webContents.on('will-navigate', e => {
+  main.webContents.on('will-navigate', (e) => {
     e.preventDefault();
   });
 
@@ -82,7 +82,7 @@ export const init = () => {
     'MediaPreviousTrack',
     'MediaStop',
   ];
-  shortcuts.forEach(shortcut => {
+  shortcuts.forEach((shortcut) => {
     const success = globalShortcut.register(shortcut, () => {
       shortcutEmitter.emit('shortcut', shortcut);
     });

@@ -44,7 +44,7 @@ export const connectToIPC = ({ namespace, ipc, send }) => ({
   },
 
   proxyEvents({ object, events, throttle }) {
-    events.forEach(event => {
+    events.forEach((event) => {
       const handler = (...args) => {
         send(`ipc:${namespace}:event:${event}`, ...args);
       };
@@ -71,15 +71,15 @@ export const connectToIPC = ({ namespace, ipc, send }) => ({
 });
 
 // Returns a DOM object as an IPC interface
-export const domIPCBridge = originalElement => {
+export const domIPCBridge = (originalElement) => {
   const emitter = new EventEmitter();
   let element = null;
-  const listener = event => {
+  const listener = (event) => {
     const { channel, args } = event;
     emitter.emit(channel, event, ...args);
   };
 
-  emitter.attach = newElement => {
+  emitter.attach = (newElement) => {
     if (element) element.removeEventListener('ipc-message', listener);
     element = newElement;
     element.addEventListener('ipc-message', listener);

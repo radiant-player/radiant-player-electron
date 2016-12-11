@@ -25,7 +25,7 @@ const store = configureStore();
 // Connect to underlying webview and connect IPC bridge
 let gpm = null;
 const gpmIPC = domIPCBridge(gpm);
-const onGPM = instance => {
+const onGPM = (instance) => {
   window.gpm = gpm = instance;
   gpmIPC.attach(gpm);
 };
@@ -35,7 +35,7 @@ const gpmControlInterface = {
     // Focus the search bar
     // TODO: move this to a library someplace
     gpm.executeJavaScript(
-      'document.querySelector(\'#material-one-middle input.sj-search-box\').select()'
+      'document.querySelector(\'#material-one-middle input.sj-search-box\').select()',
     );
   },
   goBack() {

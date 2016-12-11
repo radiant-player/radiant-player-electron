@@ -67,10 +67,10 @@ export default class MenuRenderer {
   }
 
   applyDiff(diff) {
-    diff.forEach(action => {
+    diff.forEach((action) => {
       let element = this.applicationMenu.items;
 
-      action.path.slice(0, -1).forEach(key => {
+      action.path.slice(0, -1).forEach((key) => {
         element = element[key];
         if (key === 'submenu') element = element.items;
       });

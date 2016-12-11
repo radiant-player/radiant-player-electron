@@ -5,13 +5,13 @@ export const setupMouse = (ipcInterface) => {
     ...[].slice.call(document.querySelectorAll('.gm-nav-button')),
     ...[].slice.call(
       document.querySelectorAll(
-        '#material-one-right > div:first-child > div:first-child > div:first-child > *'
-      )
+        '#material-one-right > div:first-child > div:first-child > div:first-child > *',
+      ),
     ),
     ...(searchBox ? [searchBox.parentNode] : []),
   ];
 
-  const isExcluded = el => {
+  const isExcluded = (el) => {
     for (const exclude of excludes) {
       window.el = el;
       window.exclude = exclude;

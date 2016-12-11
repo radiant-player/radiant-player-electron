@@ -13,7 +13,7 @@ autoUpdater.on('update-downloaded', (...args) => console.log('update-downloaded'
 
 try {
   autoUpdater.setFeedURL(
-    `https://radiant-player-updates.herokuapp.com/update/${platform}/${version}`
+    `https://radiant-player-updates.herokuapp.com/update/${platform}/${version}`,
   );
   autoUpdater.checkForUpdates();
 } catch (e) {

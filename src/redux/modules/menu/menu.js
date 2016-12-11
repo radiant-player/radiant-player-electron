@@ -24,7 +24,7 @@ const modifyItemByRedux = (menu, id, cb) => {
     return cb({ ...menu });
   }
 
-  const hasReduxInSubmenu = (item) => (
+  const hasReduxInSubmenu = item => (
     item.redux === id
       ? true
       : (item.submenu && item.submenu.find(subitem => hasReduxInSubmenu(subitem)))
