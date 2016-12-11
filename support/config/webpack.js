@@ -1,6 +1,6 @@
-import appConfig from './app.js';
-import backendConfig from './backend.js';
-import gpmConfig from './gpm.js';
+import appConfig from './app';
+import backendConfig from './backend';
+import gpmConfig from './gpm';
 
 export default [
   appConfig,

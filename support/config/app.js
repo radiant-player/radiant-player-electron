@@ -126,8 +126,8 @@ const config = {
 config.target = webpackTargetElectronRenderer(config);
 
 const applyExtractText = (configToExtend) => {
-  configToExtend.module.loaders.filter((loader) =>
-    loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))
+  configToExtend.module.loaders.filter(loader =>
+    loader.loaders && loader.loaders.find(name => /css/.test(name.split('?')[0])),
   ).forEach((loader) => {
     const [first, ...rest] = loader.loaders;
     /* eslint-disable no-param-reassign */
@@ -139,7 +139,7 @@ const applyExtractText = (configToExtend) => {
   configToExtend.plugins.push(
     new ExtractTextPlugin('[name].css', {
       allChunks: true,
-    })
+    }),
   );
 };
 

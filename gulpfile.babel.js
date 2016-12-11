@@ -41,7 +41,7 @@ gulp.task('test:eslint', () => {
 
 // Build Tasks
 
-gulp.task('build:js', cb => {
+gulp.task('build:js', (cb) => {
   webpack(webpackConfig, (err, stats) => {
     if (err) throw new gutil.PluginError('build:js', err);
     gutil.log('[build:webpack]', stats.toString({
@@ -52,18 +52,18 @@ gulp.task('build:js', cb => {
 });
 
 gulp.task('build:html', () =>
-  gulp.src(paths.html).pipe(gulp.dest(paths.out))
+  gulp.src(paths.html).pipe(gulp.dest(paths.out)),
 );
 
 gulp.task('build:resources', () =>
-  gulp.src(paths.resources, { base: 'src' }).pipe(gulp.dest(paths.out))
+  gulp.src(paths.resources, { base: 'src' }).pipe(gulp.dest(paths.out)),
 );
 
 // Dist tasks
 
 gulp.task('dist:package.json', () =>
   gulp.src('package.json')
-    .pipe(map(chunk => {
+    .pipe(map((chunk) => {
       const data = JSON.parse(chunk.toString());
       data.main = 'backend.js';
       delete data.bin;
@@ -72,15 +72,15 @@ gulp.task('dist:package.json', () =>
       delete data.scripts;
       return JSON.stringify(data, null, 2);
     }))
-    .pipe(gulp.dest(paths.out))
+    .pipe(gulp.dest(paths.out)),
 );
 
 gulp.task('dist:npm-install', ['dist:package.json'], cb =>
-  npmInstall({ path: paths.out, args: ['--production'] }, cb)
+  npmInstall({ path: paths.out, args: ['--production'] }, cb),
 );
 
 gulp.task('dist:clean:notifier', ['dist:npm-install'], cb =>
-  rimraf(path.join(paths.terminalNotifier, 'terminal-notifier.out'), cb)
+  rimraf(path.join(paths.terminalNotifier, 'terminal-notifier.out'), cb),
 );
 
 gulp.task('dist:build:notifier', ['dist:clean:notifier'], () =>
@@ -88,7 +88,7 @@ gulp.task('dist:build:notifier', ['dist:clean:notifier'], () =>
     base: 'https://github.com/radiant-player/terminal-notifier/releases/download/radiant/',
   })
     .pipe(decompress())
-    .pipe(gulp.dest(paths.terminalNotifier))
+    .pipe(gulp.dest(paths.terminalNotifier)),
 );
 
 gulp.task('dist:build', ['dist:build:notifier'], () =>
@@ -99,7 +99,7 @@ gulp.task('dist:build', ['dist:build:notifier'], () =>
     arch: 'all',
     dist: true,
     devMetadata: pkg.build,
-  })
+  }),
 );
 
 gulp.task('dist:osx', ['dist:build:notifier'], () =>
@@ -110,7 +110,7 @@ gulp.task('dist:osx', ['dist:build:notifier'], () =>
     arch: 'all',
     dist: true,
     devMetadata: pkg.build,
-  })
+  }),
 );
 
 // Group tasks
