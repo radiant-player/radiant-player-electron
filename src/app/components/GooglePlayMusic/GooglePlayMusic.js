@@ -27,7 +27,7 @@ export default class GooglePlayMusic extends Component {
         partition="persist:google"
         plugins
         className={styles.webview}
-        loadCommit={boundLoadCommit}
+        onLoadCommit={boundLoadCommit}
         nodeintegration
         preload={gpmJavaScript}
       />
