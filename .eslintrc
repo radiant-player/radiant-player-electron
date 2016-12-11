@@ -11,5 +11,8 @@
         "moduleDirectory": ["node_modules", "support/electron_modules"]
       }
     }
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }
