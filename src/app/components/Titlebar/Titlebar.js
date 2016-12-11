@@ -25,40 +25,36 @@ export default class Titlebar extends Component {
     window.removeEventListener('keyup', this.boundKeyUp);
   }
 
-  onWindowKeyDown(e) {
+  onWindowKeyDown = (e) => {
     if (e.keyCode !== ALT) return;
-    this.refs.titlebar.className = `${this.refs.titlebar.className} ${styles.alt}`;
+    this.titlebar.className = `${this.titlebar.className} ${styles.alt}`;
   }
 
-  onWindowKeyUp(e) {
+  onWindowKeyUp = (e) => {
     if (e.keyCode !== ALT) return;
-    this.refs.titlebar.className = this.refs.titlebar.className.replace(classRegex, '');
+    this.titlebar.className = this.titlebar.className.replace(classRegex, '');
   }
 
-  onClose(...args) {
+  onClose = (...args) => {
     if (this.props.onClose) this.props.onClose(...args);
   }
 
-  onMinimize(...args) {
+  onMinimize = (...args) => {
     if (this.props.onMinimize) this.props.onMinimize(...args);
   }
 
-  onFullscreen(e) {
+  onFullscreen = (e) => {
     if (e.altKey) {
       if (this.props.onFullscreen) this.props.onMaximize();
     } else if (this.props.onFullscreen) this.props.onFullscreen();
   }
 
   render() {
-    const boundOnClose = this.onClose.bind(this);
-    const boundOnMinimize = this.onMinimize.bind(this);
-    const boundOnFullscreen = this.onFullscreen.bind(this);
-
-    /* eslint-disable max-len */
+    /* eslint-disable max-len, jsx-a11y/no-static-element-interactions */
     return (
-      <div className={`${styles.titlebar} ${styles['webkit-draggable']} titlebar-hide`} ref="titlebar">
+      <div className={`${styles.titlebar} ${styles['webkit-draggable']} titlebar-hide`} ref={(div) => { this.titlebar = div; }}>
         <div className={styles['titlebar-stoplight']}>
-          <div className={styles['titlebar-close']} onClick={boundOnClose}>
+          <div className={styles['titlebar-close']} onClick={this.onClose}>
             <svg x="0px" y="0px" viewBox="0 0 6.4 6.4">
               <polygon
                 fill="#4d0000"
@@ -66,12 +62,12 @@ export default class Titlebar extends Component {
               />
             </svg>
           </div>
-          <div className={styles['titlebar-minimize']} onClick={boundOnMinimize}>
+          <div className={styles['titlebar-minimize']} onClick={this.onMinimize}>
             <svg x="0px" y="0px" viewBox="0 0 8 1.1">
               <rect fill="#995700" width="8" height="1.1" />
             </svg>
           </div>
-          <div className={styles['titlebar-fullscreen']} onClick={boundOnFullscreen}>
+          <div className={styles['titlebar-fullscreen']} onClick={this.onFullscreen}>
             <svg className={styles['fullscreen-svg']} x="0px" y="0px" viewBox="0 0 6 5.9">
               <path fill="#006400" d="M5.4,0h-4L6,4.5V0.6C5.7,0.6,5.3,0.3,5.4,0z" />
               <path fill="#006400" d="M0.6,5.9h4L0,1.4l0,3.9C0.3,5.3,0.6,5.6,0.6,5.9z" />
@@ -86,6 +82,6 @@ export default class Titlebar extends Component {
         </div>
       </div>
     );
-    /* eslint-enable max-len */
+    /* eslint-enable max-len, jsx-a11y/no-static-element-interactions */
   }
 }

@@ -10,24 +10,22 @@ export default class GooglePlayMusic extends Component {
     onGPM: PropTypes.func,
   };
 
-  onLoadCommit(e) {
+  onLoadCommit = (e) => {
     if (e.isMainFrame) {
       if (this.props.onGPM) this.props.onGPM(e.target);
     }
   }
 
   render() {
-    const boundLoadCommit = this.onLoadCommit.bind(this);
-
     return (
       <ReactElectronWebview
-        ref="webview"
+        ref={(el) => { this.webview = el; }}
         id="webview"
         src="https://play.google.com/music/listen"
         partition="persist:google"
         plugins
         className={styles.webview}
-        onLoadCommit={boundLoadCommit}
+        onLoadCommit={this.onLoadCommit}
         nodeintegration
         preload={gpmJavaScript}
       />

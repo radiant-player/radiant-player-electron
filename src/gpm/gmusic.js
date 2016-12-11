@@ -1,6 +1,6 @@
 import GMusic from 'gmusic.js';
 
-export const setupGMusic = (ipcInterface) => {
+const setupGMusic = (ipcInterface) => {
   if (window.gmusic) return;
 
   const gmusic = window.gmusic = new GMusic(window);
@@ -24,3 +24,5 @@ export const setupGMusic = (ipcInterface) => {
     ],
   });
 };
+
+export default setupGMusic;

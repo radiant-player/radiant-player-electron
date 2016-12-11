@@ -5,28 +5,25 @@ import MiniplayerControls from '../MiniplayerControls';
 import MiniplayerSong from '../MiniplayerSong';
 import styles from './Miniplayer.scss';
 
-export class Miniplayer extends Component {
+class Miniplayer extends Component {
   static propTypes = {
-    gpm: PropTypes.object.isRequired,
+    // TODO: fill out this prop types definition
+    gpm: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     actions: PropTypes.func.isRequired,
   }
 
-  onThumbsUp() {
+  onThumbsUp = () => {
     const { actions } = this.props;
     actions('thumbsUp');
   }
 
-  onThumbsDown() {
+  onThumbsDown = () => {
     const { actions } = this.props;
     actions('thumbsDown');
   }
 
   render() {
     const { gpm, actions } = this.props;
-
-    const boundOnThumbsUp = this.onThumbsUp.bind(this);
-    const boundOnThumbsDown = this.onThumbsDown.bind(this);
-
     const { state, time, shuffle, repeat } = gpm;
 
     return (
@@ -34,8 +31,8 @@ export class Miniplayer extends Component {
         <MiniplayerSong
           song={gpm.song}
           rating={gpm.rating}
-          onThumbsUp={boundOnThumbsUp}
-          onThumbsDown={boundOnThumbsDown}
+          onThumbsUp={this.onThumbsUp}
+          onThumbsDown={this.onThumbsDown}
         />
         <MiniplayerControls
           actions={actions}

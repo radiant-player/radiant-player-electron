@@ -16,7 +16,7 @@ const leftpad = (str, len, ch) => {
 
   let i = -1;
 
-  while (++i < length) {
+  while (++i < length) { // eslint-disable-line no-plusplus
     val = character + val;
   }
 
@@ -40,7 +40,8 @@ export default class MiniplayerControls extends Component {
     repeat: PropTypes.string,
     shuffle: PropTypes.string,
     state: PropTypes.string,
-    time: PropTypes.object,
+    // TODO: fill out this prop type definition
+    time: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   }
 
   constructor(props) {
@@ -58,7 +59,11 @@ export default class MiniplayerControls extends Component {
     const toggleRepeatMode = () => actions('toggleRepeatMode');
 
     return (
-      <svg onClick={toggleRepeatMode} className={active ? styles.active : ''} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><g><path d={`M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z${single ? 'm-4-2V9h-1l-2 1v1h1.5v4H13z' : ''}`} /></g></svg> // eslint-disable-line max-len
+      <svg onClick={toggleRepeatMode} className={active ? styles.active : ''} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+        <g>
+          <path d={`M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z${single ? 'm-4-2V9h-1l-2 1v1h1.5v4H13z' : ''}`} />
+        </g>
+      </svg>
     );
   }
 
@@ -136,8 +141,8 @@ export default class MiniplayerControls extends Component {
     };
     const timecodeFormatter = (position) => {
       const hours = leftpad(Math.floor(position / 60 / 60), 2, '0');
-      const minutes = leftpad(Math.floor((position - hours * 60 * 60) / 60), 2, '0');
-      const seconds = leftpad(Math.floor(position - hours * 60 * 60 - minutes * 60), 2, '0');
+      const minutes = leftpad(Math.floor((position - (hours * 60 * 60)) / 60), 2, '0');
+      const seconds = leftpad(Math.floor(position - (hours * 60 * 60) - (minutes * 60)), 2, '0');
 
       if (hours > 0) return `${hours}:${minutes}:${seconds}`;
 

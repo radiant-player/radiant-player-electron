@@ -2,8 +2,8 @@ import { app, globalShortcut } from 'electron';
 
 import './updater';
 
-import main from './main';
-import menubar from './menubar';
+import { init as mainInit } from './main';
+import { init as menubarInit } from './menubar';
 
 // Report crashes to our server.
 // require('crash-reporter').start({
@@ -24,8 +24,8 @@ app.on('window-all-closed', () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', () => {
-  const mainIPCInterface = main.init();
-  menubar.init(mainIPCInterface);
+  const mainIPCInterface = mainInit();
+  menubarInit(mainIPCInterface);
 });
 
 app.on('will-quit', () => {

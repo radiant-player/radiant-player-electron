@@ -1,3 +1,4 @@
+import buildMouse from 'osx-mouse';
 import electron, { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
 import EventEmitter from 'events';
 import notifier from 'node-notifier';
@@ -7,7 +8,6 @@ import windowStateKeeper from 'electron-window-state';
 import { connectToIPC } from '../ipc';
 import configureStore from '../redux/configureStore';
 import MenuRenderer from './MenuRenderer';
-import buildMouse from 'osx-mouse';
 
 /* eslint-disable no-console */
 

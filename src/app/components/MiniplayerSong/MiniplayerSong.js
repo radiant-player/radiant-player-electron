@@ -33,9 +33,12 @@ const renderThumb = (direction = 'up', active = false) => {
   /* eslint-enable line-len */
 };
 
+const renderEmpty = () => <div className={styles.empty}><div>No song playing</div></div>;
+
 export default class MiniplayerSong extends Component {
   static propTypes = {
-    song: PropTypes.object,
+    // TODO: fill out the sub fields
+    song: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     rating: PropTypes.string,
     onThumbsUp: PropTypes.func,
     onThumbsDown: PropTypes.func,
@@ -43,6 +46,7 @@ export default class MiniplayerSong extends Component {
 
   renderSong() {
     const { song, rating, onThumbsUp, onThumbsDown } = this.props;
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <div className={styles.container}>
         <div className={styles.image}>
@@ -63,17 +67,12 @@ export default class MiniplayerSong extends Component {
         </div>
       </div>
     );
-  }
-
-  renderEmpty() {
-    return (
-      <div className={styles.empty}><div>No song playing</div></div>
-    );
+    /* eslint-enable jsx-a11y/no-static-element-interactions */
   }
 
   render() {
     if (!this.props.song || !this.props.song.title) {
-      return this.renderEmpty();
+      return renderEmpty();
     }
 
     return this.renderSong();

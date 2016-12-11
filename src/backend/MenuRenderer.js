@@ -58,7 +58,8 @@ export default class MenuRenderer {
   needsFullRender(diff) {
     if (!this.previousMenu || !this.applicationMenu) return true;
 
-    for (const action of diff) {
+    // TODO: see if we can replace this for..of
+    for (const action of diff) { // eslint-disable-line no-restricted-syntax
       if (action.kind !== 'E') return true;
       if (!mutableFields.includes(action.path[action.path.length - 1])) return true;
     }

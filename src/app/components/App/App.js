@@ -28,7 +28,7 @@ App.propTypes = {
   onFullscreen: PropTypes.func,
   onMaximize: PropTypes.func,
   onMinimize: PropTypes.func,
-  onPassthrough: PropTypes.func,
+  // onPassthrough: PropTypes.func,
 };
 
 App.contextTypes = {

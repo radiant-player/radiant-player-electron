@@ -1,4 +1,4 @@
-export const setupMouse = (ipcInterface) => {
+const setupMouse = (ipcInterface) => {
   const appBar = document.querySelector('#material-app-bar');
   const searchBox = document.querySelector('#material-one-middle input.sj-search-box');
   const excludes = [
@@ -12,7 +12,8 @@ export const setupMouse = (ipcInterface) => {
   ];
 
   const isExcluded = (el) => {
-    for (const exclude of excludes) {
+    // TODO: remove this for..of
+    for (const exclude of excludes) { // eslint-disable-line no-restricted-syntax
       window.el = el;
       window.exclude = exclude;
       if (exclude && exclude.contains(el)) return true;
@@ -36,3 +37,5 @@ export const setupMouse = (ipcInterface) => {
 
   appBar.addEventListener('mousedown', mouseDown);
 };
+
+export default setupMouse;

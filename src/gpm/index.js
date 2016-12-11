@@ -1,8 +1,9 @@
-import { connectToIPC } from '../ipc';
 import { ipcRenderer } from 'electron';
-import { setupGMusic } from './gmusic';
-import { setupMouse } from './mouse';
+
+import { connectToIPC } from '../ipc';
 import { setupThemes } from './themes';
+import setupGMusic from './gmusic';
+import setupMouse from './mouse';
 
 const ipcInterface = connectToIPC({
   namespace: 'gpm',
