@@ -19,10 +19,12 @@
     "watch": "gulp watch"
   },
   "build": {
-    "app-bundle-id": "com.github.radiant-player",
-    "app-category-type": "public.app-category.music",
+    "appId": "com.github.radiant-player",
     "publish": "onTagOrDraft",
     "asar": false,
+    "mac": {
+      "category": "public.app-category.music"
+    },
     "win": {
       "msi": true
     }

@@ -1,4 +1,3 @@
-import builder from 'electron-builder';
 import eslint from 'eslint/lib/cli';
 import gulp from 'gulp';
 import gutil from 'gulp-util';
@@ -12,6 +11,9 @@ import webpack from 'webpack';
 
 import pkg from './package.json';
 import webpackConfig from './support/config/webpack';
+
+// No idea why a standard import is failing
+const builder = require('electron-builder');
 
 const paths = {
   // Inputs
