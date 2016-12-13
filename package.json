@@ -91,7 +91,7 @@
     "rc-slider": "^5.4.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "react-electron-webview": "^2.0.1",
+    "react-electron-web-view": "^2.0.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-actions": "^1.1.0",

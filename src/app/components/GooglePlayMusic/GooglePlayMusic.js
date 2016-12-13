@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import ReactElectronWebview from 'react-electron-webview';
+import ReactElectronWebview from 'react-electron-web-view';
 
 import styles from './Webview.scss';
 
@@ -20,11 +20,11 @@ export default class GooglePlayMusic extends Component {
     return (
       <ReactElectronWebview
         ref={(el) => { this.webview = el; }}
-        id="webview"
         src="https://play.google.com/music/listen"
         partition="persist:google"
         plugins
         className={styles.webview}
+        style={{ height: '100%' }}
         onLoadCommit={this.onLoadCommit}
         nodeintegration
         preload={gpmJavaScript}

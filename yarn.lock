@@ -1284,10 +1284,6 @@ camelcase@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
-camelcase@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.0.0.tgz#8b0f90d44be5e281b903b9887349b92595ef07f2"
-
 caniuse-db@^1.0.30000539, caniuse-db@^1.0.30000578:
   version "1.0.30000596"
   resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000596.tgz#ff7690aecf87d6e79a3ca6ae18580de52fdd031e"
@@ -5450,11 +5446,11 @@ react-dom@^15.2.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
-react-electron-webview@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-electron-webview/-/react-electron-webview-2.0.1.tgz#0d24f2bca9cbf402dff5df4c63634d65419795a6"
+react-electron-web-view@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-electron-web-view/-/react-electron-web-view-2.0.0.tgz#4763d1e9e30e99b8a81558ac1aa60f388eea790d"
   dependencies:
-    camelcase "^4.0.0"
+    lodash.camelcase "^4.3.0"
 
 react-json-tree@^0.10.0:
   version "0.10.0"
