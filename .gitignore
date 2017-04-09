@@ -32,17 +32,10 @@ app/node_modules
 .DS_Store
 
 # App packaged
-release
-app/main.js
-app/main.js.map
-app/bundle.js
-app/bundle.js.map
-app/style.css
-app/style.css.map
-dist
-dll
-main.js
-main.js.map
+/release
+/app
+/dist
+/dll
 
 .idea
 npm-debug.log.*

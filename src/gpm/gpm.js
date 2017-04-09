@@ -5,6 +5,8 @@ import { setupThemes } from './themes';
 import setupGmusic from './gmusic';
 import setupMouse from './mouse';
 
+window.RADIANT_STARTING = true;
+
 const retry = (delay = 1000, limit = false) => fn => new Promise((resolve, reject) => {
   let count = 0;
   const attempt = async () => {
@@ -54,9 +56,9 @@ const initMouse = () => {
 };
 
 const setup = async () => {
-  await retry1000x60(initGmusic);
   await retry1000x60(initThemes);
   await retry1000x60(initMouse);
+  await retry1000x60(initGmusic);
 
   ipcInterface.emit('ready');
 };

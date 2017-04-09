@@ -18,15 +18,15 @@ const publicPath = DEV ? `http://localhost:${port}/dist/` : '../dist/';
 const dll = resolveRoot('dll');
 const manifest = path.resolve(dll, 'vendor.json');
 
-if (DEV) {
-  // Warn if the DLL is not built
-  if (!fs.existsSync(dll) || !fs.existsSync(manifest)) {
-    console.log(chalk.black.bgYellow.bold( // eslint-disable-line no-console
-      'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
-    ));
-    execSync('npm run build-dll');
-  }
-}
+// if (DEV) {
+//   // Warn if the DLL is not built
+//   if (!fs.existsSync(dll) || !fs.existsSync(manifest)) {
+//     console.log(chalk.black.bgYellow.bold( // eslint-disable-line no-console
+//       'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
+//     ));
+//     execSync('npm run build-dll');
+//   }
+// }
 
 module.exports = merge.smart(baseConfig, {
   devtool: DEV ? 'inline-source-map' : 'source-map',
@@ -40,7 +40,12 @@ module.exports = merge.smart(baseConfig, {
       'react-hot-loader/patch',
       `webpack-dev-server/client?http://localhost:${port}/`,
       'webpack/hot/only-dev-server',
-    ] : ['babel-polyfill']).concat(resolveRoot('app/ui/index.js')),
+    ] : ['babel-polyfill']).concat(resolveRoot('src/ui/index.js')),
+    miniplayer: (DEV ? [
+      'react-hot-loader/patch',
+      `webpack-dev-server/client?http://localhost:${port}/`,
+      'webpack/hot/only-dev-server',
+    ] : ['babel-polyfill']).concat(resolveRoot('src/ui/miniplayer.js')),
   },
 
   output: {
@@ -143,11 +148,11 @@ module.exports = merge.smart(baseConfig, {
       filename: '[name].css',
     }),
   ].concat(DEV ? [
-    new webpack.DllReferencePlugin({
-      context: process.cwd(),
-      manifest: require(manifest), // eslint-disable-line import/no-dynamic-require, global-require
-      sourceType: 'var',
-    }),
+    // new webpack.DllReferencePlugin({
+    //   context: process.cwd(),
+    //   manifest: require(manifest), // eslint-disable-line import/no-dynamic-require, global-require
+    //   sourceType: 'var',
+    // }),
 
     new webpack.HotModuleReplacementPlugin({
       multiStep: true,

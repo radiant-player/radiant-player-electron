@@ -1,4 +1,32 @@
 {
+  "private": true,
   "name": "radiant-player",
-  "dependencies": {}
+  "version": "2.0.0",
+  "description": "something",
+  "main": "backend.js",
+  "license": "MIT",
+  "dependencies": {
+    "application-config": "^1.0.1",
+    "deep-diff": "^0.3.4",
+    "electron-context-menu": "^0.8.0",
+    "electron-debug": "^1.1.0",
+    "electron-window-state": "^4.1.0",
+    "gmusic.js": "^6.1.0",
+    "lodash.throttle": "^4.1.1",
+    "node-notifier": "^5.1.2",
+    "osx-mouse": "^1.2.1",
+    "rc-slider": "^6.3.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-electron-web-view": "^2.0.1",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
+    "redux-actions": "^2.0.1",
+    "redux-electron-store": "^0.4.1",
+    "redux-logger": "^3.0.1",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0",
+    "source-map-support": "^0.4.14",
+    "uuid": "^3.0.1"
+  }
 }

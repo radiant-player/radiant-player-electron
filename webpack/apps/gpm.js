@@ -8,12 +8,12 @@ const DEV = process.env.NODE_ENV !== 'production';
 const config = {
   target: 'electron-renderer',
 
-  entry: resolveRoot('app/gpm/gpm.js'),
+  entry: resolveRoot('src/gpm/gpm.js'),
 
   output: {
-    path: resolveRoot('app/dist'),
+    path: resolveRoot('app'),
     filename: 'gpm.js',
-    publicPath: '../dist/',
+    publicPath: '../app/',
   },
 
   resolve: {

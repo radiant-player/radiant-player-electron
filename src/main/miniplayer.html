@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Miniplayer | Radiant Player</title>
+    <script>
+      (function() {
+        if (!process.env.DEV) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'style.css';
+          document.write(link.outerHTML);
+        }
+        if (!process.env.DEV) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'miniplayer.css';
+          document.write(link.outerHTML);
+        }
+      }());
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      (function() {
+        const script = document.createElement('script');
+        script.src = (process.env.HOT)
+          ? 'http://localhost:' + (process.env.PORT || 3000) + '/dist/miniplayer.js'
+          : 'dist/miniplayer.js';
+        document.write(script.outerHTML);
+      }());
+    </script>
+  </body>
+</html>

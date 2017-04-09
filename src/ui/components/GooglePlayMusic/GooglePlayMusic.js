@@ -3,7 +3,7 @@ import ReactElectronWebview from 'react-electron-web-view';
 
 import styles from './GooglePlayMusic.scss';
 
-const gpmJavaScript = '../dist/gpm.js';
+const gpmJavaScript = 'gpm.js';
 
 export default class GooglePlayMusic extends Component {
   static propTypes = {
