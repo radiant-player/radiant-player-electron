@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Miniplayer | Radiant Player</title>
+    <title>Settings | Radiant Player</title>
     <script>
       (function() {
         if (!process.env.DEV) {
@@ -13,7 +13,7 @@
         if (!process.env.DEV) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
-          link.href = 'miniplayer.css';
+          link.href = 'settings.css';
           document.write(link.outerHTML);
         }
       }());
@@ -25,8 +25,8 @@
       (function() {
         const script = document.createElement('script');
         script.src = (process.env.HOT)
-          ? 'http://localhost:' + (process.env.PORT || 1212) + '/dist/miniplayer.js'
-          : 'dist/miniplayer.js';
+          ? 'http://localhost:' + (process.env.PORT || 1212) + '/dist/settings.js'
+          : 'dist/settings.js';
         document.write(script.outerHTML);
       }());
     </script>

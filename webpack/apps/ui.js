@@ -46,6 +46,12 @@ module.exports = merge.smart(baseConfig, {
       `webpack-dev-server/client?http://localhost:${port}/`,
       'webpack/hot/only-dev-server',
     ] : ['babel-polyfill']).concat(resolveRoot('src/ui/miniplayer.js')),
+    settings: (DEV ? [
+      'react-hot-loader/patch',
+      `webpack-dev-server/client?http://localhost:${port}/`,
+      'webpack/hot/only-dev-server',
+    ] : ['babel-polyfill']).concat(resolveRoot('src/ui/settings.js')),
+    gpm: resolveRoot('src/gpm/gpm.js'),
   },
 
   output: {
@@ -56,6 +62,10 @@ module.exports = merge.smart(baseConfig, {
 
   module: {
     rules: [
+      {
+        test: /\.theme\.css$/,
+        loader: 'text-loader',
+      },
       {
         test: /\.s?css$/,
         use: [

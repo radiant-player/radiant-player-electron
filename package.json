@@ -13,9 +13,9 @@
     "watch": "gulp watch",
     "flow-typed": "flow-typed install",
     "dev": "cross-env START_HOT=1 npm run hot-updates-server",
-    "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main/index.js",
+    "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./src/main/index.js",
     "build-dll": "cross-env NODE_ENV=development webpack --config webpack/lib/dll.js --progress --colors",
-    "hot-updates-server": "cross-env NODE_ENV=development node --trace-warnings ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack/apps/ui.js",
+    "hot-updates-server": "cross-env NODE_ENV=development webpack-dev-server --config webpack/apps/ui.js",
     "postinstall": "electron-rebuild"
   },
   "dependencies": {
@@ -30,6 +30,7 @@
     "osx-mouse": "^1.2.1",
     "rc-slider": "^6.3.1",
     "react": "^15.4.2",
+    "react-desktop": "^0.2.19",
     "react-dom": "^15.4.2",
     "react-electron-web-view": "^2.0.1",
     "react-redux": "^5.0.3",

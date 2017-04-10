@@ -5,6 +5,7 @@ import { app, globalShortcut } from 'electron'; // eslint-disable-line import/fi
 
 import { init as mainInit } from './main';
 import { init as miniplayerInit } from './miniplayer';
+import { init as settingsInit } from './settings';
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
@@ -28,6 +29,7 @@ app.on('ready', async () => {
 
   const mainIPCInterface = mainInit();
   miniplayerInit(mainIPCInterface);
+  settingsInit(mainIPCInterface);
 });
 
 app.on('will-quit', () => {

@@ -145,6 +145,9 @@ mainIPCInterface.on('goForward', () => (
   gpmControlInterface.goForward()
 ));
 
+window.showSettings = () => mainIPCInterface.emit('settings:show');
+window.hideSettings = () => mainIPCInterface.emit('settings:hide');
+
 // Set up binding for mouse
 const mouse = buildMouse();
 let offset = null;
