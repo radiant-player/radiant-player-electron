@@ -221,6 +221,14 @@ const defaultMenu = [
         accelerator: 'CmdOrCtrl+]',
         click: 'goForward',
       },
+      {
+          type: 'separator',
+      },
+      {
+          label: 'I\'m Feeling Lucky',
+          accelerator: 'CmdOrCtrl+L',
+          click: 'rollDice',
+      },
     ],
   },
   {

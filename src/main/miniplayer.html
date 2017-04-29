@@ -18,9 +18,18 @@
         }
       }());
     </script>
+    <style id="artwork"></style>
   </head>
   <body>
-    <div id="root"></div>
+    <miniplayer>
+      <svg width='0' height='0'><defs><clipPath id="radiantArrow" data-baraka clipPathUnits="objectBoundingBox"><path d="M1,0.9L0.5,0.1L0,0.9H1z"></path></clipPath></defs>
+        <defs><clipPath id="radiantArrowDiced" data-baraka clipPathUnits="objectBoundingBox"><path fill="#F35403" d="M0.5,0.1L1,0.9H0.5V0.1z"></path>
+          <path fill="#F7790F" d="M0.5,0.1v0.8H0L0.5,0.1z"></path></clipPath></defs></svg>
+      <artwork></artwork>
+      <gradient></gradient>
+      <canvas id="miniplayer" width="356" height="364"></canvas>
+      <div id="root" class="mini align"></div>
+    </miniplayer>
     <script>
       (function() {
         const script = document.createElement('script');
