@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+- '6'
+
+os:
+- osx
+
+cache:
+  directories:
+  - node_modules
+  - $HOME/.yarn-cache
+
+script:
+- npm run lint
