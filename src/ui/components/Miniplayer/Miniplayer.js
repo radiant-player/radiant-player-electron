@@ -24,8 +24,8 @@ class Miniplayer extends Component {
   }
 
   DockMiniPlayer = () => {
-      const { actions } = this.props;
-      actions('DockMiniPlayer', true); // add a menu for check box Always on top to pass in the !!1 or !1
+    const { actions } = this.props;
+    actions('DockMiniPlayer', true); // add a menu for check box Always on top to pass in the !!1 or !1
   }
 
   render() {
@@ -33,33 +33,33 @@ class Miniplayer extends Component {
     const { state, time, shuffle, repeat, volume, youtube, hasYoutube } = gpm;
 
     return (
-        <div className={styles.pB + ' '+ styles.container}>
-          <div className={'rp_selected ' + styles.minilayout  + ' ' + styles.horizontal + ' ' + styles.end_justified}>
-              <div className={styles.pos_rel + ' ' + styles.zdex}>
-                  <MiniplayerDropmenu
-                      volume={volume}
-                      actions={actions}
-                  />
-              </div>
+      <div className={`${styles.pB} ${styles.container}`}>
+        <div className={`rp_selected ${styles.minilayout} ${styles.horizontal} ${styles.end_justified}`}>
+          <div className={`${styles.pos_rel} ${styles.zdex}`}>
+            <MiniplayerDropmenu
+              volume={volume}
+              actions={actions}
+            />
           </div>
-          <MiniplayerSong
-              song={gpm.song}
-              youtube={youtube}
-              hasYoutube={hasYoutube}
-              actions={actions}
-              state={state}
-          />
-          <MiniplayerControls
-              actions={actions}
-              state={state}
-              time={time}
-              shuffle={shuffle}
-              repeat={repeat}
-              rating={gpm.rating}
-              onThumbsUp={this.onThumbsUp}
-              onThumbsDown={this.onThumbsDown}
-          />
         </div>
+        <MiniplayerSong
+          song={gpm.song}
+          youtube={youtube}
+          hasYoutube={hasYoutube}
+          actions={actions}
+          state={state}
+        />
+        <MiniplayerControls
+          actions={actions}
+          state={state}
+          time={time}
+          shuffle={shuffle}
+          repeat={repeat}
+          rating={gpm.rating}
+          onThumbsUp={this.onThumbsUp}
+          onThumbsDown={this.onThumbsDown}
+        />
+      </div>
     );
   }
 }

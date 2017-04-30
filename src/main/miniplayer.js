@@ -12,18 +12,18 @@ const iconPath = getPath('trayicon.png');
 
 let tray = null;
 let miniplayer = null;
-let miniplayer_docked = null;
+let miniplayer_docked = null; // eslint-disable-line camelcase
 let positioner = null;
-let positioner_docked = null;
+let positioner_docked = null; // eslint-disable-line camelcase
 let cachedPosition = null;
-let isTop = !1;
+let isTop = !1; // eslint-disable-line no-unused-var
 let vol = 100;
 
 /* Baraka */
 const Param = {
-    Arrow: 8,
-    Width: 356,
-    Height: 356,
+  Arrow: 8,
+  Width: 356,
+  Height: 356,
 };
 
 const hideWindow = () => {
@@ -36,32 +36,33 @@ const clearWindow = () => {
 };
 
 const createWindow = () => {
-  let options = {
-      width: Param.Width,
-      height: Param.Height + Param.Arrow,
-      show: false,
-      frame: false,
-      transparent: true,
-      resizable: false,
+  const options = {
+    width: Param.Width,
+    height: Param.Height + Param.Arrow,
+    show: false,
+    frame: false,
+    transparent: true,
+    resizable: false,
   };
 
   miniplayer = new BrowserWindow(options);
 
-  //options.parent = miniplayer;
+  // options.parent = miniplayer;
 
-  miniplayer_docked = new BrowserWindow(options);
+  miniplayer_docked = new BrowserWindow(options); // eslint-disable-line camelcase
 
   positioner = new Positioner(miniplayer);
-  positioner_docked = new Positioner(miniplayer_docked);
+  positioner_docked = new Positioner(miniplayer_docked); // eslint-disable-line camelcase
 
   miniplayer.on('blur', hideWindow);
 
   miniplayer.on('close', clearWindow);
 
-  // In order to play YT videos without restrictions we need to trick YT to making it be Google Music on said BrowserWindows :)
+  // Play YT videos w/o restrictions we need to trick YT to making it be Google Music on said RP :)
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-      details.requestHeaders['referer'] = 'https://play.google.com/music/listen';//referrer?
-      callback({ cancel: false, requestHeaders: details.requestHeaders });
+    // referrer?
+    details.requestHeaders.referer = 'https://play.google.com/music/listen'; // eslint-disable-line no-param-reassign
+    callback({ cancel: false, requestHeaders: details.requestHeaders });
   });
 
   miniplayer.loadURL(`file://${path.resolve(path.join(__dirname, '/miniplayer.html'))}`);
@@ -76,28 +77,34 @@ const showMiniplayer = (bounds, d) => {
   let position_docked = position;
 
   if (bounds && bounds.x !== 0) {
-      cachedPosition = bounds;
+    cachedPosition = bounds;
   } else if (cachedPosition) {
-      position = cachedPosition;
-      position_docked = position;
+    position = cachedPosition;
+    position_docked = position; // eslint-disable-line camelcase
   }
 
   let noBoundsPosition = null;
-  if ((position === undefined || position.x === 0 || position_docked === undefined || position_docked.x === 0)) {
-      noBoundsPosition = (process.platform === 'win32') ? 'bottomRight' : 'topRight';
+  if ((position === undefined
+    || position.x === 0 ||
+    position_docked === undefined // eslint-disable-line camelcase
+    || position_docked.x === 0)) {
+    noBoundsPosition = (process.platform === 'win32') ? 'bottomRight' : 'topRight';
   }
 
   position = positioner.calculate(noBoundsPosition || 'trayCenter', position);
-  position_docked = position;
+  position_docked = position; // eslint-disable-line camelcase
 
-  miniplayer.setPosition(parseInt(bounds.x - (Param.Width / 2) + (bounds.width / 2)), bounds.y + Param.Arrow + 10); /* Baraka */
-  miniplayer_docked.setPosition(parseInt(bounds.x - (Param.Width / 2) + (bounds.width / 2)), bounds.y + Param.Arrow + 10); /* Baraka */
+  /* Baraka */
+  /* eslint-disable-line radix */
+  miniplayer.setPosition(parseInt(bounds.x - (Param.Width / 2) + (bounds.width / 2), 0), bounds.y + Param.Arrow + 10); // eslint-disable-line max-len
+  miniplayer_docked.setPosition(parseInt(bounds.x - (Param.Width / 2) + (bounds.width / 2), 0), bounds.y + Param.Arrow + 10); // eslint-disable-line max-len
+  /* eslint-disable-line radix */
   miniplayer.setFullScreenable(false);
   miniplayer_docked.setFullScreenable(false);
 
-  if(d === "docked") {
-      miniplayer.show();
-      miniplayer_docked.hide();
+  if (d === 'docked') {
+    miniplayer.show();
+    miniplayer_docked.hide();
   }
 };
 
@@ -105,34 +112,33 @@ const handleClick = (e, bounds) => {
   if (e.altKey || e.shiftKey || e.ctrlKey || e.metaKey) return hideWindow();
   if (miniplayer && miniplayer.isVisible()) return hideWindow();
   cachedPosition = bounds || cachedPosition;
-  return showMiniplayer(cachedPosition, "docked");
+  return showMiniplayer(cachedPosition, 'docked');
 };
 
 const handleDockedClick = (e, bounds) => {
-
   if (miniplayer.isVisible()) {
-      hideWindow();
-      miniplayer_docked.webContents.executeJavaScript(`
+    hideWindow();
+    miniplayer_docked.webContents.executeJavaScript(`
             document.querySelector("body").classList.add("drag");
           `);
-      miniplayer_docked.show();
+    miniplayer_docked.show();
   } else {
-      miniplayer_docked.hide();
-      miniplayer_docked.webContents.executeJavaScript(`
+    miniplayer_docked.hide();
+    miniplayer_docked.webContents.executeJavaScript(`
             document.querySelector("body").classList.remove("drag");
           `);
-      miniplayer.show();
+    miniplayer.show();
   }
 
   cachedPosition = bounds || cachedPosition;
-  return showMiniplayer(cachedPosition , "undocked");
+  return showMiniplayer(cachedPosition, 'undocked');
 };
 
 export const init = (mainIPCInterface) => {
   createWindow();
 
   const VolumeStatus = (percent) => {
-      miniplayer.webContents.executeJavaScript(`
+    miniplayer.webContents.executeJavaScript(`
          var vol = window.document.querySelector("[class*='__menu_vol'] path");
          switch (!!1){
               case (${percent} === 100):
@@ -150,7 +156,7 @@ export const init = (mainIPCInterface) => {
           }
       `);
 
-      miniplayer_docked.webContents.executeJavaScript(`
+    miniplayer_docked.webContents.executeJavaScript(`
          var vol = window.document.querySelector("[class*='__menu_vol'] path");
          switch (!!1){
               case (${percent} === 100):
@@ -189,38 +195,37 @@ export const init = (mainIPCInterface) => {
     toggleVisualization: () => mainIPCInterface.emit('toggleVisualization'),
     setCurrentTime: time => mainIPCInterface.emit('setCurrentTime', time),
     volume: () => mainIPCInterface.emit('volume'),
-    setVolume: percent => {
-        vol = percent;
-        VolumeStatus(percent);
-        mainIPCInterface.emit('setVolume', percent);
+    setVolume: (percent) => {
+      vol = percent;
+      VolumeStatus(percent);
+      mainIPCInterface.emit('setVolume', percent);
     },
     DockActive: (val, extra) => {
-        isTop = val;
-        miniplayer_docked.setAlwaysOnTop(val);// the magic
+      isTop = val;
+      miniplayer_docked.setAlwaysOnTop(val);// the magic
     },
     DockYoutubeFullScreen: (val) => {
-        if(miniplayer_docked.isFullScreen()){
-            miniplayer_docked.setFullScreen(!1);
-            miniplayer_docked.webContents.executeJavaScript(`document.querySelector("body").classList.remove("fullscreen");`);
-            if(val === !!1) {
-                miniplayer_docked.setFullScreenable(!1);
-            }
-        } else {
-            if(val === !1) {
-                miniplayer_docked.setFullScreenable(!!1);
-            }
-            miniplayer_docked.setFullScreen(!!1);
-            miniplayer_docked.webContents.executeJavaScript(`document.querySelector("body").classList.add("fullscreen");`);
+      if (miniplayer_docked.isFullScreen()) {
+        miniplayer_docked.setFullScreen(!1);
+        miniplayer_docked.webContents.executeJavaScript('document.querySelector("body").classList.remove("fullscreen");');
+        if (val === !!1) {
+          miniplayer_docked.setFullScreenable(!1);
         }
+      } else {
+        if (val === !1) {
+          miniplayer_docked.setFullScreenable(!!1);
+        }
+        miniplayer_docked.setFullScreen(!!1);
+        miniplayer_docked.webContents.executeJavaScript('document.querySelector("body").classList.add("fullscreen");');
+      }
     },
     setVolumeUpdate: (val) => {
-        vol = val;
+      vol = val;
     },
     DockMiniPlayer: (extra) => {
-        handleDockedClick();
-        if(Object.keys(extra.volume).length > 0){
-
-            miniplayer.webContents.executeJavaScript(`
+      handleDockedClick();
+      if (Object.keys(extra.volume).length > 0) {
+        miniplayer.webContents.executeJavaScript(`
                   document.querySelector("body").dataset.volume = ${vol};
                   document.querySelector(".volume .rc-slider .rc-slider-track").style.height =${vol}+'%';
                   document.querySelector(".volume .rc-slider .rc-slider-handle").style.bottom =${vol}+'%';
@@ -229,7 +234,7 @@ export const init = (mainIPCInterface) => {
                   }
               `);
 
-            miniplayer_docked.webContents.executeJavaScript(`
+        miniplayer_docked.webContents.executeJavaScript(`
                   document.querySelector("body").dataset.volume = ${vol};
                   document.querySelector(".volume .rc-slider .rc-slider-track").style.height =${vol}+'%';
                   document.querySelector(".volume .rc-slider .rc-slider-handle").style.bottom =${vol}+'%';
@@ -237,8 +242,8 @@ export const init = (mainIPCInterface) => {
                       document.querySelector(".rc-slider-tooltip-inner").innerHTML = ${vol};
                   }
               `);
-        }
-    }
+      }
+    },
   };
 
   const ipcInterface = connectToIPC({
@@ -253,7 +258,7 @@ export const init = (mainIPCInterface) => {
   });
 
   miniplayer_docked.webContents.on('dom-ready', () => {
-      miniplayer_docked.webContents.executeJavaScript(`
+    miniplayer_docked.webContents.executeJavaScript(`
             document.querySelector("body").classList.toggle("drag");
             document.querySelector("html").classList.toggle("undocked");
             document.querySelector("body").dataset.volume = ${vol};

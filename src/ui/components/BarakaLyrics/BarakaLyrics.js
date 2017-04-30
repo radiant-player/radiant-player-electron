@@ -1,11 +1,12 @@
 import _ from 'lodash';
 
-import request from 'request'
+import request from 'request';
 
 class BarakaLyrics {
-    constructor() {
-
-    }
+  constructor() {
+    this._ = _;
+    this.request = request;
+  }
 }
 
 module.exports = BarakaLyrics;

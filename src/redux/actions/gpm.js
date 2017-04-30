@@ -53,5 +53,5 @@ export default {
   onOptimisticSetReplayBack,
   onOptimisticSetSeekForward,
   onOptimisticSetGetVolume,
-  onOptimisticSetYoutube
+  onOptimisticSetYoutube,
 };

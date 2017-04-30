@@ -68,29 +68,29 @@ gpmIPCInterface.on('ready', () => {
 });
 
 const radiantController = {
-    rollDice() {
-        store.dispatch(onOptimisticSetRolled(!!1));
-        radiantRemoteCaller('fn.RollDice');
-    },
+  rollDice() {
+    store.dispatch(onOptimisticSetRolled(!!1));
+    radiantRemoteCaller('fn.RollDice');
+  },
 
-    replayBack() {
-        store.dispatch(onOptimisticSetReplayBack(!!1));
-        radiantRemoteCaller('Helpers.replayBack');
-    },
+  replayBack() {
+    store.dispatch(onOptimisticSetReplayBack(!!1));
+    radiantRemoteCaller('Helpers.replayBack');
+  },
 
-    seekForward() {
-        store.dispatch(onOptimisticSetSeekForward(!!1));
-        radiantRemoteCaller('Helpers.replayFor');
-    },
+  seekForward() {
+    store.dispatch(onOptimisticSetSeekForward(!!1));
+    radiantRemoteCaller('Helpers.replayFor');
+  },
 
-    volGet() {
-        let v;
-        radiantRemoteCaller('Helpers.getVolume').then(function(vol) {
-            v = vol;
-        });
-        store.dispatch(onOptimisticSetGetVolume(v));
-        return v;
-    }
+  volGet() {
+    let v;
+    radiantRemoteCaller('Helpers.getVolume').then((vol) => {
+      v = vol;
+    });
+    store.dispatch(onOptimisticSetGetVolume(v));
+    return v;
+  },
 };
 
 // Connect to main IPC
@@ -177,8 +177,8 @@ mainIPCInterface.on('volGet', () => (
     radiantController.volGet()
 ));
 mainIPCInterface.on('setVolume', (e, percent) => {
-    store.dispatch(onOptimisticSetCurrentVolume(percent));
-    gmusicRemoteCaller('volume.setVolume', percent);
+  store.dispatch(onOptimisticSetCurrentVolume(percent));
+  gmusicRemoteCaller('volume.setVolume', percent);
 });
 mainIPCInterface.on('toggleVisualization', () => (
   gmusicRemoteCaller('playback.toggleVisualization')
@@ -234,28 +234,27 @@ const gpmBoundActions = bindActionCreators(gpmActions, store.dispatch);
 gpmIPCInterface.on('change:track', (event, ...args) => {
   gpmBoundActions.onChangeTrack(...args);
 
-  let YT = setInterval(function () {
-      radiantRemoteCaller('fn.getYoutubeID').then(function(val) {
-          gpmBoundActions.onChangeYoutube(val);
+  const YT = setInterval(() => {
+    radiantRemoteCaller('fn.getYoutubeID').then((val) => {
+      gpmBoundActions.onChangeYoutube(val);
+    });
+
+      // wait until we have a state
+    radiantRemoteCaller('fn.Playing').then((state) => {
+      radiantRemoteCaller('Helpers.hasYoutube').then((has) => {
+        gpmBoundActions.onHasYoutube(has);
       });
 
-      //wait until we have a state
-      radiantRemoteCaller('fn.Playing').then(function(state) {
-          radiantRemoteCaller('Helpers.hasYoutube').then(function(has) {
-              gpmBoundActions.onHasYoutube(has);
-          });
-
-          if(state) {
-              clearInterval(YT);
-          }
-      });
-
+      if (state) {
+        clearInterval(YT);
+      }
+    });
   }, 1400);
 });
 
 gpmIPCInterface.on('change:ad', (event, ...args) => {
-    //console.log(args[0]); // ? No Ads Playing : Ad is playing
-    gpmBoundActions.onChangeAdState(...args);
+    // console.log(args[0]); // ? No Ads Playing : Ad is playing
+  gpmBoundActions.onChangeAdState(...args);
 });
 
 gpmIPCInterface.on('change:shuffle', (event, ...args) => {
@@ -268,7 +267,7 @@ gpmIPCInterface.on('change:repeat', (event, ...args) => {
 
 gpmIPCInterface.on('change:playback', (event, ...args) => {
   gpmBoundActions.onChangePlayback(...args);
-  /*gmusicRemoteCaller('volume.getVolume').then(function(val) {
+  /* gmusicRemoteCaller('volume.getVolume').then(function(val) {
       gpmBoundActions.onChangeVolume(val);
   });*/
 });

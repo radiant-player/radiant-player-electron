@@ -130,11 +130,11 @@ class MiniPlayerArt {
 }
 
 export default class MiniplayerSong extends Component {
-  static propTypes = {
-    // TODO: fill out the sub fields
-    song: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    youtube: PropTypes.string,
-  }
+    static propTypes = {
+        // TODO: fill out the sub fields
+        song: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+        youtube: PropTypes.string,
+    }
 
     renderYoutube(){
         const { youtube, state, actions, hasYoutube } = this.props;
@@ -258,14 +258,14 @@ export default class MiniplayerSong extends Component {
 
                 requestAnimationFrame(rendAnimate);
                 /*
-                 // Make sure dom is completed
-                 let readyStateChecker = setInterval(function () {
-                 if (document.readyState === "complete") {
-                 // Lets Animate :D
+                // Make sure dom is completed
+                let readyStateChecker = setInterval(function () {
+                    if (document.readyState === "complete") {
+                        // Lets Animate :D
 
-                 clearInterval(readyStateChecker);
-                 }
-                 }, 10);*/
+                        clearInterval(readyStateChecker);
+                    }
+                }, 10);*/
             }
 
             document.querySelector("gradient").classList.add('diced');

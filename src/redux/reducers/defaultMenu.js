@@ -222,12 +222,12 @@ const defaultMenu = [
         click: 'goForward',
       },
       {
-          type: 'separator',
+        type: 'separator',
       },
       {
-          label: 'I\'m Feeling Lucky',
-          accelerator: 'CmdOrCtrl+L',
-          click: 'rollDice',
+        label: 'I\'m Feeling Lucky',
+        accelerator: 'CmdOrCtrl+L',
+        click: 'rollDice',
       },
     ],
   },

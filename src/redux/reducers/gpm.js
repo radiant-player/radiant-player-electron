@@ -15,10 +15,10 @@ import {
 } from '../actions/gpm';
 
 // Youtube
-export const NO_YOUTUBE_VIDEO = "No Youtube video";
+export const NO_YOUTUBE_VIDEO = 'No Youtube video';
 
-//Ads
-export const NO_ADS_PLAYING = "No Ads Playing";
+// Ads
+export const NO_ADS_PLAYING = 'No Ads Playing';
 
 // Playback states
 export const PLAYBACK_STATE_STOPPED = GMusic.PlaybackStatus.STOPPED;
