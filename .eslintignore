@@ -1,0 +1,8 @@
+/app
+/dist
+/dll
+/release
+flow-coverage/
+flow-typed/
+node_modules/
+src/dist/

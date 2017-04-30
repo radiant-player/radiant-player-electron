@@ -44,6 +44,13 @@ export default class MiniplayerControls extends Component {
     time: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   }
 
+  static defaultProps = {
+    repeat: null,
+    shuffle: null,
+    state: null,
+    time: null,
+  }
+
   constructor(props) {
     super(props);
 
@@ -136,7 +143,7 @@ export default class MiniplayerControls extends Component {
     };
     const onAfterChange = (timecode) => {
       actions('setCurrentTime', timecode * 1000).then(() =>
-        that.setState({ cachedTime: false }),
+        that.setState({ cachedTime: false })
       );
     };
     const timecodeFormatter = (position) => {

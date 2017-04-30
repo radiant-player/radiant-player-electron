@@ -1,10 +1,11 @@
-const { execSync, spawn } = require('child_process');
+// const { execSync, spawn } = require('child_process');
+const { spawn } = require('child_process');
 const BabiliPlugin = require('babili-webpack-plugin');
-const chalk = require('chalk');
+// const chalk = require('chalk');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const fs = require('fs');
+// const fs = require('fs');
 const merge = require('webpack-merge');
-const path = require('path');
+// const path = require('path');
 const webpack = require('webpack');
 
 const { resolveRoot } = require('../lib/utils');
@@ -15,8 +16,8 @@ const DEV = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 1212;
 const publicPath = DEV ? `http://localhost:${port}/dist/` : '../dist/';
 
-const dll = resolveRoot('dll');
-const manifest = path.resolve(dll, 'vendor.json');
+// const dll = resolveRoot('dll');
+// const manifest = path.resolve(dll, 'vendor.json');
 
 // if (DEV) {
 //   // Warn if the DLL is not built
@@ -158,11 +159,11 @@ module.exports = merge.smart(baseConfig, {
       filename: '[name].css',
     }),
   ].concat(DEV ? [
-    // new webpack.DllReferencePlugin({
-    //   context: process.cwd(),
-    //   manifest: require(manifest), // eslint-disable-line import/no-dynamic-require, global-require
-    //   sourceType: 'var',
-    // }),
+// new webpack.DllReferencePlugin({
+//   context: process.cwd(),
+//   manifest: require(manifest), // eslint-disable-line import/no-dynamic-require, global-require
+//   sourceType: 'var',
+// }),
 
     new webpack.HotModuleReplacementPlugin({
       multiStep: true,
