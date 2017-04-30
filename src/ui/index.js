@@ -8,10 +8,16 @@ import React from 'react';
 import { connectToIPC, domIPCBridge } from '../ipc';
 import gpmActions, {
   onOptimisticSetCurrentTime,
+  onOptimisticSetCurrentVolume,
+  onOptimisticSetRolled,
+  onOptimisticSetReplayBack,
+  onOptimisticSetSeekForward,
+  onOptimisticSetGetVolume,
   REPEAT_STATE_LIST_REPEAT,
   REPEAT_STATE_SINGLE_REPEAT,
   REPEAT_STATE_NO_REPEAT,
 } from '../redux/actions/gpm';
+
 import configureStore from '../redux/configureStore';
 import Root from './containers/Root';
 
@@ -28,6 +34,7 @@ const onGPM = (instance) => {
   window.gpm = instance;
   gpmIPC.attach(gpm);
 };
+
 const gpmControlInterface = {
   search() {
     if (!gpm) return;
@@ -46,12 +53,15 @@ const gpmControlInterface = {
     gpm.goForward();
   },
 };
+
 const gpmIPCInterface = connectToIPC({
   namespace: 'gpm',
   ipc: gpmIPC,
   send: gpmIPC.send,
 });
+
 const gmusicRemoteCaller = gpmIPCInterface.remoteObject('gmusic');
+const radiantRemoteCaller = gpmIPCInterface.remoteObject('radiant');
 const themesRemoteCaller = gpmIPCInterface.remoteObject('themes');
 
 // Bind to GPM ready event
@@ -59,6 +69,32 @@ gpmIPCInterface.on('ready', () => {
   // Initialize themes
   themesRemoteCaller('setTheme', 'base', '');
 });
+
+const radiantController = {
+  rollDice() {
+    store.dispatch(onOptimisticSetRolled(!!1));
+    radiantRemoteCaller('fn.RollDice');
+  },
+
+  replayBack() {
+    store.dispatch(onOptimisticSetReplayBack(!!1));
+    radiantRemoteCaller('Helpers.replayBack');
+  },
+
+  seekForward() {
+    store.dispatch(onOptimisticSetSeekForward(!!1));
+    radiantRemoteCaller('Helpers.replayFor');
+  },
+
+  volGet() {
+    let v;
+    radiantRemoteCaller('Helpers.getVolume').then((vol) => {
+      v = vol;
+    });
+    store.dispatch(onOptimisticSetGetVolume(v));
+    return v;
+  },
+};
 
 // Connect to main IPC
 const mainIPCInterface = connectToIPC({
@@ -107,6 +143,9 @@ mainIPCInterface.on('volumeUp', () => (
 mainIPCInterface.on('volumeDown', () => (
   gmusicRemoteCaller('volume.decreaseVolume')
 ));
+mainIPCInterface.on('volume', () => (
+    gmusicRemoteCaller('volume.getVolume')
+));
 mainIPCInterface.on('thumbsUp', () => (
   gmusicRemoteCaller('rating.toggleThumbsUp')
 ));
@@ -128,6 +167,22 @@ mainIPCInterface.on('repeatNone', () => (
 mainIPCInterface.on('toggleShuffle', () => (
   gmusicRemoteCaller('playback.toggleShuffle')
 ));
+mainIPCInterface.on('rollDice', () => (
+    radiantController.rollDice()
+));
+mainIPCInterface.on('replayBack', () => (
+    radiantController.replayBack()
+));
+mainIPCInterface.on('seekForward', () => (
+    radiantController.seekForward()
+));
+mainIPCInterface.on('volGet', () => (
+    radiantController.volGet()
+));
+mainIPCInterface.on('setVolume', (e, percent) => {
+  store.dispatch(onOptimisticSetCurrentVolume(percent));
+  gmusicRemoteCaller('volume.setVolume', percent);
+});
 mainIPCInterface.on('toggleVisualization', () => (
   gmusicRemoteCaller('playback.toggleVisualization')
 ));
@@ -163,14 +218,17 @@ mouse.on('left-drag', (x, y) => {
     // Swallow errors, as they happen intermittently
   }
 });
+
 mouse.on('left-up', () => {
   offset = null;
 });
+
 const mouseInterface = {
   onMouseDown(x, y) {
     offset = [x, y];
   },
 };
+
 gpmIPCInterface.exposeObject({
   key: 'mouse',
   object: mouseInterface,
@@ -181,6 +239,28 @@ const gpmBoundActions = bindActionCreators(gpmActions, store.dispatch);
 
 gpmIPCInterface.on('change:track', (event, ...args) => {
   gpmBoundActions.onChangeTrack(...args);
+
+  const YT = setInterval(() => {
+    radiantRemoteCaller('fn.getYoutubeID').then((val) => {
+      gpmBoundActions.onChangeYoutube(val);
+    });
+
+      // wait until we have a state
+    radiantRemoteCaller('fn.Playing').then((state) => {
+      radiantRemoteCaller('Helpers.hasYoutube').then((has) => {
+        gpmBoundActions.onHasYoutube(has);
+      });
+
+      if (state) {
+        clearInterval(YT);
+      }
+    });
+  }, 1400);
+});
+
+gpmIPCInterface.on('change:ad', (event, ...args) => {
+    // console.log(args[0]); // ? No Ads Playing : Ad is playing
+  gpmBoundActions.onChangeAdState(...args);
 });
 
 gpmIPCInterface.on('change:shuffle', (event, ...args) => {
@@ -193,6 +273,9 @@ gpmIPCInterface.on('change:repeat', (event, ...args) => {
 
 gpmIPCInterface.on('change:playback', (event, ...args) => {
   gpmBoundActions.onChangePlayback(...args);
+  /* gmusicRemoteCaller('volume.getVolume').then(function(val) {
+      gpmBoundActions.onChangeVolume(val);
+  });*/
 });
 
 gpmIPCInterface.on('change:playback-time', (event, ...args) => {

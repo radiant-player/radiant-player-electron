@@ -3,6 +3,7 @@ import { ipcRenderer } from 'electron';
 import { connectToIPC } from '../ipc';
 import { setupThemes } from './themes';
 import setupGmusic from './gmusic';
+import setupRadiant from './radiant';
 import setupMouse from './mouse';
 
 window.RADIANT_STARTING = true;
@@ -49,6 +50,12 @@ const initThemes = () => {
   window.RADIANT_THEMES_INITIALIZED = true;
 };
 
+const initRadiant = () => {
+  if (window.RADIANT_RADIANT_INITIALIZED) return;
+  window.themes = setupRadiant(ipcInterface);
+  window.RADIANT_RADIANT_INITIALIZED = true;
+};
+
 const initMouse = () => {
   if (window.RADIANT_MOUSE_INITIALIZED) return;
   setupMouse(ipcInterface);
@@ -59,6 +66,7 @@ const setup = async () => {
   await retry1000x60(initThemes);
   await retry1000x60(initMouse);
   await retry1000x60(initGmusic);
+  await retry1000x60(initRadiant);
 
   ipcInterface.emit('ready');
 };

@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 
 import MiniplayerControls from '../MiniplayerControls';
 import MiniplayerSong from '../MiniplayerSong';
+import MiniplayerDropmenu from '../MiniplayerDropmenu';
 import styles from './Miniplayer.scss';
 
 class Miniplayer extends Component {
@@ -22,17 +23,31 @@ class Miniplayer extends Component {
     actions('thumbsDown');
   }
 
+  DockMiniPlayer = () => {
+    const { actions } = this.props;
+    actions('DockMiniPlayer', true); // add a menu for check box Always on top to pass in the !!1 or !1
+  }
+
   render() {
     const { gpm, actions } = this.props;
-    const { state, time, shuffle, repeat } = gpm;
+    const { state, time, shuffle, repeat, volume, youtube, hasYoutube } = gpm;
 
     return (
-      <div className={styles.container}>
+      <div className={`${styles.pB} ${styles.container}`}>
+        <div className={`rp_selected ${styles.minilayout} ${styles.horizontal} ${styles.end_justified}`}>
+          <div className={`${styles.pos_rel} ${styles.zdex}`}>
+            <MiniplayerDropmenu
+              volume={volume}
+              actions={actions}
+            />
+          </div>
+        </div>
         <MiniplayerSong
           song={gpm.song}
-          rating={gpm.rating}
-          onThumbsUp={this.onThumbsUp}
-          onThumbsDown={this.onThumbsDown}
+          youtube={youtube}
+          hasYoutube={hasYoutube}
+          actions={actions}
+          state={state}
         />
         <MiniplayerControls
           actions={actions}
@@ -40,6 +55,9 @@ class Miniplayer extends Component {
           time={time}
           shuffle={shuffle}
           repeat={repeat}
+          rating={gpm.rating}
+          onThumbsUp={this.onThumbsUp}
+          onThumbsDown={this.onThumbsDown}
         />
       </div>
     );

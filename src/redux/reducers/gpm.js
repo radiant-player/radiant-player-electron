@@ -7,8 +7,18 @@ import {
   GPM_CHANGE_REPEAT,
   GPM_CHANGE_SHUFFLE,
   GPM_CHANGE_TRACK,
+  GPM_CHANGE_VOLUME,
+  GPM_CHANGE_YOUTUBE,
+  GPM_CHECKED_YOUTUBE,
+  GPM_CHANGED_AD_DISPLAY,
   GPM_OPTIMISTIC_SET_CURRENT_TIME,
 } from '../actions/gpm';
+
+// Youtube
+export const NO_YOUTUBE_VIDEO = 'No Youtube video';
+
+// Ads
+export const NO_ADS_PLAYING = 'No Ads Playing';
 
 // Playback states
 export const PLAYBACK_STATE_STOPPED = GMusic.PlaybackStatus.STOPPED;
@@ -60,6 +70,26 @@ const ACTION_HANDLERS = {
     song: payload,
   }),
 
+  [GPM_CHANGE_VOLUME]: (state, { payload }) => ({
+    ...state,
+    volume: payload,
+  }),
+
+  [GPM_CHECKED_YOUTUBE]: (state, { payload }) => ({
+    ...state,
+    hasYoutube: payload,
+  }),
+
+  [GPM_CHANGED_AD_DISPLAY]: (state, { payload }) => ({
+    ...state,
+    ad_state: payload,
+  }),
+
+  [GPM_CHANGE_YOUTUBE]: (state, { payload }) => ({
+    ...state,
+    youtube: payload,
+  }),
+
   [GPM_CHANGE_SHUFFLE]: (state, { payload }) => ({
     ...state,
     shuffle: payload,
@@ -98,10 +128,13 @@ const initialState = {
   song: {},
   state: 'stopped',
   time: {},
+  ad_state: NO_ADS_PLAYING,
+  volume: 0,
+  youtube: NO_YOUTUBE_VIDEO,
+  hasYoutube: false,
 };
 
 export default function gpmReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
-
   return handler ? handler(state, action) : state;
 }

@@ -129,6 +129,7 @@ export const init = () => {
     search: () => ipcInterface.emit('search'),
     goBack: () => ipcInterface.emit('goBack'),
     goForward: () => ipcInterface.emit('goForward'),
+    rollDice: () => ipcInterface.emit('rollDice'),
   };
 
   const menuRenderer = new MenuRenderer(menuActions);
