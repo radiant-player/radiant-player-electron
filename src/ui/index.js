@@ -17,6 +17,7 @@ import gpmActions, {
   REPEAT_STATE_SINGLE_REPEAT,
   REPEAT_STATE_NO_REPEAT,
 } from '../redux/actions/gpm';
+
 import configureStore from '../redux/configureStore';
 import Root from './containers/Root';
 
@@ -33,6 +34,7 @@ const onGPM = (instance) => {
   window.gpm = instance;
   gpmIPC.attach(gpm);
 };
+
 const gpmControlInterface = {
   search() {
     if (!gpm) return;
@@ -51,6 +53,7 @@ const gpmControlInterface = {
     gpm.goForward();
   },
 };
+
 const gpmIPCInterface = connectToIPC({
   namespace: 'gpm',
   ipc: gpmIPC,
@@ -215,14 +218,17 @@ mouse.on('left-drag', (x, y) => {
     // Swallow errors, as they happen intermittently
   }
 });
+
 mouse.on('left-up', () => {
   offset = null;
 });
+
 const mouseInterface = {
   onMouseDown(x, y) {
     offset = [x, y];
   },
 };
+
 gpmIPCInterface.exposeObject({
   key: 'mouse',
   object: mouseInterface,

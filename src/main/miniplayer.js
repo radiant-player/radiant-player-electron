@@ -14,9 +14,9 @@ let tray = null;
 let miniplayer = null;
 let miniplayer_docked = null; // eslint-disable-line camelcase
 let positioner = null;
-let positioner_docked = null; // eslint-disable-line camelcase
+let positioner_docked = null; // eslint-disable-line
 let cachedPosition = null;
-let isTop = !1; // eslint-disable-line no-unused-var
+let isTop = !1; // eslint-disable-line no-unused-vars
 let vol = 100;
 
 /* Baraka */
@@ -58,7 +58,10 @@ const createWindow = () => {
 
   miniplayer.on('close', clearWindow);
 
-  // Play YT videos w/o restrictions we need to trick YT to making it be Google Music on said RP :)
+  /**
+   * In order to play YT videos without restrictions we need to trick YT
+   * to making it be Google Music on said BrowserWindows :)
+   */
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
     // referrer?
     details.requestHeaders.referer = 'https://play.google.com/music/listen'; // eslint-disable-line no-param-reassign
@@ -74,7 +77,7 @@ const showMiniplayer = (bounds, d) => {
   if (!miniplayer) createWindow();
 
   let position = bounds;
-  let position_docked = position;
+  let position_docked = position; // eslint-disable-line camelcase
 
   if (bounds && bounds.x !== 0) {
     cachedPosition = bounds;
@@ -84,10 +87,10 @@ const showMiniplayer = (bounds, d) => {
   }
 
   let noBoundsPosition = null;
-  if ((position === undefined
-    || position.x === 0 ||
-    position_docked === undefined // eslint-disable-line camelcase
-    || position_docked.x === 0)) {
+  if ((position === undefined ||
+    position.x === 0 ||
+    position_docked === undefined || // eslint-disable-line camelcase
+    position_docked.x === 0)) { // eslint-disable-line camelcase
     noBoundsPosition = (process.platform === 'win32') ? 'bottomRight' : 'topRight';
   }
 
@@ -95,10 +98,15 @@ const showMiniplayer = (bounds, d) => {
   position_docked = position; // eslint-disable-line camelcase
 
   /* Baraka */
-  /* eslint-disable-line radix */
-  miniplayer.setPosition(parseInt(bounds.x - (Param.Width / 2) + (bounds.width / 2), 0), bounds.y + Param.Arrow + 10); // eslint-disable-line max-len
-  miniplayer_docked.setPosition(parseInt(bounds.x - (Param.Width / 2) + (bounds.width / 2), 0), bounds.y + Param.Arrow + 10); // eslint-disable-line max-len
-  /* eslint-disable-line radix */
+  miniplayer.setPosition(
+    parseInt(bounds.x - (Param.Width / 2) // eslint-disable-line no-mixed-operators
+    + (bounds.width / 2), 0) // eslint-disable-line no-mixed-operators
+    , bounds.y + Param.Arrow + 10); // eslint-disable-line no-mixed-operators
+  /* Baraka */
+  miniplayer_docked.setPosition(
+    parseInt(bounds.x - (Param.Width / 2) // eslint-disable-line no-mixed-operators
+    + (bounds.width / 2), 0) // eslint-disable-line no-mixed-operators
+    , bounds.y + Param.Arrow + 10); // eslint-disable-line no-mixed-operators
   miniplayer.setFullScreenable(false);
   miniplayer_docked.setFullScreenable(false);
 
@@ -200,7 +208,7 @@ export const init = (mainIPCInterface) => {
       VolumeStatus(percent);
       mainIPCInterface.emit('setVolume', percent);
     },
-    DockActive: (val, extra) => {
+    DockActive: (val, extra) => { // eslint-disable-line no-unused-vars
       isTop = val;
       miniplayer_docked.setAlwaysOnTop(val);// the magic
     },
@@ -222,7 +230,7 @@ export const init = (mainIPCInterface) => {
     setVolumeUpdate: (val) => {
       vol = val;
     },
-    DockMiniPlayer: (extra) => {
+    DockMiniPlayer: (extra) => { // eslint-disable-line no-unused-vars
       handleDockedClick();
       if (Object.keys(extra.volume).length > 0) {
         miniplayer.webContents.executeJavaScript(`

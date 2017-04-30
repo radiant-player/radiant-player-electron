@@ -43,31 +43,27 @@ export class DraggableVolume extends Slider {
 const createSliderWithTooltip = DraggableVolume.createSliderWithTooltip;
 const SliderVolume = createSliderWithTooltip(DraggableVolume);
 
-export default class MiniplayerVolume extends Component {
+export class MiniplayerVolume extends Component {
   static propTypes = {
     className: PropTypes.string,
     triggerClassName: PropTypes.string,
-    // children: PropTypes.node,
+    children: PropTypes.node, // eslint-disable-line
+    trigger: PropTypes.any.isRequired, // eslint-disable-line
     position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
     onShow: PropTypes.func,
     onHide: PropTypes.func,
-    actions: PropTypes.func,
-    volumeValue: PropTypes.number,
-    // volume: PropTypes.number,
-    trigger: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
+    volumeValue: PropTypes.any, // eslint-disable-line
   };
 
   static defaultProps = {
-    position: 'top',
-    triggerClassName: 'volume__trigger',
     className: null,
-    // children: null,
+    triggerClassName: 'volume__trigger',
+    children: null,
+    trigger: null,
+    position: 'top',
     onShow: null,
     onHide: null,
     volumeValue: null,
-    actions: null,
-    // volume: null,
-    trigger: {},
   };
 
   state = {
@@ -75,14 +71,10 @@ export default class MiniplayerVolume extends Component {
     volumeValue: 100,
   };
 
-  // volumeValue in <MiniplayerVolume volumeValue= />
   componentWillReceiveProps(nextProps) {
-    const { volumeValue } = this.props;
-    if (volumeValue === null) {
-      // console.log(nextProps.volumeValue.style.height.replace(/\D/g,''));
-      if (nextProps.volumeValue && (this.state.volumeValue !== nextProps.volumeValue)) {
-        this.setState({ volumeValue: nextProps.volumeValue });// .style.height.replace(/\D/g,'')
-      }
+    // console.log(nextProps.volumeValue.style.height.replace(/\D/g,''));
+    if (nextProps.volumeValue && (this.state.volumeValue !== nextProps.volumeValue)) {
+      this.setState({ volumeValue: nextProps.volumeValue });// .style.height.replace(/\D/g,'')
     }
   }
 
@@ -96,7 +88,7 @@ export default class MiniplayerVolume extends Component {
   };
 
   setVolumeUpdate(percent) {
-    const { actions } = this.props;
+    const { actions } = this.props; // eslint-disable-line
     actions('setVolume', percent);
   }
 
@@ -127,8 +119,8 @@ export default class MiniplayerVolume extends Component {
   hasClass = (e, c) => e.classList.contains(c);
 
   clickOutside = (e) => {
-    // console.log(e.target);
-    // console.log(e.target.parentNode);
+        // console.log(e.target);
+        // console.log(e.target.parentNode);
     if ((this.hasClass(e.target, miniplayer.flex) || this.hasClass(e.target, miniplayer.pos_rel) || this.hasClass(e.target, 'rp_selected') || this.hasClass(e.target, 'svg') || this.hasClass(e.target.parentNode, miniplayer.menu_bo) || this.hasClass(e.target.parentNode, miniplayer.open))) {
       this.setState({ isVolumeShown: !1 });
       this.setState({ volumeValue: this.volume });
@@ -158,8 +150,8 @@ export default class MiniplayerVolume extends Component {
     }
   }
 
-  renderVolSlider() {
-    const { actions } = this.props; // volume
+  renderVolSlider = () => {
+    const { actions, volume } = this.props; // eslint-disable-line
 
     // this.setState({ volumeValue: volume });
 
@@ -169,7 +161,7 @@ export default class MiniplayerVolume extends Component {
     };
 
     const onAfterChange = (percent) => {
-      // console.log(percent);
+            // console.log(percent);
       actions('setVolume', percent).then(() =>
                 this.setState({ volumeValue: percent }),
                 // window.document.querySelector("body").dataset.volume = percent,
@@ -191,7 +183,7 @@ export default class MiniplayerVolume extends Component {
   }
 
   render() {
-    const { className, triggerClassName, position, trigger } = this.props; // volume
+    const { className, triggerClassName, position, trigger, volume } = this.props; // eslint-disable-line
 
     const volumeClasses = classnames('volume', className, `volume__${position}`, { volume__active: this.state.isVolumeShown });
 
@@ -217,9 +209,9 @@ export default class MiniplayerVolume extends Component {
   }
 }
 
-export class VolumeWrapper extends Component { // eslint-disable-line react/no-multi-comp
+export class VolumeWrapper extends Component { // eslint-disable-line
   static propTypes = {
-    children: React.PropTypes.node, // eslint-disable-line react/require-default-props
+    children: React.PropTypes.node, // eslint-disable-line
   };
 
   hideVolume = () => {
@@ -235,3 +227,6 @@ export class VolumeWrapper extends Component { // eslint-disable-line react/no-m
     );
   }
 }
+
+
+export default MiniplayerVolume;
